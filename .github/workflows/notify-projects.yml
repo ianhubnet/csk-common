@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Notify csk-projects of common update
-        uses: peter-evans/repository-dispatch@v2
+        uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.CSK_PAT }}
           repository: ianhubnet/csk-projects
