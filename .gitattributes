@@ -1,0 +1,36 @@
+# Always normalize line endings
+* text=auto
+
+# Treat these as binary to prevent diff noise
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.mp4 binary
+*.ico binary
+*.svg binary
+
+# Ignore OS / IDE files from export
+.DS_Store export-ignore
+Thumbs.db export-ignore
+*.log export-ignore
+
+# Dev-related files to ignore in release archives
+.gitattributes export-ignore
+.gitignore export-ignore
+.editorconfig export-ignore
+.github/ export-ignore
+.dev/ export-ignore
+CITATION.cff export-ignore
+README.md export-ignore
+LICENSE.md export-ignore
+*.todolist export-ignore
+
+# Zip release structure help (optional, but useful)
+zip.sh export-ignore
+release.yml export-ignore
