@@ -1,4 +1,4 @@
-name: Notify `ianhubnet/csk-projects` on common changes
+name: Notify CSK Projects on Shared Assets
 
 on:
   push:
