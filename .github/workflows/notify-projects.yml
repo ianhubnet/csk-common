@@ -1,4 +1,4 @@
-name: Notify CSK Projects on Shared Assets
+name: Notify CSK Projects
 
 on:
   push:
@@ -14,11 +14,11 @@ on:
 jobs:
   notify:
     runs-on: ubuntu-latest
+
     steps:
       - name: Notify csk-projects of common update
-        run: |
-          curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.CSK_PAT }}" \
-            -H "Accept: application/vnd.github+json" \
-            https://api.github.com/repos/ianhubnet/csk-projects/dispatches \
-            -d '{"event_type":"common-update"}'
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.CSK_PAT }}
+          repository: ianhubnet/csk-projects
+          event-type: common-update
