@@ -16,7 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Notify projects of common update
-        uses: ianhubnet/github-actions/notify-projects@main
+        uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.CSK_PAT }}
-          event: common-update
+          repository: ianhubnet/csk-projects
+          event-type: common-update
