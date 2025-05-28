@@ -4,21 +4,22 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'css/**'
-      - 'fonts/**'
-      - 'img/**'
-      - 'js/**'
-      - 'index.html'
+    paths-ignore:
+      - '.dev/**'
+      - '.gitdocs/**'
+      - '.github/**'
+      - '.gitignore'
+      - '.gitattributes'
+      - '.editorconfig'
+      - 'CITATION.cff'
+      - '*.todolist'
 
 jobs:
   notify:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Notify csk-projects of common update
-        uses: peter-evans/repository-dispatch@v3
+      - name: Notify projects of common update
+        uses: ianhubnet/github-actions/notify-projects@main
         with:
           token: ${{ secrets.CSK_PAT }}
-          repository: ianhubnet/csk-projects
-          event-type: common-update
+          event: common-update
