@@ -6,52 +6,37 @@ on:
       - '*'
 
 permissions:
-  contents: write # Needed for creating releases
+  contents: write # Needed to create a GitHub release
 
 jobs:
-  build:
+  release:
     name: Package and Release
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Set up variables
-        id: vars
-        run: |
-          TAG_NAME=${GITHUB_REF#refs/tags/}
-          REPO_NAME=$(basename "${GITHUB_REPOSITORY}")
-          STRIP="${{ vars.CSK_STRIP }}"
-          NAME=${REPO_NAME#"$STRIP"}
-          ZIP_NAME="${REPO_NAME}-${TAG_NAME}.zip"
-          echo "tag=$TAG_NAME" >> $GITHUB_OUTPUT
-          echo "name=$NAME" >> $GITHUB_OUTPUT
-          echo "zip=$ZIP_NAME" >> $GITHUB_OUTPUT
+      - name: Get tag name
+        id: tag
+        run: echo "name=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
 
-      - name: Prepare ZIP contents
+      - name: Prepare common folder
         run: |
-          mkdir "${{ steps.vars.outputs.name }}"
-          rsync -av --exclude='.git' \
-                    --exclude='.github' \
-                    --exclude='.dev' \
-                    --exclude='.gitignore' \
-                    --exclude='.gitattributes' \
-                    --exclude='.editorconfig' \
-                    --exclude='.gitmodules' \
-                    --exclude='CITATION.cff' \
-                    --exclude='*.todolist' \
-                    --exclude="${{ steps.vars.outputs.name }}" \
-                    ./ "${{ steps.vars.outputs.name }}"
+          mkdir -p common
+          cp -r css common/
+          cp -r fonts common/
+          cp -r img common/
+          cp -r js common/
+          cp index.html common/
+          cp version.php common/
 
       - name: Create ZIP archive
         run: |
-          zip -r "${{ steps.vars.outputs.zip }}" "${{ steps.vars.outputs.name }}"
+          zip -r csk-common-${{ steps.tag.outputs.name }}.zip common
 
       - name: Create GitHub Release and Upload ZIP
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.vars.outputs.tag }}
-          files: ${{ steps.vars.outputs.zip }}
+          tag_name: ${{ steps.tag.outputs.name }}
+          files: csk-common-${{ steps.tag.outputs.name }}.zip
