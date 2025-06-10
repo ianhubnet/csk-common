@@ -35,11 +35,8 @@ jobs:
         run: |
           zip -r csk-common-${{ steps.tag.outputs.name }}.zip common
 
-      - name: Wait for ZIP to settle
-        run: sleep 2
-
       - name: Create GitHub Release and Upload ZIP
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.tag.outputs.name }}
           files: csk-common-${{ steps.tag.outputs.name }}.zip
