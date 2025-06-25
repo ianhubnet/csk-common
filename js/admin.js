@@ -1,6 +1,6 @@
 /*!
- * Skeleton Dashboard - Admin JS (https://github.com/ianhubnet/skeleton)
- * Copyright 2024 Kader Bouyakoub (http://bit.ly/KaderGhb)
+ * Skeleton Back-End - Admin JS (https://www.ianhub.net/)
+ * Copyright 2025 Kader Bouyakoub (https://github.com/bkader)
  */
 (function($, window, document, undefined) {
 	"use strict";
@@ -248,6 +248,23 @@
 			}
 			navigator.clipboard.writeText(copyText);
 			csk.ui.alert(csk.i18n.media.copied, "success");
+		},
+		/**
+		 * Disable selection.
+		 * @since 	2.166
+		 */
+		selectOff: function(e) {
+			const el = e.target.closest(".no-select-on-click");
+			if (el) {
+				document.body.style.userSelect = "none";
+			}
+		},
+		/**
+		 * Enable selection.
+		 * @since 	2.166
+		 */
+		selectOn: function(e) {
+			document.body.style.userSelect = "";
 		}
 	};
 
@@ -255,6 +272,8 @@
 	 * Register our custom Lazy Load function.
 	 * @since 	2.0
 	 */
+	csk.ui.addListener("mousedown", csk.ui.selectOff)
+	csk.ui.addListener("mouseup", csk.ui.selectOn)
 	csk.ui.addListener("load", csk.ui.lazyLoad);
 	csk.ui.addListener("scroll", csk.ui.lazyLoad);
 

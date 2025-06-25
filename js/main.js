@@ -1,9 +1,20 @@
 /*!
- * CI Skeleton - Common JS (https://github.com/bkader/skeleton)
- * Copyright 2024 Kader Bouyakoub (http://bit.ly/KaderGhb)
+ * Skeleton Front-End - Main JS (https://www.ianhub.net/)
+ * Copyright 2025 Kader Bouyakoub (https://github.com/bkader)
  */
 (function($, window, document, undefined) {
 	"use strict";
+
+	document.addEventListener("mousedown", function (e) {
+		const el = e.target.closest(".no-select-on-click");
+		if (el) {
+			document.body.style.userSelect = "none";
+		}
+	});
+
+	document.addEventListener("mouseup", function () {
+		document.body.style.userSelect = "";
+	});
 
 	$(document).ready(function() {
 		// See if forms have confirmation messages.

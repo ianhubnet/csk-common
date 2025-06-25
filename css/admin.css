@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*!
- * CodeIgniter Skeleton - Admin CSS (https://github.com/bkader/skeleton)
- * Copyright 2024 Kader Bouyakoub (http://bit.ly/KaderGhb)
+ * Skeleton Back-End - Admin CSS (https://www.ianhub.net/)
+ * Copyright 2025 Kader Bouyakoub (https://github.com/bkader)
  */
 
 :root {
@@ -1690,10 +1690,12 @@ body.csk-clean .footer .skeleton-footer-logo {
 	padding-left: 1.25rem;
 }
 
+.no-select,
 .nav,
 .navbar,
 img,
 label,
+caption,
 .form-text,
 .form-label,
 .form-check-label,
