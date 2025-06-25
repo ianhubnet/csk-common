@@ -1236,6 +1236,13 @@ table td>input[type="checkbox"] {
 	color: var(--cs-color-white);
 }
 
+.dropdown-menu-scroll {
+	min-height: 12rem;
+	max-height: calc(100vh - 12rem);
+	overflow-y: auto;
+	overscroll-behavior: contain;
+}
+
 .nav-alerts>.dropdown-menu {
 	max-height: calc(90vh - 9.874rem);
 	overflow-y: auto;
@@ -1719,9 +1726,13 @@ caption,
 		overflow-x: auto;
 		overflow-y: auto;
 	}
+
+	.dropdown-menu-scroll {
+		max-height: calc(100vh - 8rem);
+	}
 }
 
-@media screen and (max-width: 48rem) {
+@media (max-width: 48rem) {
 	.info-box .icon {
 		font-size: 5rem;
 	}
@@ -1729,9 +1740,19 @@ caption,
 	.info-box .info-box p {
 		font-size: var(--cs-font-size-small);
 	}
+
+	.dropdown-menu-scroll {
+		max-height: calc(100vh - 48rem);
+	}
 }
 
-@media screen and (min-width: 62rem) {
+@media (max-width: 62rem) {
+	.dropdown-menu-scroll {
+		max-height: calc(100vh - 48rem);
+	}
+}
+
+@media (min-width: 62rem) {
 	.navbar-admin {
 		height: 2.562rem;
 	}
