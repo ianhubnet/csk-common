@@ -1085,14 +1085,13 @@
 					}
 				});
 			});
-			$(document).on("hidden.bs.modal", "#media-modal", function(e) {
-				var redirURL = csk.config.currentURL;
-				if (redirURL.indexOf("?") > 0) {
-					redirURL = redirURL.substring(0, redirURL.indexOf("?"));
-				}
-				window.history.pushState({
-					href: redirURL
-				}, "", redirURL);
+			$(document).on("hidden.bs.modal", "#media-modal", function (e) {
+				var url = new URL(window.location.href);
+				// Remove just the "item" query param
+				url.searchParams.delete("item");
+				// Push updated URL without refreshing
+				window.history.pushState({ href: url.href }, "", url.href);
+				// Clean up modal
 				$(this).remove();
 			});
 		}
