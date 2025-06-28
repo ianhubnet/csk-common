@@ -10,7 +10,7 @@ on:
       - 'img/**'
       - 'js/**'
       - 'index.html'
-      - 'version.php'
+      - 'version'
 
 jobs:
   notify:
