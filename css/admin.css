@@ -1396,10 +1396,8 @@ table td>input[type="checkbox"] {
 }
 
 .progress {
-	height: .25rem;
 	border: 1px solid var(--bs-gray-200);
 	border-radius: 0;
-	background-color: rgba(0, 0, 0, .2);
 	color: inherit;
 	margin: .312rem 0;
 }
