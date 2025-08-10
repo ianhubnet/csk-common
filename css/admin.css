@@ -532,6 +532,31 @@ textarea {
 	outline: 0;
 }
 
+.btn-outline-primary {
+	border-color: var(--cs-color-primary-border);
+	color: var(--cs-color-primary) !important;
+}
+
+.btn-outline-primary:hover {
+	background-color: var(--cs-color-primary);
+	border-color: var(--cs-color-primary-border);
+	color: var(--cs-color-white) !important;
+}
+
+.btn-outline-primary:active,
+.btn-outline-primary.active {
+	background-color: var(--cs-color-primary-border) !important;
+	border-color: var(--cs-color-primary-border-focus) !important;
+	color: var(--cs-color-white) !important;
+}
+
+.btn-outline-primary:focus,
+.btn-outline-primary:focus-within {
+	-webkit-box-shadow: 0 0 0 .2rem rgba(var(--cs-color-primary-rgb), .25);
+	box-shadow: 0 0 0 .2rem rgba(var(--cs-color-primary-rgb), .25);
+	outline: 0;
+}
+
 .border-primary {
 	border-color: var(--cs-color-primary) !important;
 }
