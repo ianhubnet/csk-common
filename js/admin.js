@@ -28,6 +28,7 @@
 	 * @since 	1.20
 	 */
 	csk.ui = {
+		scrollToTopVisible: false,
 		/**
 		 * Confirmation alert using either bootbox or default alert.
 		 * @since 	1.20
@@ -192,6 +193,53 @@
 			}
 		},
 		/**
+		 * Scroll to top.
+		 * @since 	3.9.6
+		 */
+		scrollToTop: function() {
+			const scrollToTop = document.body.querySelector('.scroll-to-top');
+			if (document.documentElement.scrollTop > 100) {
+				if (!csk.ui.scrollToTopVisible) {
+					csk.ui.fadeIn(scrollToTop);
+					csk.ui.scrollToTopVisible = true;
+				}
+			} else {
+				if (csk.ui.scrollToTopVisible) {
+					csk.ui.fadeOut(scrollToTop);
+					csk.ui.scrollToTopVisible = false;
+				}
+			}
+		},
+		/**
+		 * Element fade out.
+		 * @since 	3.9.6
+		 */
+		fadeOut: function(el) {
+			el.style.opacity = 1;
+			(function fade() {
+				if ((el.style.opacity -= .1) < 0) {
+					el.style.display = "none";
+				} else {
+					requestAnimationFrame(fade);
+				}
+			})();
+		},
+		/**
+		 * Element fade in.
+		 * @since 	3.9.6
+		 */
+		fadeIn: function(el, display) {
+			el.style.opacity = 0;
+			el.style.display = display || "block";
+			(function fade() {
+				var val = parseFloat(el.style.opacity);
+				if (!((val += .1) > 1)) {
+					el.style.opacity = val;
+					requestAnimationFrame(fade);
+				}
+			})();
+		},
+		/**
 		 * Splits given string into an array.
 		 * @since 	2.16
 		 */
@@ -276,6 +324,7 @@
 	csk.ui.addListener("mouseup", csk.ui.selectOn)
 	csk.ui.addListener("load", csk.ui.lazyLoad);
 	csk.ui.addListener("scroll", csk.ui.lazyLoad);
+	csk.ui.addListener("scroll", csk.ui.scrollToTop);
 
 	/**
 	 * Skeleton AJAX handler.
