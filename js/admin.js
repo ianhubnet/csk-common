@@ -325,6 +325,12 @@
 	csk.ui.addListener("load", csk.ui.lazyLoad);
 	csk.ui.addListener("scroll", csk.ui.lazyLoad);
 	csk.ui.addListener("scroll", csk.ui.scrollToTop);
+	csk.ui.addListener('click', function(e) {
+		if (e.target.closest('.scroll-to-top')) {
+			e.preventDefault();
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		}
+	});
 
 	/**
 	 * Skeleton AJAX handler.

@@ -341,8 +341,9 @@ textarea {
 }
 
 .pagination-sm .page-link {
-	padding: .25rem .5rem;
-	font-size: var(--cs-font-size-small);
+	padding: .5rem .625rem;
+	font-size: var(--cs-font-size-default);
+	font-weight: 500;
 	line-height: 1;
 }
 
