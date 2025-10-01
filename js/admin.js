@@ -11,7 +11,7 @@
 
 	/**
 	 * BootBox default configuration.
-	 * @since 	1.20
+	 * @since 1.20
 	 */
 	if (typeof bootbox !== "undefined") {
 		bootbox.setDefaults({
@@ -25,17 +25,17 @@
 
 	/**
 	 * Skeleton UI module.
-	 * @since 	1.20
+	 * @since 1.20
 	 */
 	csk.ui = {
 		scrollToTopVisible: false,
 		/**
 		 * Confirmation alert using either bootbox or default alert.
-		 * @since 	1.20
-		 * @param 	string  message
-		 * @param 	trueCallback 	The callback to use once confirmed.
-		 * @param 	falseCallback 	The callback to use once canceled.
-		 * @return  void
+		 * @since 1.20
+		 * @param  string   message        Message to display.
+		 * @param  callable trueCallback   Callback to use once confirmed.
+		 * @param  callable falseCallback  Callback to use once canceled.
+		 * @return void
 		 */
 		confirm: function(message, trueCallback, falseCallback, elem) {
 			if ((message.startsWith("lang:") || message.startsWith("i18n:")) && typeof csk.i18n !== "undefined") {
@@ -154,7 +154,7 @@
 		},
 		/**
 		 * Check if an element is in viewport.
-		 * @since 	2.0
+		 * @since 2.0
 		 */
 		inViewport: function(el) {
 			var $that = el.getBoundingClientRect();
@@ -162,7 +162,7 @@
 		},
 		/**
 		 * Function to add an event listener.
-		 * @since 	2.0
+		 * @since 2.0
 		 */
 		addListener: function(event, callback) {
 			if (window.addEventListener) {
@@ -173,7 +173,7 @@
 		},
 		/**
 		 * Lazy load images.
-		 * @since 	2.0
+		 * @since 2.0
 		 */
 		lazyLoad: function() {
 			var lazyImages = $("[data-src]");
@@ -183,6 +183,7 @@
 					return;
 				} else if ($(img).is('img')) {
 					img.src = img.getAttribute("data-src") || img.src;
+					console.log(img.src)
 					img.onload = function() {
 						this.removeAttribute("data-src");
 					};
@@ -194,7 +195,7 @@
 		},
 		/**
 		 * Scroll to top.
-		 * @since 	3.9.6
+		 * @since 3.9.6
 		 */
 		scrollToTop: function() {
 			const scrollToTop = document.body.querySelector('.scroll-to-top');
@@ -212,7 +213,7 @@
 		},
 		/**
 		 * Element fade out.
-		 * @since 	3.9.6
+		 * @since 3.9.6
 		 */
 		fadeOut: function(el) {
 			el.style.opacity = 1;
@@ -226,7 +227,7 @@
 		},
 		/**
 		 * Element fade in.
-		 * @since 	3.9.6
+		 * @since 3.9.6
 		 */
 		fadeIn: function(el, display) {
 			el.style.opacity = 0;
@@ -241,7 +242,7 @@
 		},
 		/**
 		 * Splits given string into an array.
-		 * @since 	2.16
+		 * @since 2.16
 		 */
 		prepFields: function(input) {
 			var fields = {},
@@ -255,7 +256,7 @@
 		},
 		/**
 		 * Returns an array of GET parameters.
-		 * @since 	2.16
+		 * @since 2.16
 		 */
 		getUrlParams: function(href) {
 			href = href || window.location.href;
@@ -270,7 +271,7 @@
 		},
 		/**
 		 * Returns a GET parameter.
-		 * @since 	2.16
+		 * @since 2.16
 		 */
 		getUrlParam: function(param) {
 			var pageURL = window.location.search.substring(1),
@@ -287,7 +288,7 @@
 		},
 		/**
 		 * Copy to clipboard.
-		 * @since 	2.18
+		 * @since 2.18
 		 */
 		clipboard: function(el) {
 			var copyText = el.getAttribute("data-text");
@@ -299,7 +300,7 @@
 		},
 		/**
 		 * Disable selection.
-		 * @since 	2.166
+		 * @since 2.166
 		 */
 		selectOff: function(e) {
 			const el = e.target.closest(".no-select-on-click");
@@ -309,7 +310,7 @@
 		},
 		/**
 		 * Enable selection.
-		 * @since 	2.166
+		 * @since 2.166
 		 */
 		selectOn: function(e) {
 			document.body.style.userSelect = "";
@@ -318,7 +319,7 @@
 
 	/**
 	 * Register our custom Lazy Load function.
-	 * @since 	2.0
+	 * @since 2.0
 	 */
 	csk.ui.addListener("mousedown", csk.ui.selectOff)
 	csk.ui.addListener("mouseup", csk.ui.selectOn)
@@ -334,7 +335,7 @@
 
 	/**
 	 * Skeleton AJAX handler.
-	 * @since 	1.40
+	 * @since 1.40
 	 */
 	csk.ajax = {
 		/**
@@ -354,8 +355,8 @@
 		context: undefined,
 		/**
 		 * Queues an AJAX request and fires if needed.
-		 * @param  {string} 	url 	The URL to send AJAX to.
-		 * @param  {array} 		params 	Objec of AJAX settings.
+		 * @param  string url     URL to send AJAX to.
+		 * @param  array  params  Object of AJAX settings.
 		 */
 		request: function(url, params) {
 			params = params || {};
@@ -414,7 +415,8 @@
 		},
 		/**
 		 * Handle JSON data response sent by csk.ajax.request
-		 * @param  {strng} data Normally, it should be a JSON encoded response.
+		 * @param  string data Normally, it should be a JSON encoded response.
+		 * @return void
 		 */
 		_response: function(data) {
 			var data = data || {},
@@ -447,7 +449,7 @@
 
 	/**
 	 * Upload file handler.
-	 * @since 	2.16
+	 * @since 2.16
 	 */
 	csk.sendFile = function(file, that) {
 		var data = new FormData(),
@@ -484,7 +486,7 @@
 
 	/**
 	 * Fake form submit handler.
-	 * @since 	2.16
+	 * @since 2.16
 	 */
 	csk.submit = function(url, fields) {
 		var $form = $("<form>", {
@@ -503,7 +505,7 @@
 
 	/**
 	 * SKeleton Ping.
-	 * @since 	2.100
+	 * @since 2.100
 	 */
 
 	csk.ping = {
@@ -534,7 +536,7 @@
 	$(document).ready(function() {
 		/**
 		 * Extend jQuery.
-		 * @since 	2.100
+		 * @since 2.100
 		 */
 		$.fn.ping = function(method) {
 			if (csk.ping[method]) {
@@ -548,7 +550,7 @@
 
 		/**
 		 * Start Keep Alive (30min).
-		 * @since 	2.100
+		 * @since 2.100
 		 */
 		if (typeof csk.config !== "undefined") {
 			$.fn.ping({url: csk.config.baseURL+'keep-alive', timer: 1800000});
@@ -556,7 +558,7 @@
 
 		/**
 		 * Automatic alert hiding.
-		 * @since 	2.16
+		 * @since 2.16
 		 */
 		$(".alert-dismissible").each(function() {
 			let $alert = $(this);
@@ -578,7 +580,7 @@
 
 		/**
 		 * Toastr default configuration.
-		 * @since 	1.20
+		 * @since 1.20
 		 */
 		if (typeof toastr !== "undefined") {
 			toastr.options = {
@@ -596,7 +598,7 @@
 
 		/**
 		 * Bootstrap toasts.
-		 * @since 	2.95
+		 * @since 2.95
 		 */
 		else if (typeof $.fn.toast !== "undefined") {
 			$(".toast").each(function() {
@@ -608,7 +610,7 @@
 
 		/**
 		 * Select2.
-		 * @since 	2.16
+		 * @since 2.16
 		 */
 		if (typeof $.fn.select2 !== "undefined") {
 			$("select.select2").each(function() {
@@ -625,7 +627,7 @@
 
 		/**
 		 * Datatables.
-		 * @since 	2.16
+		 * @since 2.16
 		 */
 		if (typeof $.fn.DataTable !== "undefined") {
 			$(".datatables").each(function() {
@@ -640,7 +642,7 @@
 
 		/**
 		 * Bootstrap 4 File Upload.
-		 * @since 	2.18
+		 * @since 2.18
 		 */
 		$(".custom-file-input").on("change", function() {
 			var filename = $(this).val().split("\\").pop();
@@ -649,7 +651,7 @@
 
 		/**
 		 * Things we do if jQuery UI is detected.
-		 * @since 	2.16
+		 * @since 2.16
 		 */
 		if (typeof $.ui === "object") {
 			/**
@@ -687,7 +689,7 @@
 
 		/**
 		 * Check all feature.
-		 * @since 	2.0
+		 * @since 2.0
 		 */
 		$(document).on("change", ".check-all", function() {
 			$(this).closest("table").find(".check-this:not(:disabled)").prop("checked", this.checked).trigger("change").closest("tr").toggleClass("selected", this.checked);
@@ -717,7 +719,7 @@
 
 		/**
 		 * Bult action for check all feature.
-		 * @since 	2.16
+		 * @since 2.16
 		 */
 		$(document).on("click", ".bulk-action", function(e) {
 			e.preventDefault();
@@ -790,7 +792,7 @@
 		/**
 		 * To avoid multiple form submission, we make sure to
 		 * disable submit buttons once hit.
-		 * @since 	1.20
+		 * @since 1.20
 		 */
 		$(document).on("submit", "form", function(e) {
 			var $form = $(this);
@@ -810,7 +812,7 @@
 
 		/**
 		 * AJAXify anchors with attribute rel="async".
-		 * @since 	1.33
+		 * @since 1.33
 		 */
 		$(document).on("click", "a:not([data-confirm])[rel]", function(e) {
 			var $that = $(this),
@@ -850,7 +852,7 @@
 
 		/**
 		 * We ajaxify forms with attribute rel="async".
-		 * @since 	1.30
+		 * @since 1.30
 		 */
 		$(document).on("submit", "form[rel]", function(e) {
 			var $that = $(this),
@@ -887,7 +889,7 @@
 
 		/**
 		 * If there is a modal within the page, we make sure to display it
-		 * @since 	1.0.0
+		 * @since 1.0.0
 		 * @todo 	FIXME: problem with Summernote JS.
 		 */
 		if (typeof $.fn.modal !== "undefined") {
@@ -956,7 +958,7 @@
 
 		/**
 		 * Generic buttons/anchors with action.
-		 * @since 	2.10
+		 * @since 2.10
 		 *
 		 * In order to user this feature, make sure all required parameters
 		 * are correctly set:
@@ -1030,7 +1032,7 @@
 
 		/**
 		 * submits the targeted form.
-		 * @since 	2.16
+		 * @since 2.16
 		 */
 		$(document).on("click", "[data-submit]", function(e) {
 			e.preventDefault();
@@ -1051,7 +1053,7 @@
 
 		/**
 		 * Fake form submission.
-		 * @since 	2.16
+		 * @since 2.16
 		 */
 		$(document).on("click", "[data-form]", function(e) {
 			e.preventDefault();
@@ -1080,24 +1082,23 @@
 
 		/**
 		 * Themes actions.
-		 * @since 	2.11
+		 * @since 2.11
 		 */
-
-		/** Put back URL when modal is closed. */
-		$(document).on("hidden.bs.modal", "#theme-modal", function(e) {
-			var redirURL = csk.config.currentURL;
-			if (redirURL.indexOf("?") > 0) {
-				redirURL = redirURL.substring(0, redirURL.indexOf("?"));
+		// Put back URL when modal is closed.
+		$(document).on("hidden.bs.modal hidden.bs.offcanvas", "#media-detail, #theme-detail", function (e) {
+			var url = new URL(window.location.href);
+			for (const key of Array.from(url.searchParams.keys())) {
+				if (key.toLowerCase() === "item") {
+					url.searchParams.delete(key);
+				}
 			}
-			window.history.pushState({
-				href: redirURL
-			}, "", redirURL);
+			window.history.pushState({ href: url.href }, "", url.href);
 			$(this).remove();
 		});
 
 		/**
 		 * Dropzone.
-		 * @since 	2.18
+		 * @since 2.18
 		 */
 		if (typeof $.fn.dropzone === "function") {
 			$(".dropZone").each(function() {
@@ -1139,15 +1140,6 @@
 						});
 					}
 				});
-			});
-			$(document).on("hidden.bs.modal", "#media-modal", function (e) {
-				var url = new URL(window.location.href);
-				// Remove just the "item" query param
-				url.searchParams.delete("item");
-				// Push updated URL without refreshing
-				window.history.pushState({ href: url.href }, "", url.href);
-				// Clean up modal
-				$(this).remove();
 			});
 		}
 	});
