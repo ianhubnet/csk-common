@@ -2324,9 +2324,9 @@ table td>input[type="checkbox"] {
 }
 
 .info-box h3 {
-	font-size: 2.375rem;
+	font-size: 1.8125rem;
 	font-weight: bold;
-	margin: 0;
+	margin-bottom: .25rem;
 	padding: 0;
 	white-space: nowrap;
 	z-index: 5;
