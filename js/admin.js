@@ -746,7 +746,7 @@
 			target.attr("data-fields", "id:" + Array.from(multiSelect).join(","));
 			table.attr("data-selected", multiSelect);
 
-			if (multiSelect.length === 0) {
+			if (multiSelect.size === 0) {
 				$(".bulk-action").prop("disabled", true).addClass("disabled");
 			} else {
 				$(".bulk-action").prop("disabled", false).removeClass("disabled");
@@ -768,7 +768,7 @@
 			if (typeof href === "undefined" || !href.length) {
 				return false;
 			}
-			if (!multiSelect.length) {
+			if (!multiSelect.size) {
 				csk.ui.alert(csk.i18n.default.make_selection, "info");
 				return false;
 			}
