@@ -548,7 +548,6 @@ textarea {
 }
 
 .text-default {
-	background-color: inherit;
 	color: var(--cs-color-default) !important;
 }
 
@@ -618,7 +617,6 @@ textarea {
 }
 
 .text-primary {
-	background-color: inherit;
 	color: var(--cs-color-primary) !important;
 }
 
@@ -701,7 +699,6 @@ textarea {
 }
 
 .text-secondary {
-	background-color: inherit;
 	color: var(--cs-color-secondary) !important;
 }
 
@@ -785,7 +782,6 @@ textarea {
 
 .text-success,
 .text-green {
-	background-color: inherit;
 	color: var(--cs-color-success) !important;
 }
 
@@ -889,7 +885,6 @@ textarea {
 }
 
 .text-info {
-	background-color: inherit;
 	color: var(--cs-color-info) !important;
 }
 
@@ -972,7 +967,6 @@ textarea {
 }
 
 .text-warning {
-	background-color: inherit;
 	color: var(--cs-color-warning) !important;
 }
 
@@ -1055,7 +1049,6 @@ textarea {
 }
 
 .text-danger {
-	background-color: inherit;
 	color: var(--cs-color-danger) !important;
 }
 
@@ -1138,7 +1131,6 @@ textarea {
 }
 
 .text-blue {
-	background-color: inherit;
 	color: var(--cs-color-blue);
 }
 
@@ -1207,7 +1199,6 @@ textarea {
 }
 
 .text-brown {
-	background-color: inherit;
 	color: var(--cs-color-brown);
 }
 
@@ -1276,7 +1267,6 @@ textarea {
 }
 
 .text-gold {
-	background-color: inherit;
 	color: var(--cs-color-gold);
 }
 
@@ -1345,7 +1335,6 @@ textarea {
 }
 
 .text-gray {
-	background-color: inherit;
 	color: var(--cs-color-default);
 }
 
@@ -1414,7 +1403,6 @@ textarea {
 }
 
 .text-olive {
-	background-color: inherit;
 	color: var(--cs-color-olive);
 }
 
@@ -1483,7 +1471,6 @@ textarea {
 }
 
 .text-orange {
-	background-color: inherit;
 	color: var(--cs-color-orange);
 }
 
@@ -1552,7 +1539,6 @@ textarea {
 }
 
 .text-pink {
-	background-color: inherit;
 	color: var(--cs-color-pink);
 }
 
@@ -1621,7 +1607,6 @@ textarea {
 }
 
 .text-purple {
-	background-color: inherit;
 	color: var(--cs-color-purple);
 }
 
@@ -1690,7 +1675,6 @@ textarea {
 }
 
 .text-teal {
-	background-color: inherit;
 	color: var(--cs-color-teal);
 }
 
@@ -1759,7 +1743,6 @@ textarea {
 }
 
 .text-violet {
-	background-color: inherit;
 	color: var(--cs-color-violet);
 }
 
@@ -1828,7 +1811,6 @@ textarea {
 }
 
 .text-white {
-	background-color: inherit;
 	color: var(--cs-color-white);
 }
 
@@ -1897,7 +1879,6 @@ textarea {
 }
 
 .text-yellow {
-	background-color: inherit;
 	color: var(--cs-color-yellow);
 }
 
@@ -1966,7 +1947,6 @@ textarea {
 }
 
 .text-transparent {
-	background-color: inherit;
 	color: transparent;
 }
 
@@ -2031,14 +2011,12 @@ table td>input[type="checkbox"] {
 }
 
 .navbar-admin .navbar-brand {
-	background-color: inherit;
 	color: var(--bs-gray-300);
 }
 
 .navbar-admin .navbar-brand:hover,
 .navbar-admin .navbar-brand:focus,
 .navbar-admin .navbar-brand:active {
-	background-color: inherit;
 	color: var(--cs-color-white);
 }
 
@@ -2068,7 +2046,6 @@ table td>input[type="checkbox"] {
 }
 
 .navbar-admin .nav-item>.nav-link {
-	background-color: inherit;
 	font-size: var(--cs-font-size-default);
 	color: var(--bs-gray-300);
 	line-height: 2.562rem;
@@ -2098,14 +2075,15 @@ table td>input[type="checkbox"] {
 	margin: .312rem 0;
 }
 
-.dropdown-menu .dropdown-item {
+.dropdown-item {
 	font-size: var(--cs-font-size-default);
 	padding: .188rem 1rem;
 }
 
-.dropdown-menu .dropdown-item:hover,
-.dropdown-menu .dropdown-item:focus,
-.dropdown-menu .dropdown-item:active {
+.dropdown-item.active,
+.dropdown-item:hover,
+.dropdown-item:focus,
+.dropdown-item:active {
 	background-color: var(--cs-color-primary);
 	color: var(--cs-color-white);
 }
@@ -2161,7 +2139,6 @@ table td>input[type="checkbox"] {
 }
 
 .header .page-title {
-	background-color: inherit;
 	font-size: 1.25rem;
 	line-height: 2.25rem;
 	color: var(--cs-color-white);
@@ -2183,6 +2160,25 @@ table td>input[type="checkbox"] {
 	border-bottom: .0625rem solid #cccccc;
 	padding: .562rem 0 .5rem;
 	color: inherit;
+	position: relative;
+}
+
+.submenu .container {
+	position: relative
+}
+
+.submenu-start,
+.submenu-end {
+	z-index: 2;
+}
+
+.submenu-center {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	white-space: nowrap;
+	z-index: 1;
 }
 
 .footer {
@@ -2194,7 +2190,6 @@ table td>input[type="checkbox"] {
 }
 
 .footer a {
-	background-color: inherit;
 	color: #494949;
 }
 
@@ -2255,7 +2250,7 @@ table td>input[type="checkbox"] {
 
 .card.card-file .card-body .check-this {
 	margin: .5rem;
-	z-index: 99;
+	z-index: 1;
 }
 
 .card.card-file.selected {
@@ -2345,7 +2340,6 @@ table td>input[type="checkbox"] {
 .info-box .icon {
 	position: absolute;
 	top: 0;
-	background-color: inherit;
 	font-size: 4rem;
 	line-height: 1.25;
 	padding: .25rem .5rem;
@@ -2389,7 +2383,6 @@ body.csk-clean .footer {
 }
 
 body.csk-clean .footer a {
-	background-color: inherit;
 	color: var(--cs-color-white);
 }
 
@@ -2635,6 +2628,12 @@ caption,
 
 	.dropdown-menu-scroll {
 		max-height: calc(100vh - 48rem);
+	}
+
+	.submenu-center {
+		position: static;
+		transform: none;
+		margin: 0 auto;
 	}
 }
 

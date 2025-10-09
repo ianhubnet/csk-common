@@ -81,7 +81,7 @@
 				return false;
 			}
 			type = type || 'info';
-			if (type === "error") {
+			if (type === "error" || type === "critical") {
 				type = "danger";
 			}
 
@@ -183,7 +183,6 @@
 					return;
 				} else if ($(img).is('img')) {
 					img.src = img.getAttribute("data-src") || img.src;
-					console.log(img.src)
 					img.onload = function() {
 						this.removeAttribute("data-src");
 					};
@@ -371,6 +370,7 @@
 				// Backward compatibility.
 				async: true,
 				cache: false,
+				headers: {"X-Requested-With": "XMLHttpRequest"},
 				dataType: "json",
 				success: function(data, textStatus, jqXHR) {
 					csk.ajax._response(data);
@@ -441,7 +441,7 @@
 				try {
 					new Function(data.scripts[i]).call(context);
 				} catch (e) {
-					console.log(e);
+					console.error(e);
 				}
 			}
 		}
@@ -685,31 +685,67 @@
 		 * Holds an array of checkbox.
 		 * @since 2.16
 		 */
-		var multiSelect = [];
+		const multiSelect = new Set();
 
 		/**
-		 * Check all feature.
+		 * Universal "Check All" handler — supports checkboxes and buttons.
 		 * @since 2.0
 		 */
-		$(document).on("change", ".check-all", function() {
-			$(this).closest("table").find(".check-this:not(:disabled)").prop("checked", this.checked).trigger("change").closest("tr").toggleClass("selected", this.checked);
+		$(document).on("change click", ".check-all", function (e) {
+			const $trigger = $(this);
+			const isCheckbox = $trigger.is(":checkbox");
+
+			// Avoid double trigger for checkboxes (click + change)
+			if (e.type === "click" && isCheckbox) return;
+
+			// Determine the new state
+			const isChecked = isCheckbox ? $trigger.is(":checked") : !$trigger.hasClass("active");
+
+			// Find closest container (fallback: entire document)
+			const $container = $trigger.closest("table, form, .list-group").length
+				? $trigger.closest("table, form, .list-group")
+				: $(document);
+
+			// Select all target items
+			const $targets = $container.find(".check-this").not(":disabled");
+			$targets.each(function () {
+				const $el = $(this);
+				const $row = $el.closest("tr, .list-group-item");
+
+				if ($el.is(":checkbox")) {
+					$el.prop("checked", isChecked).trigger("change");
+				} else {
+					$el.toggleClass("active", isChecked);
+				}
+
+				$row.toggleClass("selected", isChecked);
+			});
+
+			// Keep trigger visual state in sync
+			if (!isCheckbox) {
+				e.preventDefault();
+				$trigger.toggleClass("active", isChecked);
+			}
 		});
+
 		$(document).on("change", ".check-this", function() {
 			var $that = $(this),
 				row = $that.closest("[data-id]") || $that.parents("tr"),
 				table = $that.parents("#list") || $that.parents("table"),
-				target = $('.bulk-action');
+				target = $('.bulk-action'),
+				row_id = row.data("id");
 			row.toggleClass("selected", this.checked);
 			if (this.checked) {
 				row.addClass("selected");
-				multiSelect.push(row.data("id"));
-				target.attr("data-fields", "id:" + multiSelect.join(","));
+				multiSelect.add(row_id);
 			} else {
 				row.removeClass("selected");
-				multiSelect.splice(multiSelect.indexOf(row.data("id")), 1);
-				target.attr("data-fields", "id:" + multiSelect.join(","));
+				multiSelect.delete(row_id);
 			}
+
+			target.attr("data-fields", "id:" + Array.from(multiSelect).join(","));
 			table.attr("data-selected", multiSelect);
+
 			if (multiSelect.length === 0) {
 				$(".bulk-action").prop("disabled", true).addClass("disabled");
 			} else {
@@ -742,7 +778,7 @@
 						el: this,
 						type: $that.data("request") || "POST",
 						data: {
-							"bulk": multiSelect,
+							"id": Array.from(multiSelect).join(","),
 							"url": href
 						},
 						beforeSend: function() {
@@ -753,7 +789,7 @@
 						success: function(data, textStatus, jqXHR) {
 							csk.ajax._response(data);
 							$that.removeProp("disabled").removeClass("disabled");
-							setTimeout(location.reload.bind(location), 1500);
+							setTimeout(location.reload.bind(location), 2000);
 						}
 					});
 				}, null, $that);
@@ -762,7 +798,7 @@
 				el: this,
 				type: "POST",
 				data: {
-					"bulk": multiSelect,
+					"id": multiSelect,
 					"url": href
 				},
 				beforeSend: function() {
@@ -857,7 +893,7 @@
 		$(document).on("submit", "form[rel]", function(e) {
 			var $that = $(this),
 				rel = $that.attr("rel"),
-				href = $that.attr("action");
+				href = $that.attr("ajaxify") || $that.attr("action");
 
 			/** No action provided? Nothing to do... */
 			if (typeof href === "undefined" || !href.length) {
@@ -879,11 +915,12 @@
 							$that.find("[type=submit]").prop("disabled", true).addClass("disabled");
 						},
 						complete: function() {
+							$that.trigger("reset");
 							$that.find("[type=submit]").prop("disabled", false).removeClass("disabled");
+							setTimeout(location.reload.bind(location), 1500);
 						}
 					});
 					return false;
-					break;
 			}
 		});
 
@@ -915,11 +952,17 @@
 			var $that = $(this),
 				rel = $that.attr("rel"),
 				href = $that.attr("ajaxify") || $that.attr("href"),
+				data = $that.data("fields"),
 				message = $that.data("confirm");
 
 			/** No URL provided? Nothing to do... */
 			if (typeof href === "undefined" || !href.length) {
 				return false;
+			}
+
+			/** See if we have any optional fields */
+			if (typeof data !== "undefined" && data.length) {
+				data = csk.ui.prepFields(data);
 			}
 
 			/** No URL provided? Nothing to do...No message provided? Just proceed. */
@@ -934,6 +977,7 @@
 					csk.ajax.request(href, {
 						el: this,
 						type: rel === "async" ? "GET" : "POST",
+						data: data,
 						beforeSend: function() {
 							if ($that.prop("disabled")) {
 								return;
@@ -979,19 +1023,19 @@
 
 			/** No action? Nothing to do... */
 			if (action <= 0) {
-				console.log("error action: " + action);
+				console.error("error action: " + action);
 				return false;
 			}
 
 			/** No target? Nothing to do... */
 			if (typeof target === "undefined" || !target.length || typeof csk[target] === "undefined") {
-				console.log("error target: " + target);
+				console.error("error target: " + target);
 				return false;
 			}
 
 			/** No href? Nothing to do... */
 			if (typeof href === "undefined" || !href.length) {
-				console.log("error href: " + href);
+				console.error("error href: " + href);
 				return false;
 			}
 
@@ -1071,6 +1115,8 @@
 			if (typeof data !== "undefined" && data.length) {
 				data = csk.ui.prepFields(data);
 			}
+
+			// message is undefined.
 			if (typeof message === "undefined" || !message.length) {
 				csk.submit(href, data);
 				return;
