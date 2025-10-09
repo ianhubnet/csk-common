@@ -261,6 +261,10 @@ td,
 	white-space: nowrap;
 }
 
+.text-justify {
+	text-align: justify !important;
+}
+
 td.v {
 	white-space: normal !important
 }
@@ -2177,7 +2181,7 @@ table td>input[type="checkbox"] {
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	white-space: nowrap;
+	white-space: normal;
 	z-index: 1;
 }
 
