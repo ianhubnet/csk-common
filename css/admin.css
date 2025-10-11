@@ -255,9 +255,7 @@ a.card-header {
 th,
 td,
 .text-clamp {
-	-o-text-overflow: ellipsis;
 	text-overflow: ellipsis;
-	overflow: hidden;
 	white-space: nowrap;
 }
 
@@ -428,7 +426,6 @@ textarea {
 	max-width: 100%;
 	white-space: nowrap;
 	overflow: hidden;
-	-o-text-overflow: ellipsis;
 	text-overflow: ellipsis;
 }
 
@@ -2073,6 +2070,11 @@ table td>input[type="checkbox"] {
 	margin-top: 0 !important;
 	padding: .312rem 0;
 	border-radius: .125rem;
+}
+
+.dropdown-menu.dropdown-menu-auto {
+	min-width: unset;
+	width: max-content;
 }
 
 .dropdown-divider {
