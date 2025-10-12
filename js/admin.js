@@ -313,6 +313,31 @@
 		 */
 		selectOn: function(e) {
 			document.body.style.userSelect = "";
+		},
+		/**
+		 * DataTable.
+		 * @since 3.9.8
+		 */
+		dataTable: function (selector, options) {
+			if (typeof $.fn.DataTable === "undefined") {
+				console.error("Please load DataTables before using 'csk.ui.dataTable'.");
+				return;
+			}
+			const defaults = {
+				processing: true,
+				serverSide: true,
+				ajax: {
+					url: $(selector).data("source"),
+					type: "POST"
+				},
+				order: [[0, 'asc']],
+				pageLength: csk.config.perPage,
+				columnDefs: [{
+					targets: "no-sort",
+					orderable: false
+				}]
+			};
+			return $(selector).DataTable($.extend(true, {}, defaults, options));
 		}
 	};
 
@@ -622,21 +647,6 @@
 					config.dropdownParent = $(".modal");
 				}
 				$that.select2(config);
-			});
-		}
-
-		/**
-		 * Datatables.
-		 * @since 2.16
-		 */
-		if (typeof $.fn.DataTable !== "undefined") {
-			$(".datatables").each(function() {
-				$(this).DataTable({
-					columnDefs: [{
-						targets: 'no-sort',
-						orderable: false
-					}]
-				});
 			});
 		}
 
