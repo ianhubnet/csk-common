@@ -2046,17 +2046,17 @@ table td>input[type="checkbox"] {
 	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28217, 217, 217, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-.navbar-admin .nav-item>.nav-link {
+.navbar-admin .nav-link {
 	font-size: var(--cs-font-size-default);
 	color: var(--bs-gray-300);
 	line-height: 2.562rem;
 	padding: 0 .5rem;
-
+	width: 100%;
 }
 
-.navbar-admin .nav-item>.nav-link:hover,
-.navbar-admin .nav-item>.nav-link:focus,
-.navbar-admin .nav-item>.nav-link:active {
+.navbar-admin .nav-link:hover,
+.navbar-admin .nav-link:focus,
+.navbar-admin .nav-link:active {
 	background-color: var(--cs-color-primary);
 	color: var(--cs-color-white);
 }
