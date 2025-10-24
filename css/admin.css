@@ -2555,7 +2555,8 @@ caption,
 
 .dropdown-item,
 .btn,
-.form-label {
+.form-label,
+.col-form-label {
 	font-weight: 500;
 }
 
