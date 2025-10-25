@@ -2502,7 +2502,7 @@ body.csk-clean .footer .skeleton-footer-logo {
 	background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
 	background-repeat: no-repeat;
 	background-position: left .75rem center;
-	background-size: 16px 12px;
+	background-size: 1rem .75rem;
 	border: var(--bs-border-width) solid var(--bs-border-color);
 	border-radius: var(--bs-border-radius);
 	block-size: calc(1.5em + .75rem + 2px);
@@ -2655,4 +2655,32 @@ caption,
 
 .scroll-to-top i {
 	font-weight: 800;
+}
+
+@keyframes focus-pulse {
+	0% {
+		box-shadow: 0 0 0 0 rgba(var(--bs-danger-rgb), .35);
+		background-color: rgba(var(--bs-warning-rgb), 0);
+	}
+
+	50% {
+		box-shadow: 0 0 0 .188rem rgba(var(--bs-danger-rgb), .2);
+		background-color: rgba(var(--bs-warning-rgb), .1);
+	}
+
+	100% {
+		box-shadow: 0 0 0 0 rgba(var(--bs-warning-rgb), .35);
+		background-color: rgba(var(--bs-warning-rgb), 0);
+	}
+}
+
+.highlight-focus {
+	animation: focus-pulse .6s ease-in-out 3;
+	box-shadow: 0 0 0 0 rgba(var(--bs-danger-rgb), .35);
+	background-color: rgba(var(--bs-warning-rgb), 0);
+}
+
+.highlight-focus:prefers-reduced-motion {
+	animation: none;
+	outline: .188rem solid rgba(var(--bs-danger-rgb), .5);
 }

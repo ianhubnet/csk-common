@@ -338,6 +338,28 @@
 				}]
 			};
 			return $(selector).DataTable($.extend(true, {}, defaults, options));
+		},
+		/**
+		 * Highlights and element referenced by the URL hash (element ID).
+		 * Smooth scroll included. Silently bails if no match.
+		 * @since 3.10.0
+		 */
+		highlightByHash: function() {
+			const hash = window.location.hash;
+			if (!hash) return;
+
+			const el = document.getElementById(hash.substring(1));
+			if (!el) return;
+
+			// Look for best ancestor wrapper
+			const group = el.closest('.form-group, .mb-3, .form-check');
+
+			const target = group || el;
+			target.classList.add('highlight-focus');
+			target.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+
+			// Remove the class after blink sequence
+			setTimeout(() => target.classList.remove('highlight-focus'), 4000);
 		}
 	};
 
@@ -345,6 +367,7 @@
 	 * Register our custom Lazy Load function.
 	 * @since 2.0
 	 */
+	csk.ui.highlightByHash();
 	csk.ui.addListener("mousedown", csk.ui.selectOff)
 	csk.ui.addListener("mouseup", csk.ui.selectOn)
 	csk.ui.addListener("load", csk.ui.lazyLoad);
@@ -353,7 +376,7 @@
 	csk.ui.addListener('click', function(e) {
 		if (e.target.closest('.scroll-to-top')) {
 			e.preventDefault();
-			window.scrollTo({ top: 0, behavior: 'smooth' });
+			window.scrollTo({top: 0, behavior: 'smooth'});
 		}
 	});
 
@@ -1148,7 +1171,7 @@
 					url.searchParams.delete(key);
 				}
 			}
-			window.history.pushState({ href: url.href }, "", url.href);
+			window.history.pushState({href: url.href}, "", url.href);
 			$(this).remove();
 		});
 
