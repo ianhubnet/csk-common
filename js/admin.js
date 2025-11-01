@@ -360,6 +360,50 @@
 
 			// Remove the class after blink sequence
 			setTimeout(() => target.classList.remove('highlight-focus'), 4000);
+		},
+		/**
+		 * Enables or disable one or more elements.
+		 * @since 3.10.1
+		 *
+		 * @param {HTMLElement|NodeList|Array} els - Element(s) to toggle.
+		 * @param {boolean} disabled - Whether to disable (true) or enable (false).
+		 */
+		toggleDisabled: function(els, disabled) {
+			if (!els) return;
+
+			// Handle single element
+			if (els instanceof HTMLElement) {
+				els = [els];
+			}
+			// Handle NodeList
+			else if (els instanceof NodeList) {
+				els = Array.from(els);
+			}
+			// Handle jQuery object
+			else if (window.jQuery && els instanceof jQuery) {
+				els = els.toArray();
+			}
+			// Handle array-like objects (e.g. HTMLCollection)
+			else if (!Array.isArray(els) && typeof els.length === "number") {
+				els = Array.from(els);
+			}
+
+			// Bail if still not iterable
+			if (!Array.isArray(els)) return;
+
+			els.forEach(function(el) {
+				if (!(el instanceof HTMLElement)) return;
+
+				el.disabled = disabled;
+
+				if (disabled) {
+					el.setAttribute("disabled", "disabled");
+					el.classList.add("disabled");
+				} else {
+					el.removeAttribute("disabled");
+					el.classList.remove("disabled");
+				}
+			});
 		}
 	};
 
@@ -526,7 +570,7 @@
 					}).appendTo(that);
 
 					// Enable submit button abck
-					$(that).closest('form').find("[type=submit]").prop("disabled", false).removeClass("disabled");
+					csk.ui.toggleDisabled($(that).closest('form').find("[type=submit]"), false);
 				}
 			}
 		});
@@ -779,11 +823,7 @@
 			target.attr("data-fields", "id:" + Array.from(multiSelect).join(","));
 			table.attr("data-selected", multiSelect);
 
-			if (multiSelect.size === 0) {
-				$(".bulk-action").prop("disabled", true).addClass("disabled");
-			} else {
-				$(".bulk-action").prop("disabled", false).removeClass("disabled");
-			}
+			csk.ui.toggleDisabled(document.querySelectorAll(".bulk-action"), multiSelect.size === 0);
 		});
 
 		/**
@@ -816,12 +856,12 @@
 						},
 						beforeSend: function() {
 							if (!$that.prop("disabled")) {
-								$that.prop("disabled", true).addClass("disabled");
+								csk.ui.toggleDisabled($that[0], true);
 							}
 						},
 						success: function(data, textStatus, jqXHR) {
 							csk.ajax._response(data);
-							$that.removeProp("disabled").removeClass("disabled");
+							csk.ui.toggleDisabled($that[0], false);
 							setTimeout(location.reload.bind(location), 2000);
 						}
 					});
@@ -836,11 +876,11 @@
 				},
 				beforeSend: function() {
 					if (!$that.prop("disabled")) {
-						$that.prop("disabled", true).addClass("disabled");
+						csk.ui.toggleDisabled($that[0], true);
 					}
 				},
 				complete: function() {
-					$that.removeProp("disabled").removeClass("disabled");
+					csk.ui.toggleDisabled($that[0], false);
 					window.location.href = location.href;
 				}
 			});
@@ -864,13 +904,14 @@
 		 * @since 1.20
 		 */
 		$(document).on("submit", "form", function(e) {
-			var $form = $(this);
-			$("[type=submit]").prop("disabled", true).addClass("disabled");
+			const $form = $(this);
 
-			/** Disable the submit event. */
-			$form.submit(function() {
-				return false;
-			});
+			// Disable only submit buttons in this form
+			csk.ui.toggleDisabled($form.find("[type=submit]"), true);
+
+			// Prevent re-submission
+			$form.on("submit", () => false);
+
 			return true;
 		});
 
@@ -906,13 +947,13 @@
 					}
 
 					/** We disable the element before proceeding. */
-					$that.prop("disabled", true).addClass("disabled");
+					csk.ui.toggleDisabled($that[0], true);
 				},
 				success: function(data, textStatus, jqXHR) {
 					/** let _response handle response/ */
 					csk.ajax._response(data);
 					/** remove disabled property and reload page. */
-					$that.removeProp("disabled").removeClass("disabled");
+					csk.ui.toggleDisabled($that[0], false);
 					setTimeout(location.reload.bind(location), 1500);
 				}
 			});
@@ -924,9 +965,9 @@
 		 * @since 1.30
 		 */
 		$(document).on("submit", "form[rel]", function(e) {
-			var $that = $(this),
-				rel = $that.attr("rel"),
-				href = $that.attr("ajaxify") || $that.attr("action");
+			var $form = $(this),
+				rel = $form.attr("rel"),
+				href = $form.attr("ajaxify") || $form.attr("action");
 
 			/** No action provided? Nothing to do... */
 			if (typeof href === "undefined" || !href.length) {
@@ -940,16 +981,16 @@
 					csk.ajax.request(href, {
 						el: this,
 						type: "POST",
-						data: $that.serializeArray(),
+						data: $form.serializeArray(),
 						beforeSend: function() {
-							if ($that.prop("disabled")) {
+							if ($form.prop("disabled")) {
 								return;
 							}
-							$that.find("[type=submit]").prop("disabled", true).addClass("disabled");
+							csk.ui.toggleDisabled($form.find("[type=submit]"), true);
 						},
 						complete: function() {
-							$that.trigger("reset");
-							$that.find("[type=submit]").prop("disabled", false).removeClass("disabled");
+							$form.trigger("reset");
+							csk.ui.toggleDisabled($form.find("[type=submit]"), false);
 							setTimeout(location.reload.bind(location), 1500);
 						}
 					});
@@ -1017,13 +1058,13 @@
 							}
 
 							/** We disable the element before proceeding. */
-							$that.prop("disabled", true).addClass("disabled");
+							csk.ui.toggleDisabled($that[0], true);
 						},
 						success: function(data, textStatus, jqXHR) {
 							/** let _response handle response/ */
 							csk.ajax._response(data);
 							/** remove disabled property and reload page. */
-							$that.removeProp("disabled").removeClass("disabled");
+							csk.ui.toggleDisabled($that[0], false);
 							setTimeout(location.reload.bind(location), 1500);
 						}
 					});
