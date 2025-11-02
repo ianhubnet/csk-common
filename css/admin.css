@@ -2090,9 +2090,10 @@ table td>input[type="checkbox"] {
 }
 
 .dropdown-divider {
-	margin: .312rem 0;
+	margin-block: .3125rem;
 }
 
+.dropdown-header,
 .dropdown-item {
 	font-size: var(--cs-font-size-default);
 	padding: .188rem 1rem;
