@@ -172,6 +172,30 @@
 			}
 		},
 		/**
+		 * Adds a delegated event listener to the document.
+		 *
+		 * This allows event handling for elements that may not exist when
+		 * the listener is registered (similar to jQuery's '.on()').
+		 * It listens for the specified event type on the entire document,
+		 * and when the event bubbles up, checks if the event target (or one
+		 * of its ancestors) matches the provided CSS selector.
+		 *
+		 * @function delegate
+		 * @memberof csk.ui
+		 * @param {string} event - The name of the event to listen for.
+		 * @param {string} selector - A CSS selector to match the event target or its ancestors.
+		 * @param {Function} handler - The callback function to execute when a match is found.
+		 * @return {void}
+		 */
+		delegate: function(event, selector, handler) {
+			document.addEventListener(event, function(e) {
+				const target = e.target.closest(selector);
+				if (target) {
+					handler.call(target, e);
+				}
+			});
+		},
+		/**
 		 * Lazy load images.
 		 * @since 2.0
 		 */
@@ -596,10 +620,9 @@
 	};
 
 	/**
-	 * SKeleton Ping.
+	 * Skeleton Ping.
 	 * @since 2.100
 	 */
-
 	csk.ping = {
 		init : function(options) {
 			var defaults = {
@@ -621,6 +644,90 @@
 				csk.ajax.request(self.options.url, {type: "POST"});
 				csk.ping._ping.apply(self);
 			}, self.options.timer);
+		}
+	};
+
+	/**
+	 * Media Browser
+	 * @since 3.10.2
+	 */
+	csk.media = {
+		/**
+		 * Currently selected editor for the opened media browser.
+		 * @type {HTMLElement}
+		 */
+		editor: null,
+
+		/**
+		 * Opens Media browser.
+		 * @param  {HTMLElement} editor Summernote editor note.
+		 * @return {void}
+		 */
+		browse: function(editor) {
+			csk.media.editor = editor;
+			const $modal = $("#media-modal");
+			const $browser = $("#media-browser");
+			const $insert = $("#media-insert-btn");
+
+			$browser.html('<div class="text-center py-5 text-muted">'+csk.i18n.default.loading+'...</div>');
+			$insert.prop('disabled', true);
+
+			// Load existing media
+			csk.ajax.request(csk.config.adminURL + '/ajax/media', {
+				type: 'GET',
+				success: function(response) {
+					if (response.results && response.results.length) {
+						let html = '';
+						response.results.forEach(file => {
+							var source = document.getElementById("media-template").innerHTML,
+							template = Handlebars.compile(source);
+							html += template(file);
+						});
+
+						$browser.html(html);
+					} else {
+						$browser.html('<div class="text-center py-5 text-muted">'+csk.i18n.default.no_data+'</div>');
+					}
+				}
+			});
+
+			$modal.modal('show');
+		},
+
+		/**
+		 * Handles media file selection.
+		 * @return {void}
+		 */
+		select: function() {
+			$('#media-modal .media-item').removeClass('selected');
+			$(this).addClass('selected');
+			$('#media-modal #media-insert-btn').prop('disabled', false);
+		},
+
+		/**
+		 * Handles inserting media into Summernote editor.
+		 * @return {void}
+		 */
+		insert: function() {
+			const selected = $('#media-modal .media-item.selected');
+			if (!selected.length || !csk.media.editor) return;
+
+			const $editor = $(csk.media.editor);
+			if (!$editor.hasClass('summernote')) {
+				console.warn('Invalid editor reference:', $editor);
+				return;
+			}
+
+			const url = selected.data('url');
+			$editor.summernote('insertImage', url);
+			$('#media-modal').modal('hide');
+		},
+
+		init: function () {
+			if (csk.media._initialized) return;
+			csk.ui.delegate('click', '#media-modal .media-item', csk.media.select);
+			csk.ui.delegate('click', '#media-modal #media-insert-btn', csk.media.insert);
+			csk.media._initialized = true;
 		}
 	};
 
@@ -1243,7 +1350,7 @@
 							if (typeof file !== "object") {
 								return false;
 							}
-							var source = document.getElementById("attachment-template").innerHTML,
+							var source = document.getElementById("media-template").innerHTML,
 								template = Handlebars.compile(source),
 								html = template(file);
 							$(html).hide().prependTo(".dropZone").fadeIn("slow");
