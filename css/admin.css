@@ -2295,6 +2295,7 @@ table td>input[type="checkbox"] {
 	z-index: 1056;
 }
 
+.dz-progress,
 .progress {
 	border: .0625rem solid var(--bs-gray-200);
 	border-radius: 0;
@@ -2302,6 +2303,7 @@ table td>input[type="checkbox"] {
 	margin: .312rem 0;
 }
 
+.dz-progress .dz-upload,
 .progress .progress-bar {
 	border-radius: 0;
 	background-color: var(--bs-white);
@@ -2432,37 +2434,67 @@ body.csk-clean .footer .skeleton-footer-logo {
 }
 
 .dz-preview {
-	margin: 0 !important;
-	display: block !important;
-	float: left;
-	block-size: 9.375rem !important;
+	display: none; /* todo: show */
+	flex: 1 0 0;
+	position: relative;
 }
 
 .dz-preview.dz-image-preview {
 	background: none !important;
-	margin: 0 0 2.5rem !important;
-	padding: 0 1rem;
+	margin-block-start: 1rem;
+	padding-inline: .5rem;
 }
 
 .dz-preview .dz-image {
-	border-radius: 0 !important;
-	padding: .312rem;
-	inline-size: 9.375rem !important;
-	block-size: 8.75rem !important;
-	overflow: visible !important;
+	border-radius: .188rem;
+	display: flex;
+	flex-direction: column;
+	inline-size: 100%;
+	block-size: 100%;
+	overflow: hidden;
+	position: relative;
 }
 
 .dz-preview .dz-image img {
-	box-shadow: 0 0 .0625rem .0625rem var(--bs-gray-800);
-	inline-size: 9.375rem !important;
-	block-size: 8.75rem !important;
+	position: absolute;
+	inset-block-start: 50%;
+	inset-inline-start: 50%;
+	transform: translate(-50%, -50%) scale(1.35);
+	block-size: 100%;
+	inline-size: auto;
 }
 
 .dz-hidden-input {
 	display: none !important;
 }
 
-.dz-details,
+.dz-details {
+	position: absolute;
+	inset-block-start: 0;
+	inset-inline-start: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	padding-inline: 1rem;
+	flex-wrap: wrap;
+	color: var(--bs-white);
+	text-shadow: 1px 1px var(--bs-dark);
+}
+
+.dz-progress {
+	position: absolute;
+	inset-inline: .5rem;
+	inset-block-end: .025rem;
+	margin: 0;
+	border-width: .125rem;
+	border-color: var(--bs-white);
+}
+
+.dz-progress .dz-upload {
+	background-color: var(--bs-primary);
+}
+
 .dz-error-mark,
 .dz-success-mark {
 	display: none;
@@ -2679,6 +2711,11 @@ caption,
 
 	.dropdown-menu-wide .dropdown-item {
 		padding-inline: .685rem;
+	}
+
+	.dz-preview {
+		flex: 0 0 auto;
+		width: 20%;
 	}
 }
 
