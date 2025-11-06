@@ -397,7 +397,6 @@ button.disabled {
 }
 
 .pagination-sm .page-link {
-	padding: .5rem .625rem;
 	font-size: var(--cs-font-size-default);
 	font-weight: 500;
 }
