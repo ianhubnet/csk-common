@@ -2372,44 +2372,29 @@ table td>input[type="checkbox"] {
 	z-index: 0;
 }
 
-body.csk-clean {
-	padding: 0;
+.csk-admin.csk-login {
 	background-color: var(--cs-color-primary);
-	color: inherit;
 }
 
-body.csk-clean>.container {
-	position: absolute;
-	inset-block-start: 50%;
-	inset-inline-start: 50%;
-	transform: translate(-50%, -50%);
-	inline-size: 23.25rem;
+.csk-admin.csk-login a:has(>.login-logo) {
+	display: block;
+	min-height: 3.625rem;
 }
 
-body.csk-clean .card {
-	background-color: var(--bs-gray-200);
-	color: inherit;
-}
-
-body.csk-clean .card .card-logo {
-	border-bottom: .0625rem solid var(--bs-white);
-	padding: .625rem;
-}
-
-body.csk-clean .footer {
+.csk-admin.csk-login .footer {
 	box-shadow: none;
 	font-size: var(--cs-font-size-default);
 	background-color: var(--cs-color-primary);
 	color: var(--bs-white);
-	padding: .5rem 0;
+	padding-block: .5rem;
 	border: none;
 }
 
-body.csk-clean .footer a {
+.csk-admin.csk-login .footer a {
 	color: var(--bs-white);
 }
 
-body.csk-clean .footer .skeleton-footer-logo {
+.csk-admin.csk-login .footer .skeleton-footer-logo {
 	background-color: transparent;
 	background-image: url("../img/skeleton-white.png");
 	background-position: center center;
@@ -2420,7 +2405,7 @@ body.csk-clean .footer .skeleton-footer-logo {
 	position: absolute;
 	inset-block-end: .5rem;
 	inset-inline-start: 50%;
-	transform: translateX(-50%);
+	transform: translateX(calc(.75rem + 50%));
 }
 
 .dz-message {
