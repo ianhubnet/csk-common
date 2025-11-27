@@ -29,6 +29,8 @@
 	 */
 	csk.ui = {
 		scrollToTopVisible: false,
+		alertClasses: ["info", "success", "warning", "danger"],
+
 		/**
 		 * Confirmation alert using either bootbox or default alert.
 		 * @since 1.20
@@ -75,72 +77,73 @@
 				falseCallback(true);
 			}
 		},
-		/** Alert (Notification). */
-		alert: function(message, type) {
-			if (!message.length) {
-				return false;
-			}
-			type = type || 'info';
-			if (type === "error" || type === "critical") {
-				type = "danger";
-			}
 
+		/**
+		 * Alert (notification)
+		 * @since  1.20
+		 * @param  {string} message  Message to display.
+		 * @param  {string} type     Alert type('danger', 'warning', 'info', or 'success')
+		 * @return {void}
+		 */
+		alert: function(message, type = "info") {
+			// Make sure a valid string message is passed.
+			if (typeof message !== "string" || !message.length) return;
+
+			// Normalize and validate alert type
+			type = type?.toLowerCase() || 'info';
+			type = (type === "error" || type === "critical") ? "danger" : (csk.ui.alertClasses.includes(type) ? type : "info");
+
+			// Case 1: Toastr is available?
 			if (typeof toastr !== "undefined") {
-				switch (type) {
-					case "success":
-						toastr.success(message);
-						break;
-					case "error":
-					case "danger":
-						toastr.error(message);
-						break;
-					case "warning":
-						toastr.warning(message);
-						break;
-					case "info":
-					default:
-						toastr.info(message);
-						break;
-				}
+				(toastr[type] || toastr.info).call(toastr, message.trim());
 				return;
 			}
 
-			/**
-			 * If Handlebars is loaded, we already have an alert template
-			 * stored within the dashboard default layout. So we use it.
-			 */
-			if (typeof Handlebars === "object") {
-				/** We store any old alert so we can remove it later. */
-				var oldAlert = $("#csk-alert"),
-					alertSource = document.getElementById("csk-alert-template").innerHTML,
-					alertTemplate = Handlebars.compile(alertSource);
+			// Case 2: Use provided alter template.
+			const clone = document.getElementById("csk-alert-template")?.content?.querySelector('div')?.cloneNode(true);
+			if (clone) {
+				// Add alert Bootstrap alert classes then add message.
+				clone.classList.add("alert", "alert-" + type, "alert-dismissible");
+				clone.prepend(message.trim()); // Add message
 
-				/** Compile the alert. */
-				var alertCompiled = alertTemplate({
-					message: message,
-					type: type
-				});
-
-				/** If we have an old alert, remove it first. */
-				if (oldAlert.length) {
-					oldAlert.fadeOut(function() {
-						$(this).remove();
-						$(alertCompiled).prependTo("#wrapper > .container");
-					});
-				} else {
-					$(alertCompiled).prependTo("#wrapper > .container");
-				}
-
+				// Prepend cloned alert to first '.container' inside '#wrapper'.
+				(document.querySelector("#wrapper>.container") || document.body).prepend(clone);
+				csk.ui.autoHideAlert($(clone));
 				return;
 			}
 
-			/**
-			 * Otherwise, we make sure to strip any HTML tags from the message
-			 * and simply use browser's default alert.
-			 */
-			alert(message.replace(/(<([^>]+)>)/ig, ""));
+			// Case 3: Strip any HTML from message use default 'alert()'.
+			window.alert(message.replace(/(<([^>]+)>)/ig, "").trim());
 		},
-		/** Reload main page parts. */
+
+		/**
+		 * Auto-hides alerts if needed.
+		 * @since  3.11.0
+		 * @param  {HTMLElement} $alert
+		 * @return {void}
+		 */
+		autoHideAlert: function($alert) {
+			// Skip keep/danger/warning
+			if ($alert.hasClass("alert-keep") || $alert.hasClass("alert-danger") || $alert.hasClass("alert-warning")) {
+				return;
+			}
+
+			let len = $alert.text().trim().length;
+			let after = Math.min(10000, 4000 + (len * 50));
+
+			$alert.delay(after).slideUp(500, function () {
+				$alert.alert("close").remove();
+			});
+		},
+
+		/**
+		 * Reloads given element.
+		 * @since  1.20
+		 * @param  {string}   el        Query selector.
+		 * @param  {boolean}  navbar    Whether to reload navbar.
+		 * @param  {Function} callback  Callback to execute after reload.
+		 * @return {void}
+		 */
 		reload: function(el, navbar, callback) {
 			/** If no element is provided, we use "#wrapper". */
 			el = el || "#wrapper";
@@ -152,6 +155,7 @@
 			}
 			$(el).load(csk.config.currentURL + " " + el + " > *", callback);
 		},
+
 		/**
 		 * Check if an element is in viewport.
 		 * @since 2.0
@@ -160,6 +164,7 @@
 			var $that = el.getBoundingClientRect();
 			return $that.bottom >= 0 && $that.right >= 0 && $that.top <= (window.innerHeight || document.documentElement.clientHeight) && $that.left <= (window.innerWidth || document.documentElement.clientWidth);
 		},
+
 		/**
 		 * Function to add an event listener.
 		 * @since 2.0
@@ -171,6 +176,7 @@
 				window.attachEvent("on" + event, callback);
 			}
 		},
+
 		/**
 		 * Adds a delegated event listener to the document.
 		 *
@@ -195,6 +201,7 @@
 				}
 			});
 		},
+
 		/**
 		 * Lazy load images.
 		 * @since 2.0
@@ -216,6 +223,7 @@
 				}
 			}
 		},
+
 		/**
 		 * Scroll to top.
 		 * @since 3.9.6
@@ -234,6 +242,7 @@
 				}
 			}
 		},
+
 		/**
 		 * Element fade out.
 		 * @since 3.9.6
@@ -248,6 +257,7 @@
 				}
 			})();
 		},
+
 		/**
 		 * Element fade in.
 		 * @since 3.9.6
@@ -263,6 +273,7 @@
 				}
 			})();
 		},
+
 		/**
 		 * Splits given string into an array.
 		 * @since 2.16
@@ -277,6 +288,7 @@
 			}
 			return fields;
 		},
+
 		/**
 		 * Returns an array of GET parameters.
 		 * @since 2.16
@@ -292,6 +304,7 @@
 			}
 			return params;
 		},
+
 		/**
 		 * Returns a GET parameter.
 		 * @since 2.16
@@ -309,6 +322,7 @@
 			}
 			return false;
 		},
+
 		/**
 		 * Copy to clipboard.
 		 * @since 2.18
@@ -321,6 +335,7 @@
 			navigator.clipboard.writeText(copyText);
 			csk.ui.alert(csk.i18n.media.copied, "success");
 		},
+
 		/**
 		 * Disable selection.
 		 * @since 2.166
@@ -331,6 +346,7 @@
 				document.body.style.userSelect = "none";
 			}
 		},
+
 		/**
 		 * Enable selection.
 		 * @since 2.166
@@ -338,6 +354,7 @@
 		selectOn: function(e) {
 			document.body.style.userSelect = "";
 		},
+
 		/**
 		 * DataTable.
 		 * @since 3.9.8
@@ -363,6 +380,7 @@
 			};
 			return $(selector).DataTable($.extend(true, {}, defaults, options));
 		},
+
 		/**
 		 * Highlights and element referenced by the URL hash (element ID).
 		 * Smooth scroll included. Silently bails if no match.
@@ -385,6 +403,7 @@
 			// Remove the class after blink sequence
 			setTimeout(() => target.classList.remove('highlight-focus'), 4000);
 		},
+
 		/**
 		 * Enables or disable one or more elements.
 		 * @since 3.10.1
@@ -760,21 +779,7 @@
 		 * @since 2.16
 		 */
 		$(".alert-dismissible").each(function() {
-			let $alert = $(this);
-
-			// Skip 'alert-keep', 'alert-danger' and 'alert-warning'
-			if ($alert.hasClass("alert-keep") || $alert.hasClass("alert-danger") || $alert.hasClass("alert-warning")) {
-				return;
-			}
-
-			// Calculate display time based on content length
-			let len = $alert.text().trim().length;
-			let after = Math.min(10000, 4000 + (len * 50)); // Max 10 sec.
-
-			// Auto-close after calculated delay
-			$alert.delay(after).slideUp(500, function() {
-				$alert.alert("close").remove();
-			});
+			csk.ui.autoHideAlert($(this));
 		});
 
 		/**
