@@ -1,0 +1,23 @@
+! function(e) {
+	"function" == typeof define && define.amd ? define(["jquery", "../jquery.validate.min"], e) : "object" == typeof module && module.exports ? module.exports = e(require("jquery")) : e(jQuery)
+}(function(e) {
+	return e.extend(e.validator.messages, {
+		alphanumeric: "Pakilagay lamang ang mga letra, numero, at underscores.",
+		digits: "Pakilagay lamang ang mga numero.",
+		email: "Pakilagay ang wastong email address.",
+		equalTo: "Pakilagay ang parehong halaga.",
+		exactlength: e.validator.format("Pakilagay ang eksaktong {0} na karakter."),
+		integer: "Pakilagay ang buong numero (positibo o negatibo).",
+		lettersonly: "Pakilagay lamang ang mga letra.",
+		max: e.validator.format("Pakilagay ang halaga na mas mababa o katumbas ng {0}."),
+		maxWords: e.validator.format("Pakilagay ang maximum na {0} na salita."),
+		maxlength: e.validator.format("Pakilagay ang maximum na {0} na karakter."),
+		min: e.validator.format("Pakilagay ang halaga na mas mataas o katumbas ng {0}."),
+		minWords: e.validator.format("Pakilagay ang hindi bababa sa {0} na salita."),
+		minlength: e.validator.format("Pakilagay ang hindi bababa sa {0} na karakter."),
+		notEqualTo: "Pakilagay ang ibang halaga.",
+		nowhitespace: "Huwag maglagay ng spaces.",
+		required: "Kailangan itong field.",
+		url: "Pakilagay ang wastong URL.",
+	}), e
+});

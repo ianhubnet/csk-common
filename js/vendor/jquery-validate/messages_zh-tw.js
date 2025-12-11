@@ -1,0 +1,23 @@
+! function(e) {
+	"function" == typeof define && define.amd ? define(["jquery", "../jquery.validate.min"], e) : "object" == typeof module && module.exports ? module.exports = e(require("jquery")) : e(jQuery)
+}(function(e) {
+	return e.extend(e.validator.messages, {
+		alphanumeric: "請只輸入字母、數字和底線。",
+		digits: "只可輸入數字",
+		email: "請輸入有效的電子郵件",
+		equalTo: "請重複輸入一次",
+		exactlength: e.validator.format("請輸入恰好 {0} 個字。"),
+		integer: "請輸入正數或負數的非十進位數字。",
+		lettersonly: "請只輸入字母。",
+		max: e.validator.format("請輸入不大於 {0} 的數值"),
+		maxWords: e.validator.format("請輸入最多 {0} 個詞。"),
+		maxlength: e.validator.format("最多 {0} 個字"),
+		min: e.validator.format("請輸入不小於 {0} 的數值"),
+		minWords: e.validator.format("請輸入至少 {0} 個詞。"),
+		minlength: e.validator.format("最少 {0} 個字"),
+		notEqualTo: "請輸入不同的值，值不能相同。",
+		nowhitespace: "請不要輸入空格。",
+		required: "必須填寫",
+		url: "請輸入有效的網址",
+	}), e
+});

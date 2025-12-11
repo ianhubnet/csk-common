@@ -1,0 +1,23 @@
+! function(e) {
+	"function" == typeof define && define.amd ? define(["jquery", "../jquery.validate.min"], e) : "object" == typeof module && module.exports ? module.exports = e(require("jquery")) : e(jQuery)
+}(function(e) {
+	return e.extend(e.validator.messages, {
+		alphanumeric: "Hanya masukkan huruf, angka, dan garis bawah.",
+		digits: "Hanya boleh memasukkan angka.",
+		email: "Silakan masukkan alamat email yang valid.",
+		equalTo: "Silakan masukkan nilai yang sama lagi.",
+		exactlength: e.validator.format("Silakan masukkan tepat {0} karakter."),
+		integer: "Silakan masukkan bilangan bulat positif atau negatif tanpa desimal.",
+		lettersonly: "Hanya boleh memasukkan huruf.",
+		max: e.validator.format("Silakan masukkan nilai kurang dari atau sama dengan {0}."),
+		maxWords: e.validator.format("Silakan masukkan maksimal {0} kata."),
+		maxlength: e.validator.format("Silakan masukkan maksimal {0} karakter."),
+		min: e.validator.format("Silakan masukkan nilai lebih dari atau sama dengan {0}."),
+		minWords: e.validator.format("Silakan masukkan minimal {0} kata."),
+		minlength: e.validator.format("Silakan masukkan minimal {0} karakter."),
+		notEqualTo: "Silakan masukkan nilai yang berbeda, nilai tidak boleh sama.",
+		nowhitespace: "Jangan gunakan spasi.",
+		required: "Bidang ini wajib diisi.",
+		url: "Silakan masukkan URL yang valid.",
+	}), e
+});

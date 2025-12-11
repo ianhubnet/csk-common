@@ -1,0 +1,23 @@
+! function(e) {
+	"function" == typeof define && define.amd ? define(["jquery", "../jquery.validate.min"], e) : "object" == typeof module && module.exports ? module.exports = e(require("jquery")) : e(jQuery)
+}(function(e) {
+	return e.extend(e.validator.messages, {
+		alphanumeric: "Молимо унесите само слова, бројеве и доње црте.",
+		digits: "Унесите само цифе.",
+		email: "Унесите исправну и-мејл адресу.",
+		equalTo: "Унесите исту вредност поново.",
+		exactlength: e.validator.format("Молимо унесите тачно {0} карактера."),
+		integer: "Молимо унесите позитиван или негативан цео број без децимала.",
+		lettersonly: "Молимо унесите само слова.",
+		max: e.validator.format("Унесите вредност мању или једнаку {0}."),
+		maxWords: e.validator.format("Молимо унесите највише {0} речи."),
+		maxlength: e.validator.format("Унесите мање од {0} карактера."),
+		min: e.validator.format("Унесите вредност већу или једнаку {0}."),
+		minWords: e.validator.format("Молимо унесите најмање {0} речи."),
+		minlength: e.validator.format("Унесите барем {0} карактера."),
+		notEqualTo: "Молимо унесите другачију вредност, вредности не смеју бити исте.",
+		nowhitespace: "Молимо не уносите размаке.",
+		required: "Поље је обавезно.",
+		url: "Унесите исправан URL.",
+	}), e
+});

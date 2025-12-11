@@ -1,0 +1,23 @@
+! function(e) {
+	"function" == typeof define && define.amd ? define(["jquery", "../jquery.validate.min"], e) : "object" == typeof module && module.exports ? module.exports = e(require("jquery")) : e(jQuery)
+}(function(e) {
+	return e.extend(e.validator.messages, {
+		alphanumeric: "Chỉ nhập chữ cái, số và dấu gạch dưới.",
+		digits: "Chỉ nhập chữ số.",
+		email: "Hãy nhập email.",
+		equalTo: "Hãy nhập thêm lần nữa.",
+		exactlength: e.validator.format("Hãy nhập chính xác {0} ký tự."),
+		integer: "Vui lòng nhập số nguyên dương hoặc âm.",
+		lettersonly: "Chỉ nhập chữ cái.",
+		max: e.validator.format("Hãy nhập từ {0} trở xuống."),
+		maxWords: e.validator.format("Hãy nhập {0} từ trở xuống."),
+		maxlength: e.validator.format("Hãy nhập từ {0} kí tự trở xuống."),
+		min: e.validator.format("Hãy nhập từ {0} trở lên."),
+		minWords: e.validator.format("Hãy nhập ít nhất {0} từ."),
+		minlength: e.validator.format("Hãy nhập từ {0} kí tự trở lên."),
+		notEqualTo: "Hãy nhập giá trị khác, giá trị không được giống nhau.",
+		nowhitespace: "Không được nhập khoảng trắng.",
+		required: "Hãy nhập.",
+		url: "Hãy nhập URL.",
+	}), e
+});

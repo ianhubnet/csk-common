@@ -1,0 +1,23 @@
+! function(e) {
+	"function" == typeof define && define.amd ? define(["jquery", "../jquery.validate.min"], e) : "object" == typeof module && module.exports ? module.exports = e(require("jquery")) : e(jQuery)
+}(function(e) {
+	return e.extend(e.validator.messages, {
+		alphanumeric: "Prosím zadajte iba písmená, číslice a podčiarkovníky.",
+		digits: "Môže obsahovať iba číslice.",
+		email: "E-mailová adresa musí byť platná.",
+		equalTo: "Dve hodnoty sa musia rovnať.",
+		exactlength: e.validator.format("Prosím zadajte presne {0} znakov."),
+		integer: "Prosím zadajte kladné alebo záporné celé číslo bez desatinných miest.",
+		lettersonly: "Prosím zadajte iba písmená.",
+		max: e.validator.format("Nemôže byť viac ako {0}."),
+		maxWords: e.validator.format("Prosím zadajte najviac {0} slov."),
+		maxlength: e.validator.format("Maximálne {0} znakov."),
+		min: e.validator.format("Nemôže byť menej ako {0}."),
+		minWords: e.validator.format("Prosím zadajte najmenej {0} slov."),
+		minlength: e.validator.format("Minimálne {0} znakov."),
+		notEqualTo: "Prosím zadajte inú hodnotu, hodnoty sa nesmú rovnať.",
+		nowhitespace: "Prosím nevkladajte medzery.",
+		required: "Povinné zadať.",
+		url: "URL musí byť platná.",
+	}), e
+});

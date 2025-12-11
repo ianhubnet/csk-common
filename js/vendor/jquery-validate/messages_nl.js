@@ -1,0 +1,23 @@
+! function(e) {
+	"function" == typeof define && define.amd ? define(["jquery", "../jquery.validate.min"], e) : "object" == typeof module && module.exports ? module.exports = e(require("jquery")) : e(jQuery)
+}(function(e) {
+	return e.extend(e.validator.messages, {
+		alphanumeric: "Voer alleen letters, cijfers en onderstrepingstekens in.",
+		digits: "Voer alleen getallen in.",
+		email: "Vul hier een geldig e-mailadres in.",
+		equalTo: "Vul hier dezelfde waarde in.",
+		exactlength: e.validator.format("Voer precies {0} tekens in."),
+		integer: "Voer een positief of negatief geheel getal in zonder decimalen.",
+		lettersonly: "Voer alleen letters in.",
+		max: e.validator.format("Vul hier een waarde in kleiner dan of gelijk aan {0}."),
+		maxWords: e.validator.format("Voer maximaal {0} woorden in."),
+		maxlength: e.validator.format("Vul hier maximaal {0} tekens in."),
+		min: e.validator.format("Vul hier een waarde in groter dan of gelijk aan {0}."),
+		minWords: e.validator.format("Voer minimaal {0} woorden in."),
+		minlength: e.validator.format("Vul hier minimaal {0} tekens in."),
+		notEqualTo: "Voer een andere waarde in, waarden mogen niet hetzelfde zijn.",
+		nowhitespace: "Gebruik geen witruimte.",
+		required: "Dit is een verplicht veld.",
+		url: "Vul hier een geldige URL in.",
+	}), e
+});
