@@ -48,15 +48,15 @@ jobs:
           tag_name: ${{ steps.tag.outputs.name }}
           files: csk-common-${{ steps.tag.outputs.name }}.zip
 
-  dispatch:
-    name: Notify Projects
-    runs-on: ubuntu-latest
-    needs: release
+  # dispatch:
+  #   name: Notify Projects
+  #   runs-on: ubuntu-latest
+  #   needs: release
 
-    steps:
-      - name: Notify projects of common update
-        uses: peter-evans/repository-dispatch@v3
-        with:
-          token: ${{ secrets.CSK_PAT }}
-          repository: ianhubnet/csk-projects
-          event-type: common-update
+  #   steps:
+  #     - name: Notify projects of common update
+  #       uses: peter-evans/repository-dispatch@v3
+  #       with:
+  #         token: ${{ secrets.CSK_PAT }}
+  #         repository: ianhubnet/csk-projects
+  #         event-type: common-update
