@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "Vennligst skriv kun bokstaver, tall og understreker.",
+		date: "Vennligst oppgi en gyldig dato.",
 		digits: "Skriv kun tall.",
 		email: "Angi en gyldig epostadresse.",
 		equalTo: "Skriv samme verdi igjen.",

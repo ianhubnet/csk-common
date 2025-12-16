@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "Chỉ nhập chữ cái, số và dấu gạch dưới.",
+		date: "Vui lòng nhập một ngày hợp lệ.",
 		digits: "Chỉ nhập chữ số.",
 		email: "Hãy nhập email.",
 		equalTo: "Hãy nhập thêm lần nữa.",

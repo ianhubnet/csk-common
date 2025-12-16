@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "文字、数字、アンダースコアのみを入力してください。",
+		date: "有効な日付を入力してください。",
 		digits: "数字のみを入力してください。",
 		email: "有効なEメールアドレスを入力してください。",
 		equalTo: "同じ値をもう一度入力してください。",

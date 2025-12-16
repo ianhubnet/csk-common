@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "Kérjük, csak betűket, számokat és aláhúzást adjon meg.",
+		date: "Kérjük, adjon meg egy érvényes dátumot.",
 		digits: "Csak számjegyek lehetnek.",
 		email: "Érvényes e-mail címnek kell lennie.",
 		equalTo: "Meg kell egyeznie a két értéknek.",

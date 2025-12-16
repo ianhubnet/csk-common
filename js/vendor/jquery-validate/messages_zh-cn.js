@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "请只输入字母、数字和下划线。",
+		date: "请输入有效的日期。",
 		digits: "请只输入数字。",
 		email: "请输入有效的电子邮件地址。",
 		equalTo: "请再次输入相同的值。",

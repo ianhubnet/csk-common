@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "Syötä vain kirjaimia, numeroita ja alaviivoja.",
+		date: "Syötä kelvollinen päivämäärä.",
 		digits: "Syötä pelkästään numeroita.",
 		email: "Syötä oikea sähköpostiosoite.",
 		equalTo: "Syötä sama arvo uudestaan.",

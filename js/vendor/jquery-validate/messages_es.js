@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "Por favor, escribe solo letras, números y guiones bajos.",
+		date: "Por favor, escribe una fecha válida.",
 		digits: "Por favor, escribe solo dígitos.",
 		email: "Por favor, escribe una dirección de correo válida.",
 		equalTo: "Por favor, escribe el mismo valor de nuevo.",

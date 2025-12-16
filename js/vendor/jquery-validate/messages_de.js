@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "Bitte geben Sie nur Buchstaben, Zahlen und Unterstriche ein.",
+		date: "Bitte geben Sie ein gültiges Datum ein.",
 		digits: "Geben Sie bitte nur Ziffern ein.",
 		email: "Geben Sie bitte eine gültige E-Mail Adresse ein.",
 		equalTo: "Bitte denselben Wert wiederholen.",

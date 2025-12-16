@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "Vänligen ange endast bokstäver, siffror och understreck.",
+		date: "Ange ett giltigt datum.",
 		digits: "Ange endast siffror.",
 		email: "Ange en korrekt e-postadress.",
 		equalTo: "Ange samma värde igen.",

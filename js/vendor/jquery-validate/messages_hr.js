@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "Molimo unesite samo slova, brojeve i podvlake.",
+		date: "Molimo unesite ispravan datum.",
 		digits: "Unesite samo brojeve.",
 		email: "Unesite ispravnu e-mail adresu.",
 		equalTo: "Unesite ponovo istu vrijednost.",

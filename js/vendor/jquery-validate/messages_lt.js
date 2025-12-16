@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "Prašau įvesti tik raides, skaičius ir pabraukimus.",
+		date: "Prašome įvesti galiojantą datą.",
 		digits: "Prašau naudoti tik skaitmenis.",
 		email: "Prašau įvesti teisingą elektroninio pašto adresą.",
 		equalTo: "Prašau įvestį tą pačią reikšmę dar kartą.",

@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "Pakilagay lamang ang mga letra, numero, at underscores.",
+		date: "Mangyaring maglagay ng wastong petsa.",
 		digits: "Pakilagay lamang ang mga numero.",
 		email: "Pakilagay ang wastong email address.",
 		equalTo: "Pakilagay ang parehong halaga.",

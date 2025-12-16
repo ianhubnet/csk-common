@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "Voer alleen letters, cijfers en onderstrepingstekens in.",
+		date: "Voer een geldige datum in.",
 		digits: "Voer alleen getallen in.",
 		email: "Vul hier een geldig e-mailadres in.",
 		equalTo: "Vul hier dezelfde waarde in.",

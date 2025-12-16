@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "Hanya masukkan huruf, angka, dan garis bawah.",
+		date: "Silakan masukkan tanggal yang valid.",
 		digits: "Hanya boleh memasukkan angka.",
 		email: "Silakan masukkan alamat email yang valid.",
 		equalTo: "Silakan masukkan nilai yang sama lagi.",

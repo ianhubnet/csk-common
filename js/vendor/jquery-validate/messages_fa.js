@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "لطفا فقط حروف، اعداد و خط زیر وارد کنید.",
+		date: "لطفاً یک تاریخ معتبر وارد کنید.",
 		digits: "لطفا تنها رقم وارد کنید.",
 		email: "لطفا یک ایمیل صحیح وارد کنید.",
 		equalTo: "لطفا مقدار برابری وارد کنید.",

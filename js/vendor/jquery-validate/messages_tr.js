@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "Lütfen sadece harf, rakam ve alt çizgi giriniz.",
+		date: "Lütfen geçerli bir tarih girin.",
 		digits: "Lütfen sadece sayısal karakterler giriniz.",
 		email: "Lütfen geçerli bir e-posta adresi giriniz.",
 		equalTo: "Lütfen aynı değeri tekrar giriniz.",

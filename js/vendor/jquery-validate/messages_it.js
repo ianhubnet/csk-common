@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "Si prega di inserire solo lettere, numeri e trattini bassi.",
+		date: "Inserisci una data valida.",
 		digits: "Inserisci solo numeri",
 		email: "Inserisci un indirizzo email valido",
 		equalTo: "Il valore non corrisponde",

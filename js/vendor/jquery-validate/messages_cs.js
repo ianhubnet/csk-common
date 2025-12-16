@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "Prosím zadejte pouze písmena, číslice a podtržítka.",
+		date: "Prosím, zadejte platné datum.",
 		digits: "Prosím, zadávejte pouze číslice.",
 		email: "Prosím, zadejte platný e-mail.",
 		equalTo: "Prosím, zadejte znovu stejnou hodnotu.",

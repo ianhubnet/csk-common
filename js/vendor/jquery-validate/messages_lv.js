@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "Lūdzu, ievadiet tikai burtus, ciparus un pasvītrojumzīmes.",
+		date: "Lūdzu, ievadiet derīgu datumu.",
 		digits: "Lūdzu, ievadiet tikai ciparus.",
 		email: "Lūdzu, ievadiet derīgu e-pasta adresi.",
 		equalTo: "Lūdzu, ievadiet to pašu vēlreiz.",

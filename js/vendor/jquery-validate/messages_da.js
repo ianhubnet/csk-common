@@ -3,6 +3,7 @@
 }(function(e) {
 	return e.extend(e.validator.messages, {
 		alphanumeric: "Indtast venligst kun bogstaver, tal og understreger.",
+		date: "Indtast venligst en gyldig dato.",
 		digits: "Indtast kun cifre.",
 		email: "Indtast en gyldig email-adresse.",
 		equalTo: "Indtast den samme værdi igen.",
