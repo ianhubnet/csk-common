@@ -2587,6 +2587,13 @@ table td>input[type="checkbox"] {
 	inline-size: 2rem;
 }
 
+.select2-container--default .select2-selection--single .select2-selection__clear {
+	block-size: 100%;
+	text-align: center;
+	font-size: var(--cs-font-size-h3);
+	color: var(--bs-danger);
+}
+
 .select2-container--default .select2-selection--single .select2-selection__arrow b {
 	margin-block-start: 0;
 	margin-inline-start: -.25rem;

@@ -47,7 +47,7 @@
 			// Attempt to use sprintf
 			if (typeof elem === "object") {
 				var name = elem.data("name") || elem.attr("aria-label");
-				if (typeof name !== "undefined" && name.length) {
+				if (name?.length) {
 					message = sprintf(message, name);
 				}
 			}
@@ -91,7 +91,7 @@
 
 			// Normalize and validate alert type
 			type = type?.toLowerCase() || 'info';
-			type = (type === "error" || type === "critical") ? "danger" : (csk.ui.alertClasses.includes(type) ? type : "info");
+			type = (type === "critical") ? "error" : type;
 
 			// Case 1: Toastr is available?
 			if (typeof toastr !== "undefined") {
@@ -100,6 +100,7 @@
 			}
 
 			// Case 2: Use provided alter template.
+			type = csk.ui.alertClasses.includes(type) ? type : "info";
 			const clone = document.getElementById("csk-alert-template")?.content?.querySelector('div')?.cloneNode(true);
 			if (clone) {
 				// Add alert Bootstrap alert classes then add message.
@@ -329,7 +330,7 @@
 		 */
 		clipboard: function(el) {
 			var copyText = el.getAttribute("data-text");
-			if (typeof copyText === "undefined" || !copyText.length) {
+			if (!copyText?.length) {
 				return false;
 			}
 			navigator.clipboard.writeText(copyText);
@@ -512,8 +513,8 @@
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
 					var response = jqXHR.responseJSON || undefined;
-					if (typeof response !== "undefined" && response.message !== "undefined" && response.message.length) {
-						csk.ui.alert(response.message, "error");
+					if (response?.message?.length) {
+						csk.ui.alert(response.message, response.status || "error");
 					}
 				}
 			}, params);
@@ -561,12 +562,12 @@
 			csk.ajax.context = context;
 
 			/** Did we receive a message? */
-			if (typeof data.message !== "undefined" && data.message.length) {
+			if (data?.message?.length) {
 				csk.ui.alert(data.message, "success");
 			}
 
 			/** No scripts passed? Nothing to do. */
-			if (typeof data.scripts === "undefined") {
+			if (!data.scripts?.length) {
 				return;
 			}
 
@@ -581,6 +582,19 @@
 			}
 		}
 	};
+	/**
+	 * HTTP method shortcuts
+	 * @since 3.11.1
+	 */
+	['get', 'post', 'put', 'patch', 'delete'].forEach(function (method) {
+		if (csk.ajax[method]) return;
+		csk.ajax[method] = function (url, params) {
+			console.log(url);
+			params = params || {};
+			params.type = params.method = method.toUpperCase();
+			return this.request(url, params);
+		};
+	});
 
 	/**
 	 * Upload file handler.
@@ -588,8 +602,8 @@
 	 */
 	csk.sendFile = function(file, that) {
 		var data = new FormData(),
-			href = $(that).attr("data-upload");
-		if (typeof href === "undefined" || !href.length) {
+			href = $(that).data("upload");
+		if (!href?.length) {
 			return false;
 		}
 		data.append("file", file);
@@ -817,14 +831,24 @@
 		 * @since 2.16
 		 */
 		if (typeof $.fn.select2 !== "undefined") {
-			$("select.select2").each(function() {
+			$("select.select2").each(function () {
 				var $that = $(this),
-					config = {
-						width: "100%"
-					};
+					config = { width: "100%" },
+					ph = $that.data("placeholder") || $that.attr("placeholder");
+
+				if (ph?.length && !$that.prop('multiple')) {
+					config.placeholder = ph;
+					config.allowClear = true;
+
+					if (!$that.find('option[value=""]').length) {
+						$that.prepend('<option></option>');
+					}
+				}
+
 				if ($that.hasClass("select2-modal")) {
 					config.dropdownParent = $(".modal");
 				}
+
 				$that.select2(config);
 			});
 		}
@@ -863,12 +887,20 @@
 							var data = $(this).sortable("toArray", {
 								attribute: "data-id"
 							});
-							target.attr("data-fields", "id:" + data.join(","));
+							target.data("fields", "id:" + data.join(","));
 						}
 					}
 				});
 			});
 		}
+
+		/**
+		 * Input with forced Uppercase.
+		 * @since 3.11.1
+		 */
+		$(document).on("input", "input.uppercase", function (e) {
+			e.target.value = e.target.value.toUpperCase();
+		});
 
 		/**
 		 * Holds an array of checkbox.
@@ -932,8 +964,8 @@
 				multiSelect.delete(row_id);
 			}
 
-			target.attr("data-fields", "id:" + Array.from(multiSelect).join(","));
-			table.attr("data-selected", multiSelect);
+			target.data("fields", "id:" + Array.from(multiSelect).join(","));
+			table.data("selected", multiSelect);
 
 			csk.ui.toggleDisabled(document.querySelectorAll(".bulk-action"), multiSelect.size === 0);
 		});
@@ -947,10 +979,10 @@
 			var $that = $(this),
 				href = $that.attr("ajaxify") || $that.attr("href"),
 				message = $that.data("message");
-			if ($that.attr("data-form")) {
+			if ($that.data("form")) {
 				return false;
 			}
-			if (typeof href === "undefined" || !href.length) {
+			if (!href?.length) {
 				return false;
 			}
 			if (!multiSelect.size) {
@@ -1040,7 +1072,7 @@
 			var $that = $(this),
 				rel = $that.attr("rel"),
 				href = $that.attr("ajaxify") || $that.attr("href");
-			if (typeof href === "undefined" || !href.length) {
+			if (!href?.length) {
 				e.preventDefault();
 				return false;
 			}
@@ -1082,7 +1114,7 @@
 				href = $form.attr("ajaxify") || $form.attr("action");
 
 			/** No action provided? Nothing to do... */
-			if (typeof href === "undefined" || !href.length) {
+			if (!href?.length) {
 				e.preventDefault();
 				return false;
 			}
@@ -1142,24 +1174,24 @@
 				message = $that.data("confirm");
 
 			/** No URL provided? Nothing to do... */
-			if (typeof href === "undefined" || !href.length) {
+			if (!href?.length) {
 				return false;
 			}
 
 			/** See if we have any optional fields */
-			if (typeof data !== "undefined" && data.length) {
+			if (data?.length) {
 				data = csk.ui.prepFields(data);
 			}
 
 			/** No URL provided? Nothing to do...No message provided? Just proceed. */
-			if (typeof message === "undefined" || !message.length) {
+			if (!message?.length) {
 				message = "Are you sure?";
 			}
 
 			/** Display the confirmation box before proceeding. */
 			return csk.ui.confirm(message, function() {
 				/** ajax request. */
-				if (typeof rel !== "undefined" && rel.length) {
+				if (rel?.length) {
 					csk.ajax.request(href, {
 						el: this,
 						type: rel === "async" ? "GET" : "POST",
@@ -1214,13 +1246,13 @@
 			}
 
 			/** No target? Nothing to do... */
-			if (typeof target === "undefined" || !target.length || typeof csk[target] === "undefined") {
+			if (!target?.length || typeof csk[target] === "undefined") {
 				console.error("error target: " + target);
 				return false;
 			}
 
 			/** No href? Nothing to do... */
-			if (typeof href === "undefined" || !href.length) {
+			if (!href?.length) {
 				console.error("error href: " + href);
 				return false;
 			}
@@ -1243,7 +1275,7 @@
 			}
 
 			/** We display a confirmation message if defined. */
-			if (typeof message !== "undefined" && message.length) {
+			if (message?.length) {
 				csk.ui.confirm(sprintf(message, name), function() {
 					window.location.href = href;
 				}, function() {
@@ -1272,7 +1304,7 @@
 			if (typeof target === "undefined") {
 				return false;
 			}
-			if (typeof message === "undefined" || !message.length) {
+			if (!message?.length) {
 				target.submit();
 				return;
 			}
@@ -1293,17 +1325,17 @@
 				message = $that.data("confirm");
 
 			// href url is required!
-			if (typeof href === "undefined" || !href.length) {
+			if (!href?.length) {
 				return false;
 			}
 
 			// data are required.
-			if (typeof data !== "undefined" && data.length) {
+			if (data?.length) {
 				data = csk.ui.prepFields(data);
 			}
 
 			// message is undefined.
-			if (typeof message === "undefined" || !message.length) {
+			if (!message?.length) {
 				csk.submit(href, data);
 				return;
 			}
@@ -1336,7 +1368,7 @@
 			$(".dropZone").each(function() {
 				var $that = $(this),
 					href = $that.data("upload");
-				if (typeof href === "undefined" || !href.length) {
+				if (!href?.length) {
 					return;
 				}
 				$that.dropzone({
