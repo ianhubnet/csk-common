@@ -5,6 +5,7 @@
 		alphanumeric: "문자, 숫자 및 밑줄만 입력하세요.",
 		date: "유효한 날짜를 입력해주세요.",
 		digits: "숫자만 입력 가능합니다.",
+		domain: "유효한 도메인 이름을 입력해주세요.",
 		email: "유효하지 않은 E-Mail주소입니다.",
 		equalTo: "같은 값을 다시 입력하세요.",
 		exactlength: e.validator.format("정확히 {0}자를 입력하세요."),

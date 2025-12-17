@@ -5,6 +5,7 @@
 		alphanumeric: "Chỉ nhập chữ cái, số và dấu gạch dưới.",
 		date: "Vui lòng nhập một ngày hợp lệ.",
 		digits: "Chỉ nhập chữ số.",
+		domain: "Vui lòng nhập một tên miền hợp lệ.",
 		email: "Hãy nhập email.",
 		equalTo: "Hãy nhập thêm lần nữa.",
 		exactlength: e.validator.format("Hãy nhập chính xác {0} ký tự."),

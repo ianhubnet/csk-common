@@ -5,6 +5,7 @@
 		alphanumeric: "Lūdzu, ievadiet tikai burtus, ciparus un pasvītrojumzīmes.",
 		date: "Lūdzu, ievadiet derīgu datumu.",
 		digits: "Lūdzu, ievadiet tikai ciparus.",
+		domain: "Lūdzu, ievadiet derīgu domēna nosaukumu.",
 		email: "Lūdzu, ievadiet derīgu e-pasta adresi.",
 		equalTo: "Lūdzu, ievadiet to pašu vēlreiz.",
 		exactlength: e.validator.format("Lūdzu, ievadiet tieši {0} rakstzīmes."),

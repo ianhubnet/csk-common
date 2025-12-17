@@ -5,6 +5,7 @@
 		alphanumeric: "Voer alleen letters, cijfers en onderstrepingstekens in.",
 		date: "Voer een geldige datum in.",
 		digits: "Voer alleen getallen in.",
+		domain: "Voer een geldige domeinnaam in.",
 		email: "Vul hier een geldig e-mailadres in.",
 		equalTo: "Vul hier dezelfde waarde in.",
 		exactlength: e.validator.format("Voer precies {0} tekens in."),

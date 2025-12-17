@@ -5,6 +5,7 @@
 		alphanumeric: "Molimo unesite samo reči, brojeve i donje crte.",
 		date: "Molimo unesite važeći datum.",
 		digits: "Unesite samo cifre.",
+		domain: "Molimo unesite važeće ime domena.",
 		email: "Unesite ispravnu e-mejl adresu.",
 		equalTo: "Unesite istu vrednost ponovo.",
 		exactlength: e.validator.format("Molimo unesite tačno {0} karaktera."),

@@ -5,6 +5,7 @@
 		alphanumeric: "Pakilagay lamang ang mga letra, numero, at underscores.",
 		date: "Mangyaring maglagay ng wastong petsa.",
 		digits: "Pakilagay lamang ang mga numero.",
+		domain: "Mangyaring maglagay ng wastong domain name.",
 		email: "Pakilagay ang wastong email address.",
 		equalTo: "Pakilagay ang parehong halaga.",
 		exactlength: e.validator.format("Pakilagay ang eksaktong {0} na karakter."),

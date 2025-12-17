@@ -5,6 +5,7 @@
 		alphanumeric: "Syötä vain kirjaimia, numeroita ja alaviivoja.",
 		date: "Syötä kelvollinen päivämäärä.",
 		digits: "Syötä pelkästään numeroita.",
+		domain: "Syötä kelvollinen verkkotunnus.",
 		email: "Syötä oikea sähköpostiosoite.",
 		equalTo: "Syötä sama arvo uudestaan.",
 		exactlength: e.validator.format("Syötä täsmälleen {0} merkkiä."),

@@ -5,6 +5,7 @@
 		alphanumeric: "Prašau įvesti tik raides, skaičius ir pabraukimus.",
 		date: "Prašome įvesti galiojantą datą.",
 		digits: "Prašau naudoti tik skaitmenis.",
+		domain: "Prašome įvesti galiojantį domeno pavadinimą.",
 		email: "Prašau įvesti teisingą elektroninio pašto adresą.",
 		equalTo: "Prašau įvestį tą pačią reikšmę dar kartą.",
 		exactlength: e.validator.format("Prašau įvesti tiksliai {0} simbolius."),

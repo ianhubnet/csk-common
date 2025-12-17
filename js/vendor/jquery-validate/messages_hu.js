@@ -5,6 +5,7 @@
 		alphanumeric: "Kérjük, csak betűket, számokat és aláhúzást adjon meg.",
 		date: "Kérjük, adjon meg egy érvényes dátumot.",
 		digits: "Csak számjegyek lehetnek.",
+		domain: "Kérjük, adjon meg egy érvényes domain nevet.",
 		email: "Érvényes e-mail címnek kell lennie.",
 		equalTo: "Meg kell egyeznie a két értéknek.",
 		exactlength: e.validator.format("Kérjük, pontosan {0} karaktert adjon meg."),

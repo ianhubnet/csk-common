@@ -5,6 +5,7 @@
 		alphanumeric: "Vă rugăm să introduceți doar litere, cifre și linii joase.",
 		date: "Vă rugăm să introduceți o dată validă.",
 		digits: "Vă rugăm să introduceți doar cifre.",
+		domain: "Vă rugăm să introduceți un nume de domeniu valid.",
 		email: "Vă rugăm să introduceți o adresă de email validă.",
 		equalTo: "Vă rugăm să reintroduceți aceeași valoare.",
 		exactlength: e.validator.format("Vă rugăm să introduceți exact {0} caractere."),

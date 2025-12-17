@@ -5,6 +5,7 @@
 		alphanumeric: "Lütfen sadece harf, rakam ve alt çizgi giriniz.",
 		date: "Lütfen geçerli bir tarih girin.",
 		digits: "Lütfen sadece sayısal karakterler giriniz.",
+		domain: "Lütfen geçerli bir alan adı girin.",
 		email: "Lütfen geçerli bir e-posta adresi giriniz.",
 		equalTo: "Lütfen aynı değeri tekrar giriniz.",
 		exactlength: e.validator.format("Lütfen tam olarak {0} karakter uzunluğunda bir değer giriniz."),

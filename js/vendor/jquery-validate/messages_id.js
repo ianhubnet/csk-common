@@ -5,6 +5,7 @@
 		alphanumeric: "Hanya masukkan huruf, angka, dan garis bawah.",
 		date: "Silakan masukkan tanggal yang valid.",
 		digits: "Hanya boleh memasukkan angka.",
+		domain: "Silakan masukkan nama domain yang valid.",
 		email: "Silakan masukkan alamat email yang valid.",
 		equalTo: "Silakan masukkan nilai yang sama lagi.",
 		exactlength: e.validator.format("Silakan masukkan tepat {0} karakter."),

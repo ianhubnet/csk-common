@@ -5,6 +5,7 @@
 		alphanumeric: "Vennligst skriv kun bokstaver, tall og understreker.",
 		date: "Vennligst oppgi en gyldig dato.",
 		digits: "Skriv kun tall.",
+		domain: "Vennligst oppgi et gyldig domenenavn.",
 		email: "Angi en gyldig epostadresse.",
 		equalTo: "Skriv samme verdi igjen.",
 		exactlength: e.validator.format("Vennligst skriv nøyaktig {0} tegn."),

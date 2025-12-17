@@ -5,6 +5,7 @@
 		alphanumeric: "Prosimo vnesite samo črke, številke in podčrtaje.",
 		date: "Prosimo vnesite veljaven datum.",
 		digits: "Prosimo vnesite samo števila.",
+		domain: "Prosimo vnesite veljavno ime domene.",
 		email: "Prosimo vnesite veljaven email naslov.",
 		equalTo: "Prosimo ponovno vnesite vrednost.",
 		exactlength: e.validator.format("Prosimo vnesite natančno {0} znakov."),

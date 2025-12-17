@@ -5,6 +5,7 @@
 		alphanumeric: "请只输入字母、数字和下划线。",
 		date: "请输入有效的日期。",
 		digits: "请只输入数字。",
+		domain: "请输入有效的域名。",
 		email: "请输入有效的电子邮件地址。",
 		equalTo: "请再次输入相同的值。",
 		exactlength: e.validator.format("请输入恰好 {0} 个字符。"),

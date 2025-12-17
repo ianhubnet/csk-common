@@ -5,6 +5,7 @@
 		alphanumeric: "Vänligen ange endast bokstäver, siffror och understreck.",
 		date: "Ange ett giltigt datum.",
 		digits: "Ange endast siffror.",
+		domain: "Ange ett giltigt domännamn.",
 		email: "Ange en korrekt e-postadress.",
 		equalTo: "Ange samma värde igen.",
 		exactlength: e.validator.format("Ange exakt {0} tecken."),

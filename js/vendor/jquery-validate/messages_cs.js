@@ -5,6 +5,7 @@
 		alphanumeric: "Prosím zadejte pouze písmena, číslice a podtržítka.",
 		date: "Prosím, zadejte platné datum.",
 		digits: "Prosím, zadávejte pouze číslice.",
+		domain: "Prosím, zadejte platný název domény.",
 		email: "Prosím, zadejte platný e-mail.",
 		equalTo: "Prosím, zadejte znovu stejnou hodnotu.",
 		exactlength: e.validator.format("Prosím zadejte přesně {0} znaků."),

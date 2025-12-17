@@ -5,6 +5,7 @@
 		alphanumeric: "Zəhmət olmasa, yalnız hərflər, rəqəmlər və alt xətlər daxil edin.",
 		date: "Zəhmət olmasa etibarlı bir tarix daxil edin.",
 		digits: "Zəhmət olmasa, yalnız rəqəm daxil edin.",
+		domain: "Zəhmət olmasa etibarlı bir domen adı daxil edin.",
 		email: "Zəhmət olmasa, düzgün elektron poçt daxil edin.",
 		equalTo: "Zəhmət olmasa, eyni mənanı bir daha daxil edin.",
 		exactlength: e.validator.format("Zəhmət olmasa, tam olaraq {0} simvol daxil edin."),

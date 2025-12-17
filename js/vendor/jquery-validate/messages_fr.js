@@ -5,6 +5,7 @@
 		alphanumeric: "Veuillez fournir seulement des lettres, nombres et soulignages.",
 		date: "Veuillez fournir une date valide.",
 		digits: "Veuillez fournir seulement des chiffres.",
+		domain: "Veuillez fournir un nom de domaine valide.",
 		email: "Veuillez fournir une adresse \xe9lectronique valide.",
 		equalTo: "Veuillez fournir encore la m\xeame valeur.",
 		exactlength: e.validator.format("Veuillez entrer exactement {0} caract\xe8res."),

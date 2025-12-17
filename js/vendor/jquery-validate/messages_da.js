@@ -5,6 +5,7 @@
 		alphanumeric: "Indtast venligst kun bogstaver, tal og understreger.",
 		date: "Indtast venligst en gyldig dato.",
 		digits: "Indtast kun cifre.",
+		domain: "Indtast venligst et gyldigt domænenavn.",
 		email: "Indtast en gyldig email-adresse.",
 		equalTo: "Indtast den samme værdi igen.",
 		exactlength: e.validator.format("Indtast venligst præcis {0} tegn."),

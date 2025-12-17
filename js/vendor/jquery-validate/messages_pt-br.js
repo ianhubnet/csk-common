@@ -5,6 +5,7 @@
 		alphanumeric: "Por favor, forneça somente com letras, números e sublinhados.",
 		date: "Por favor, insira uma data válida.",
 		digits: "Por favor, forneça somente dígitos.",
+		domain: "Por favor, insira um nome de domínio válido.",
 		email: "Por favor, forneça um endereço de email válido.",
 		equalTo: "Por favor, forneça o mesmo valor novamente.",
 		exactlength: e.validator.format("Por favor, forneça exatamente {0} caracteres."),
