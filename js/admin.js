@@ -589,7 +589,6 @@
 	['get', 'post', 'put', 'patch', 'delete'].forEach(function (method) {
 		if (csk.ajax[method]) return;
 		csk.ajax[method] = function (url, params) {
-			console.log(url);
 			params = params || {};
 			params.type = params.method = method.toUpperCase();
 			return this.request(url, params);
