@@ -835,12 +835,12 @@
 					config = { width: "100%" },
 					ph = $that.data("placeholder") || $that.attr("placeholder");
 
-				if (ph?.length && !$that.prop('multiple')) {
+				if (ph?.length) {
 					config.placeholder = ph;
 					config.allowClear = true;
 
-					if (!$that.find('option[value=""]').length) {
-						$that.prepend('<option></option>');
+					if (!$that.prop('multiple') && !$that.find('option[value=""]').length) {
+						$that.prepend('<option value="" disabled selected></option>');
 					}
 				}
 
