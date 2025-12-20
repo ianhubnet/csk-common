@@ -328,13 +328,22 @@
 		 * Copy to clipboard.
 		 * @since 2.18
 		 */
-		clipboard: function(el) {
-			var copyText = el.getAttribute("data-text");
+		clipboard: function (el) {
+			const copyText = el.getAttribute("data-text");
 			if (!copyText?.length) {
-				return false;
+				csk.ui.alert(csk.i18n.default.clipboard_copy_error, "error");
+				return;
 			}
-			navigator.clipboard.writeText(copyText);
-			csk.ui.alert(csk.i18n.media.copied, "success");
+
+			if (!navigator.clipboard?.writeText) {
+				csk.ui.alert(csk.i18n.default.clipboard_copy_error, "error");
+				return;
+			}
+
+			navigator.clipboard
+				.writeText(copyText)
+				.then(() => csk.ui.alert(csk.i18n.default.clipboard_copy_success, "success"))
+				.catch(() => csk.ui.alert(csk.i18n.default.clipboard_copy_error, "error"));
 		},
 
 		/**
