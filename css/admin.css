@@ -3076,6 +3076,14 @@ table td>input[type="checkbox"] {
 	line-height: 2rem !important;
 }
 
+select.is-valid + .select2-container .select2-selection {
+	border-color: var(--bs-success) !important;
+}
+
+select.is-invalid + .select2-container .select2-selection {
+	border-color: var(--bs-danger) !important;
+}
+
 .no-select,
 .nav,
 .navbar,
