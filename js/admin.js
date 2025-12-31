@@ -34,12 +34,12 @@
 		/**
 		 * Confirmation alert using either bootbox or default alert.
 		 * @since 1.20
-		 * @param  string   message        Message to display.
-		 * @param  callable trueCallback   Callback to use once confirmed.
-		 * @param  callable falseCallback  Callback to use once canceled.
+		 * @param  string   message          Message to display.
+		 * @param  callable confirmCallback  Callback to use once confirmed.
+		 * @param  callable cancelCallback   Callback to use once canceled.
 		 * @return void
 		 */
-		confirm: function(message, trueCallback, falseCallback, elem) {
+		confirm: function(message, confirmCallback, cancelCallback, elem) {
 			if ((message.startsWith("lang:") || message.startsWith("i18n:")) && typeof csk.i18n !== "undefined") {
 				message = eval("csk.i18n." + message.substring(5)) || message;
 			}
@@ -51,8 +51,10 @@
 					message = sprintf(message, name);
 				}
 			}
+
+			// Bootbox if available.
 			if (typeof bootbox !== "undefined") {
-				bootbox.confirm({
+				return bootbox.confirm({
 					message: message,
 					buttons: {
 						confirm: {
@@ -64,18 +66,62 @@
 					},
 					callback: function(result) {
 						bootbox.hideAll();
-						if (result === true && typeof trueCallback === "function") {
-							trueCallback(true);
-						} else if (typeof falseCallback === "function") {
-							falseCallback(true);
+						if (result && typeof confirmCallback === "function") {
+							confirmCallback(true);
+						} else if (!result && typeof cancelCallback === "function") {
+							cancelCallback(true);
 						}
 					}
 				});
-			} else if (confirm(message) && typeof trueCallback === "function") {
-				trueCallback(true);
-			} else if (typeof falseCallback === "function") {
-				falseCallback(true);
 			}
+
+			// Bootstrap modal path
+			if (typeof bootstrap !== "undefined") {
+				const tpl = document.getElementById("csk-confirm-template");
+				if (tpl) {
+					const modalEl = tpl.content.firstElementChild.cloneNode(true);
+					const msgEl = modalEl.querySelector(".modal-body");
+					const btnConfirm = modalEl.querySelector('.btn-confirm');
+					const btnCancel  = modalEl.querySelector('.btn-cancel');
+
+					msgEl.innerHTML = message;
+					document.body.appendChild(modalEl);
+
+					const modal = new bootstrap.Modal(modalEl, {
+						backdrop: true,
+						focus: true
+					});
+
+					btnConfirm.addEventListener("click", function () {
+						modal.hide();
+						if (typeof confirmCallback === "function") {
+							confirmCallback(true);
+						}
+					});
+
+					btnCancel.addEventListener("click", function () {
+						modal.hide();
+						if (typeof cancelCallback === "function") {
+							cancelCallback(true);
+						}
+					});
+
+					modalEl.addEventListener('shown.bs.modal', function () {
+						btnConfirm.focus();
+					});
+
+					return modal.show();
+				}
+			}
+
+			// Native fallback
+			const result = confirm(message);
+			if (result && typeof confirmCallback === "function") {
+				confirmCallback(true);
+			} else if (!result && typeof cancelCallback === "function") {
+				cancelCallback(true)
+			}
+			return result;
 		},
 
 		/**
