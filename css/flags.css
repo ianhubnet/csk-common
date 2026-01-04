@@ -1,12 +1,19 @@
+@charset "UTF-8";
+/*!
+ * CiSkeleton - Flags CSS (https://www.ianhub.net/)
+ * Copyright 2025 Kader Bouyakoub (https://github.com/bkader)
+ */
+
 .flag {
 	align-items: center;
 	background-position: left center;
 	background-repeat: no-repeat;
 	background-size: contain;
 	display: inline-flex;
+	inline-size: 1.333333em;
 	line-height: 1em;
-	padding-inline-start: 1.4em;
-	width: 1.333333em;
+	min-block-size: 1em;
+	vertical-align: middle;
 }
 
 :dir(rtl) .flag {
@@ -14,7 +21,7 @@
 }
 
 .flag[data-text] {
-	width: auto;
+	inline-size: auto;
 }
 
 .flag[data-text]::after {
@@ -25,7 +32,7 @@
 	font-size: inherit;
 	font-style: normal;
 	font-weight: inherit;
-	margin-inline-start: .5rem;
+	margin-inline-start: 1.5rem;
 	vertical-align: middle;
 }
 
