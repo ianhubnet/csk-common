@@ -1,6 +1,6 @@
 /*!
  * Skeleton Back-End - Admin JS (https://www.ianhub.net/)
- * Copyright 2025 Kader Bouyakoub (https://github.com/bkader)
+ * Copyright 2026 Kader Bouyakoub (https://github.com/bkader)
  */
 (function($, window, document, undefined) {
 	"use strict";
@@ -637,6 +637,7 @@
 			}
 		}
 	};
+
 	/**
 	 * HTTP method shortcuts
 	 * @since 3.11.1
@@ -888,7 +889,8 @@
 			$("select.select2").each(function () {
 				var $that = $(this),
 					config = { width: "100%" },
-					ph = $that.data("placeholder") || $that.attr("placeholder");
+					ph = $that.data("placeholder") || $that.attr("placeholder"),
+					href = $that.data("endpoint") || $that.attr("ajaxify");
 
 				if (ph?.length) {
 					config.placeholder = ph;
@@ -901,6 +903,28 @@
 
 				if ($that.hasClass("select2-modal")) {
 					config.dropdownParent = $(".modal");
+				}
+
+				if (href?.length) {
+					config.minimumInputLength = 1;
+					config.ajax = {
+						delay: 250,
+						transport: function (params, success, failure) {
+							csk.ajax.request(href, {
+								data: {
+									q: params.data.term || "",
+									page: params.data.page || 1
+								},
+								success: function (data) {
+									success(data);
+								},
+								error: failure
+							});
+						},
+						processResults: function (data) {
+							return data;
+						}
+					};
 				}
 
 				$that.select2(config);
