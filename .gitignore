@@ -1,0 +1,29 @@
+# === Ignore files inside _dev folder(s) ===
+_dev
+*_dev.*
+
+# === Ignore unnecessary folders ===
+.DS_Store
+.phpintel
+
+# === Sublime Text cache files ===
+*~
+*.bak
+*.bak.*
+*_bak*.*
+*.stTheme.cache
+*.sublime-*
+*.sublime-project
+*.sublime-workspace
+*.tmPreferences.cache
+*.tmlanguage.cache
+
+# === IDE/editor configs ===
+/.idea/
+/.vscode/
+/*.code-workspace
+
+# === Always keep these ===
+!**/.htaccess
+!**/.gitkeep
+!**/index.html
