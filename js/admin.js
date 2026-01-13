@@ -507,50 +507,6 @@
 	};
 
 	/**
-	 * Initializes dynamic toggles for select elements.
-	 * @since 3.12.0
-	 *
-	 * @return {void}
-	 */
-	csk.ui.addListener("DOMContentLoaded", () => setTimeout(() => {
-		const els = document.querySelectorAll("select[data-toggle-target]");
-		if (!els?.length) return;
-
-		// Toggle visibility based on select value
-		const toggle = e => {
-			const target = e.target ?? e; // e could be the event or the element itself
-			const selector = target.getAttribute("data-toggle-target");
-			const value = target.getAttribute("data-toggle-value");
-			const el = document.querySelector(selector);
-
-			if (!selector || !value || !el) return;
-
-			// Show if the value matches, hide otherwise
-			el.style.display = target.value === value ? "" : "none";
-		};
-
-		els.forEach(el => {
-			el.addEventListener("change", toggle);
-			toggle(el); // initial state
-		});
-	}, 0));
-
-	/**
-	 * Register our custom listeners.
-	 * @since 2.0
-	 */
-	csk.ui.highlightByHash();
-	csk.ui.addListener("mousedown", csk.ui.selectOff)
-	csk.ui.addListener("mouseup", csk.ui.selectOn)
-	csk.ui.addListener("load", csk.ui.lazyLoad);
-	csk.ui.addListener("scroll", csk.ui.lazyLoad);
-	csk.ui.addListener("scroll", csk.ui.scrollToTop);
-	csk.ui.delegate("click", ".scroll-to-top", function(e) {
-		e.preventDefault();
-		window.scrollTo({top: 0, behavior: "smooth"});
-	});
-
-	/**
 	 * Skeleton AJAX handler.
 	 * @since 1.40
 	 */
@@ -768,83 +724,189 @@
 	 */
 	csk.media = {
 		/**
-		 * Currently selected editor for the opened media browser.
-		 * @type {HTMLElement}
+		 * Currently selected target for the opened media browser.
+		 * Can be a Summernote editor or a config object for field insertion.
+		 * @type {HTMLElement|Object|null}
 		 */
-		editor: null,
+		target: null,
 
 		/**
 		 * Opens Media browser.
-		 * @param  {HTMLElement} editor Summernote editor note.
+		 * @param  {HTMLElement|Object} target Summernote editor or config for field insertion.
 		 * @return {void}
 		 */
-		browse: function(editor) {
-			csk.media.editor = editor;
+		browse: function(target) {
+			csk.media.target = target;
+			const isEditor = target instanceof HTMLElement;
+			const isField = !isEditor && target && target.mode === 'field';
+
 			const $modal = $("#media-modal");
 			const $browser = $("#media-browser");
 			const $insert = $("#media-insert-btn");
 
-			$browser.html('<div class="text-center py-5 text-muted">'+csk.i18n.default.loading+'...</div>');
-			$insert.prop("disabled", true);
+			$browser.empty().html('<div class="text-center py-5 text-muted">'+csk.i18n.default.loading+'...</div>');
+
+			$insert.prop('disabled', true);
+			$("#media-modal .media-item").removeClass("selected");
 
 			// Load existing media
 			csk.ajax.request(csk.config.adminURL + "/ajax/media", {
 				type: "GET",
 				success: function(response) {
-					if (response.results && response.results.length) {
-						let html = "";
-						response.results.forEach(file => {
-							var source = document.getElementById("media-template").innerHTML,
-							template = Handlebars.compile(source);
-							html += template(file);
-						});
-
-						$browser.html(html);
-					} else {
+					if (!response?.results?.length) {
 						$browser.html('<div class="text-center py-5 text-muted">'+csk.i18n.default.no_data+'</div>');
+						return;
+					}
+
+					let html = '';
+					const source = document.getElementById("media-template").innerHTML;
+					const template = Handlebars.compile(source);
+					response.results.forEach(file => {
+						html += template(file);
+					});
+
+					$browser.html(html);
+
+					// Bind clicks for selection
+					csk.ui.delegate("click", "#media-modal .media-item", function() {
+						$("#media-modal .media-item").removeClass("selected");
+						$(this).addClass("selected");
+						$insert.prop("disabled", false);
+					});
+					csk.ui.delegate("dblclick", "#media-modal .media-item", function() {
+						$(this).addClass("selected");
+						$insert.trigger("click");
+					});
+				}
+			});
+
+			// Insert button
+			$insert.off("click").on("click", function() {
+				const selected = $("#media-modal .media-item.selected");
+				// Nothing selected?
+				if (!selected.length) {
+					return;
+				}
+
+				// Summernote path
+				else if (isEditor) {
+					const $editor = $(target);
+					if ($editor.hasClass("summernote")) {
+						const url = selected.data("url");
+						if (url?.length) {
+							$editor.summernote("insertImage", url);
+						}
+					} else {
+						console.warn("Invalid editor reference:", $editor);
 					}
 				}
+				// Field path
+				else if (isField) {
+					const url = csk.media.resolveUrl(selected[0],target?.size || null);
+					if (url?.length) {
+						const input = target.target ? document.querySelector(target.target) : null;
+						if (input) {
+							input.value = url;
+							input.dispatchEvent(new Event('change', { bubbles: true }));
+						}
+
+						const preview = target.preview ? document.querySelector(target.preview) : null;
+						if (preview && preview.tagName === 'IMG') {
+							preview.src = url;
+						}
+					}
+				}
+
+				$modal.modal("hide");
 			});
 
 			$modal.modal("show");
 		},
 
 		/**
-		 * Handles media file selection.
-		 * @return {void}
+		 * Resolves media URL based on requested size.
+		 * Falls back to original URL if size is missing.
+		 *
+		 * @param  {HTMLElement} item
+		 * @param  {string|null} size
+		 * @return {string}
 		 */
-		select: function() {
-			$("#media-modal .media-item").removeClass("selected");
-			$(this).addClass("selected");
-			$("#media-modal #media-insert-btn").prop("disabled", false);
+		resolveUrl: function(item, size) {
+			const baseUrl = item.dataset.url;
+			if (!size) return baseUrl;
+
+			try {
+				const sizes = JSON.parse(item.dataset.sizes || '{}');
+				return sizes[size]?.url || baseUrl;
+			} catch (e) {
+				return baseUrl;
+			}
 		},
 
 		/**
-		 * Handles inserting media into Summernote editor.
+		 * Initializes media modal.
 		 * @return {void}
 		 */
-		insert: function() {
-			const selected = $("#media-modal .media-item.selected");
-			if (!selected.length || !csk.media.editor) return;
-
-			const $editor = $(csk.media.editor);
-			if (!$editor.hasClass("summernote")) {
-				console.warn("Invalid editor reference:", $editor);
-				return;
-			}
-
-			const url = selected.data("url");
-			$editor.summernote("insertImage", url);
-			$("#media-modal").modal("hide");
-		},
-
 		init: function() {
 			if (csk.media._initialized) return;
-			csk.ui.delegate("click", "#media-modal .media-item", csk.media.select);
-			csk.ui.delegate("click", "#media-modal #media-insert-btn", csk.media.insert);
 			csk.media._initialized = true;
 		}
 	};
+
+	/**
+	 * Register our custom listeners.
+	 * @since 2.0
+	 */
+	csk.ui.highlightByHash();
+	csk.ui.addListener("mousedown", csk.ui.selectOff)
+	csk.ui.addListener("mouseup", csk.ui.selectOn)
+	csk.ui.addListener("load", csk.ui.lazyLoad);
+	csk.ui.addListener("scroll", csk.ui.lazyLoad);
+	csk.ui.addListener("scroll", csk.ui.scrollToTop);
+	csk.ui.delegate("click", ".scroll-to-top", function(e) {
+		e.preventDefault();
+		window.scrollTo({top: 0, behavior: "smooth"});
+	});
+
+	/**
+	 * Initializes dynamic toggles for select elements.
+	 * @since 3.12.0
+	 *
+	 * @return {void}
+	 */
+	csk.ui.addListener("DOMContentLoaded", () => setTimeout(() => {
+		const els = document.querySelectorAll("select[data-toggle-target]");
+		if (!els?.length) return;
+
+		// Toggle visibility based on select value
+		const toggle = e => {
+			const target = e.target ?? e; // e could be the event or the element itself
+			const selector = target.getAttribute("data-toggle-target");
+			const value = target.getAttribute("data-toggle-value");
+			const el = document.querySelector(selector);
+
+			if (!selector || !value || !el) return;
+
+			// Show if the value matches, hide otherwise
+			el.style.display = target.value === value ? "" : "none";
+		};
+
+		els.forEach(el => {
+			el.addEventListener("change", toggle);
+			toggle(el); // initial state
+		});
+	}, 0));
+
+	csk.ui.delegate('click', '[data-media-browse]', function () {
+		const el = this;
+
+		csk.media.browse({
+			mode: el.dataset.mediaMode || 'field',
+			target: el.dataset.mediaTarget || null,
+			preview: el.dataset.mediaPreview || null,
+			size: el.dataset.mediaSize || null
+		});
+	});
 
 	/** Things to do when the page is ready! */
 	$(document).ready(function() {
@@ -861,6 +923,16 @@
 				$.error("The method " +  method + " doesn't exist in $.fn.ping");
 			}
 		};
+
+		/**
+		 * Register JSON helper for Handlebars.
+		 * @since 3.12.0
+		 */
+		if (typeof Handlebars !== "undefined") {
+			Handlebars.registerHelper('json', function(context) {
+				return JSON.stringify(context);
+			});
+		}
 
 		/**
 		 * Start Keep Alive (30min).
