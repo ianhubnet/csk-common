@@ -44,7 +44,8 @@ jobs:
       - name: 4️⃣ Create ZIP archive
         shell: bash
         run: |
-          zip -r "${{ steps.vars.outputs.zip }}" .release-common
+          cd .release-common
+          zip -r "../${{ steps.vars.outputs.zip }}" .
 
       - name: 5️⃣ Create GitHub Release and upload ZIP
         uses: softprops/action-gh-release@v2
@@ -85,37 +86,38 @@ jobs:
           password: ${{ secrets.FTP_PASS }}
           local-dir: ./
           server-dir: ${{ secrets.FTP_PATH }}
+          state-name: ".sync/common-state.json"
           exclude: |
             **/*
             !common.zip
 
-      # - name: 3️⃣ Send JSON-RPC
-      #   shell: bash
-      #   env:
-      #     RPC_URL: ${{ secrets.RPC_URL }}
-      #     RPC_KEY: ${{ secrets.RPC_KEY }}
-      #     RPC_VER: ${{ secrets.RPC_VER }}
-      #   run: |
-      #     REPO="${{ needs.release.outputs.repo }}"
-      #     VERSION="${{ needs.release.outputs.version }}"
-      #     REPO_URL="https://github.com/$REPO"
-      #     OWNER="${REPO%%/*}"
-      #     NAME="${REPO##*/}"
-      #     ID=$(openssl rand -hex 8)
+      - name: 3️⃣ Send JSON-RPC
+        shell: bash
+        env:
+          RPC_URL: ${{ secrets.RPC_URL }}
+          RPC_KEY: ${{ secrets.RPC_KEY }}
+          RPC_VER: ${{ secrets.RPC_VER }}
+        run: |
+          REPO="${{ needs.release.outputs.repo }}"
+          VERSION="${{ needs.release.outputs.version }}"
+          REPO_URL="https://github.com/$REPO"
+          OWNER="${REPO%%/*}"
+          NAME="${REPO##*/}"
+          ID=$(openssl rand -hex 8)
 
-      #     curl -s -X POST "$RPC_URL" \
-      #       -H "Content-Type: application/json" \
-      #       -H "Authorization: Bearer $RPC_KEY" \
-      #       -d "{
-      #         \"jsonrpc\": \"$RPC_VER\",
-      #         \"method\": \"update\",
-      #         \"params\": {
-      #           \"type\": \"common\",
-      #           \"package\": \"common\",
-      #           \"repo\": \"$REPO_URL\",
-      #           \"owner\": \"$OWNER\",
-      #           \"name\": \"$NAME\",
-      #           \"version\": \"$VERSION\"
-      #         },
-      #         \"id\": \"$ID\"
-      #       }"
+          curl -s -X POST "$RPC_URL" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $RPC_KEY" \
+            -d "{
+              \"jsonrpc\": \"$RPC_VER\",
+              \"method\": \"update\",
+              \"params\": {
+                \"type\": \"common\",
+                \"package\": \"common\",
+                \"repo\": \"$REPO_URL\",
+                \"owner\": \"$OWNER\",
+                \"name\": \"$NAME\",
+                \"version\": \"$VERSION\"
+              },
+              \"id\": \"$ID\"
+            }"
