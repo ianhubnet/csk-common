@@ -86,7 +86,7 @@ jobs:
           password: ${{ secrets.FTP_PASS }}
           local-dir: ./
           server-dir: ${{ secrets.FTP_PATH }}
-          state-name: ".sync-common-state.json"
+          state-name: "ftp-deploy-sync/.common.json"
           exclude: |
             **/*
             !common.zip
