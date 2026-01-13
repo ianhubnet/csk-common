@@ -81,8 +81,8 @@
 				if (tpl) {
 					const modalEl = tpl.content.firstElementChild.cloneNode(true);
 					const msgEl = modalEl.querySelector(".modal-body");
-					const btnConfirm = modalEl.querySelector('.btn-confirm');
-					const btnCancel  = modalEl.querySelector('.btn-cancel');
+					const btnConfirm = modalEl.querySelector(".btn-confirm");
+					const btnCancel  = modalEl.querySelector(".btn-cancel");
 
 					msgEl.innerHTML = message;
 					document.body.appendChild(modalEl);
@@ -92,21 +92,21 @@
 						focus: true
 					});
 
-					btnConfirm.addEventListener("click", function () {
+					btnConfirm.addEventListener("click", function() {
 						modal.hide();
 						if (typeof confirmCallback === "function") {
 							confirmCallback(true);
 						}
 					});
 
-					btnCancel.addEventListener("click", function () {
+					btnCancel.addEventListener("click", function() {
 						modal.hide();
 						if (typeof cancelCallback === "function") {
 							cancelCallback(true);
 						}
 					});
 
-					modalEl.addEventListener('shown.bs.modal', function () {
+					modalEl.addEventListener("shown.bs.modal", function() {
 						btnConfirm.focus();
 					});
 
@@ -128,7 +128,7 @@
 		 * Alert (notification)
 		 * @since  1.20
 		 * @param  {string} message  Message to display.
-		 * @param  {string} type     Alert type('danger', 'warning', 'info', or 'success')
+		 * @param  {string} type     Alert type("danger", "warning", "info", or "success")
 		 * @return {void}
 		 */
 		alert: function(message, type = "info") {
@@ -136,7 +136,7 @@
 			if (typeof message !== "string" || !message.length) return;
 
 			// Normalize and validate alert type
-			type = type?.toLowerCase() || 'info';
+			type = type?.toLowerCase() || "info";
 			type = (type === "critical") ? "error" : type;
 
 			// Case 1: Toastr is available?
@@ -147,7 +147,7 @@
 
 			// Case 2: Use provided alter template.
 			type = csk.ui.alertClasses.includes(type) ? type : "info";
-			const clone = document.getElementById("csk-alert-template")?.content?.querySelector('div')?.cloneNode(true);
+			const clone = document.getElementById("csk-alert-template")?.content?.querySelector("div")?.cloneNode(true);
 			if (clone) {
 				// Add alert Bootstrap alert classes then add message.
 				clone.classList.add("alert", "alert-" + type, "alert-dismissible");
@@ -178,7 +178,7 @@
 			let len = $alert.text().trim().length;
 			let after = Math.min(10000, 4000 + (len * 50));
 
-			$alert.delay(after).slideUp(500, function () {
+			$alert.delay(after).slideUp(500, function() {
 				$alert.alert("close").remove();
 			});
 		},
@@ -259,7 +259,7 @@
 				var img = lazyImages[i];
 				if (!csk.ui.inViewport(img) || typeof img !== "object") {
 					return;
-				} else if ($(img).is('img')) {
+				} else if ($(img).is("img")) {
 					img.src = img.getAttribute("data-src") || img.src;
 					img.onload = function() {
 						this.removeAttribute("data-src");
@@ -276,7 +276,7 @@
 		 * @since 3.9.6
 		 */
 		scrollToTop: function() {
-			const scrollToTop = document.body.querySelector('.scroll-to-top');
+			const scrollToTop = document.body.querySelector(".scroll-to-top");
 			if (document.documentElement.scrollTop > 100) {
 				if (!csk.ui.scrollToTopVisible) {
 					csk.ui.fadeIn(scrollToTop);
@@ -328,9 +328,9 @@
 		prepFields: function(input) {
 			var fields = {},
 				hash;
-			var hashes = input.split(';');
+			var hashes = input.split(";");
 			for (var i = 0; i < hashes.length; i++) {
-				hash = hashes[i].split(':');
+				hash = hashes[i].split(":");
 				fields[hash[0]] = hash[1];
 			}
 			return fields;
@@ -344,9 +344,9 @@
 			href = href || window.location.href;
 			var params = {},
 				hash;
-			var hashes = href.slice(href.indexOf('?') + 1).split('&');
+			var hashes = href.slice(href.indexOf("?") + 1).split("&");
 			for (var i = 0; i < hashes.length; i++) {
-				hash = hashes[i].split('=');
+				hash = hashes[i].split("=");
 				params[hash[0]] = hash[1];
 			}
 			return params;
@@ -374,7 +374,7 @@
 		 * Copy to clipboard.
 		 * @since 2.18
 		 */
-		clipboard: function (el) {
+		clipboard: function(el) {
 			const copyText = el.getAttribute("data-text");
 			if (!copyText?.length) {
 				csk.ui.alert(csk.i18n.default.clipboard_copy_error, "error");
@@ -415,7 +415,7 @@
 		 * DataTable.
 		 * @since 3.9.8
 		 */
-		dataTable: function (selector, options) {
+		dataTable: function(selector, options) {
 			if (typeof $.fn.DataTable === "undefined") {
 				console.error("Please load DataTables before using 'csk.ui.dataTable'.");
 				return;
@@ -427,7 +427,7 @@
 					url: $(selector).data("source"),
 					type: "POST"
 				},
-				order: [[0, 'asc']],
+				order: [[0, "asc"]],
 				pageLength: csk.config.perPage,
 				columnDefs: [{
 					targets: "no-sort",
@@ -450,14 +450,14 @@
 			if (!el) return;
 
 			// Look for best ancestor wrapper
-			const group = el.closest('.form-group, .mb-3, .form-check');
+			const group = el.closest(".form-group, .mb-3, .form-check");
 
 			const target = group || el;
-			target.classList.add('highlight-focus');
-			target.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+			target.classList.add("highlight-focus");
+			target.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
 
 			// Remove the class after blink sequence
-			setTimeout(() => target.classList.remove('highlight-focus'), 4000);
+			setTimeout(() => target.classList.remove("highlight-focus"), 4000);
 		},
 
 		/**
@@ -507,7 +507,36 @@
 	};
 
 	/**
-	 * Register our custom Lazy Load function.
+	 * Initializes dynamic toggles for select elements.
+	 * @since 3.12.0
+	 *
+	 * @return {void}
+	 */
+	csk.ui.addListener("DOMContentLoaded", () => setTimeout(() => {
+		const els = document.querySelectorAll("select[data-toggle-target]");
+		if (!els?.length) return;
+
+		// Toggle visibility based on select value
+		const toggle = e => {
+			const target = e.target ?? e; // e could be the event or the element itself
+			const selector = target.getAttribute("data-toggle-target");
+			const value = target.getAttribute("data-toggle-value");
+			const el = document.querySelector(selector);
+
+			if (!selector || !value || !el) return;
+
+			// Show if the value matches, hide otherwise
+			el.style.display = target.value === value ? "" : "none";
+		};
+
+		els.forEach(el => {
+			el.addEventListener("change", toggle);
+			toggle(el); // initial state
+		});
+	}, 0));
+
+	/**
+	 * Register our custom listeners.
 	 * @since 2.0
 	 */
 	csk.ui.highlightByHash();
@@ -516,11 +545,9 @@
 	csk.ui.addListener("load", csk.ui.lazyLoad);
 	csk.ui.addListener("scroll", csk.ui.lazyLoad);
 	csk.ui.addListener("scroll", csk.ui.scrollToTop);
-	csk.ui.addListener('click', function(e) {
-		if (e.target.closest('.scroll-to-top')) {
-			e.preventDefault();
-			window.scrollTo({top: 0, behavior: 'smooth'});
-		}
+	csk.ui.delegate("click", ".scroll-to-top", function(e) {
+		e.preventDefault();
+		window.scrollTo({top: 0, behavior: "smooth"});
 	});
 
 	/**
@@ -642,9 +669,9 @@
 	 * HTTP method shortcuts
 	 * @since 3.11.1
 	 */
-	['get', 'post', 'put', 'patch', 'delete'].forEach(function (method) {
+	["get", "post", "put", "patch", "delete"].forEach(function(method) {
 		if (csk.ajax[method]) return;
-		csk.ajax[method] = function (url, params) {
+		csk.ajax[method] = function(url, params) {
 			params = params || {};
 			params.type = params.method = method.toUpperCase();
 			return this.request(url, params);
@@ -670,7 +697,7 @@
 			complete: function(jqXHR, textStatus) {
 				if (textStatus === "success") {
 					var response = jqXHR.responseJSON;
-					if ($(that).hasClass('summernote')) {
+					if ($(that).hasClass("summernote")) {
 						$(that).summernote("insertImage", response.results.url);
 					}
 
@@ -682,7 +709,7 @@
 					}).appendTo(that);
 
 					// Enable submit button abck
-					csk.ui.toggleDisabled($(that).closest('form').find("[type=submit]"), false);
+					csk.ui.toggleDisabled($(that).closest("form").find("[type=submit]"), false);
 				}
 			}
 		});
@@ -695,7 +722,7 @@
 	csk.submit = function(url, fields) {
 		var $form = $("<form>", {
 			action: url,
-			method: 'post'
+			method: "post"
 		});
 		$.each(fields, function(key, val) {
 			$("<input>").attr({
@@ -704,7 +731,7 @@
 				value: val
 			}).appendTo($form);
 		});
-		$form.appendTo('body').submit();
+		$form.appendTo("body").submit();
 	};
 
 	/**
@@ -758,14 +785,14 @@
 			const $insert = $("#media-insert-btn");
 
 			$browser.html('<div class="text-center py-5 text-muted">'+csk.i18n.default.loading+'...</div>');
-			$insert.prop('disabled', true);
+			$insert.prop("disabled", true);
 
 			// Load existing media
-			csk.ajax.request(csk.config.adminURL + '/ajax/media', {
-				type: 'GET',
+			csk.ajax.request(csk.config.adminURL + "/ajax/media", {
+				type: "GET",
 				success: function(response) {
 					if (response.results && response.results.length) {
-						let html = '';
+						let html = "";
 						response.results.forEach(file => {
 							var source = document.getElementById("media-template").innerHTML,
 							template = Handlebars.compile(source);
@@ -779,7 +806,7 @@
 				}
 			});
 
-			$modal.modal('show');
+			$modal.modal("show");
 		},
 
 		/**
@@ -787,9 +814,9 @@
 		 * @return {void}
 		 */
 		select: function() {
-			$('#media-modal .media-item').removeClass('selected');
-			$(this).addClass('selected');
-			$('#media-modal #media-insert-btn').prop('disabled', false);
+			$("#media-modal .media-item").removeClass("selected");
+			$(this).addClass("selected");
+			$("#media-modal #media-insert-btn").prop("disabled", false);
 		},
 
 		/**
@@ -797,24 +824,24 @@
 		 * @return {void}
 		 */
 		insert: function() {
-			const selected = $('#media-modal .media-item.selected');
+			const selected = $("#media-modal .media-item.selected");
 			if (!selected.length || !csk.media.editor) return;
 
 			const $editor = $(csk.media.editor);
-			if (!$editor.hasClass('summernote')) {
-				console.warn('Invalid editor reference:', $editor);
+			if (!$editor.hasClass("summernote")) {
+				console.warn("Invalid editor reference:", $editor);
 				return;
 			}
 
-			const url = selected.data('url');
-			$editor.summernote('insertImage', url);
-			$('#media-modal').modal('hide');
+			const url = selected.data("url");
+			$editor.summernote("insertImage", url);
+			$("#media-modal").modal("hide");
 		},
 
-		init: function () {
+		init: function() {
 			if (csk.media._initialized) return;
-			csk.ui.delegate('click', '#media-modal .media-item', csk.media.select);
-			csk.ui.delegate('click', '#media-modal #media-insert-btn', csk.media.insert);
+			csk.ui.delegate("click", "#media-modal .media-item", csk.media.select);
+			csk.ui.delegate("click", "#media-modal #media-insert-btn", csk.media.insert);
 			csk.media._initialized = true;
 		}
 	};
@@ -840,7 +867,7 @@
 		 * @since 2.100
 		 */
 		if (typeof csk.config !== "undefined") {
-			$.fn.ping({url: csk.config.baseURL+'keep-alive', timer: 1800000});
+			$.fn.ping({url: csk.config.baseURL+"keep-alive", timer: 1800000});
 		}
 
 		/**
@@ -857,7 +884,7 @@
 		 */
 		if (typeof toastr !== "undefined") {
 			toastr.options = {
-				"rtl": csk.config.lang.direction === 'rtl',
+				"rtl": csk.config.lang.direction === "rtl",
 				"closeButton": true,
 				"positionClass": "toast-top-center",
 				"hideDuration": "300",
@@ -886,7 +913,7 @@
 		 * @since 2.16
 		 */
 		if (typeof $.fn.select2 !== "undefined") {
-			$("select.select2").each(function () {
+			$("select.select2").each(function() {
 				var $that = $(this),
 					config = { width: "100%" },
 					ph = $that.data("placeholder") || $that.attr("placeholder"),
@@ -896,7 +923,7 @@
 					config.placeholder = ph;
 					config.allowClear = true;
 
-					if (!$that.prop('multiple') && !$that.find('option[value=""]').length) {
+					if (!$that.prop("multiple") && !$that.find('option[value=""]').length) {
 						$that.prepend('<option value="" disabled selected></option>');
 					}
 				}
@@ -909,19 +936,19 @@
 					config.minimumInputLength = 1;
 					config.ajax = {
 						delay: 250,
-						transport: function (params, success, failure) {
+						transport: function(params, success, failure) {
 							csk.ajax.request(href, {
 								data: {
 									q: params.data.term || "",
 									page: params.data.page || 1
 								},
-								success: function (data) {
+								success: function(data) {
 									success(data);
 								},
 								error: failure
 							});
 						},
-						processResults: function (data) {
+						processResults: function(data) {
 							return data;
 						}
 					};
@@ -976,7 +1003,7 @@
 		 * Input with forced Uppercase.
 		 * @since 3.11.1
 		 */
-		$(document).on("input", "input.uppercase", function (e) {
+		$(document).on("input", "input.uppercase", function(e) {
 			e.target.value = e.target.value.toUpperCase();
 		});
 
@@ -990,7 +1017,7 @@
 		 * Universal "Check All" handler — supports checkboxes and buttons.
 		 * @since 2.0
 		 */
-		$(document).on("change click", ".check-all", function (e) {
+		$(document).on("change click", ".check-all", function(e) {
 			const $trigger = $(this);
 			const isCheckbox = $trigger.is(":checkbox");
 
@@ -1007,7 +1034,7 @@
 
 			// Select all target items
 			const $targets = $container.find(".check-this").not(":disabled");
-			$targets.each(function () {
+			$targets.each(function() {
 				const $el = $(this);
 				const $row = $el.closest("tr, .list-group-item");
 
@@ -1031,7 +1058,7 @@
 			var $that = $(this),
 				row = $that.closest("[data-id]") || $that.parents("tr"),
 				table = $that.parents("#list") || $that.parents("table"),
-				target = $('.bulk-action'),
+				target = $(".bulk-action"),
 				row_id = row.data("id");
 			row.toggleClass("selected", this.checked);
 			if (this.checked) {
@@ -1427,7 +1454,7 @@
 		 * @since 2.11
 		 */
 		// Put back URL when modal is closed.
-		$(document).on("hidden.bs.modal hidden.bs.offcanvas", "#media-detail, #theme-detail", function (e) {
+		$(document).on("hidden.bs.modal hidden.bs.offcanvas", "#media-detail, #theme-detail", function(e) {
 			var url = new URL(window.location.href);
 			for (const key of Array.from(url.searchParams.keys())) {
 				if (key.toLowerCase() === "item") {
