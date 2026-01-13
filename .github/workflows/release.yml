@@ -17,6 +17,7 @@ jobs:
     outputs:
       repo: ${{ github.repository }}
       zip: ${{ steps.vars.outputs.zip }}
+      version: ${{ steps.vars.outputs.tag }}
 
     steps:
       - name: 1️⃣ Checkout code
