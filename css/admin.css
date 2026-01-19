@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*!
  * CiSkeleton Back-End - Admin CSS (https://www.ianhub.net/)
- * Copyright 2025 Kader Bouyakoub (https://github.com/bkader)
+ * Copyright 2026 Kader Bouyakoub (https://github.com/bkader)
  */
 
 :root {
@@ -258,40 +258,39 @@
 }
 
 /* Arabic and Persian */
-:root[lang="ar"],
-:root[lang="fa"] {
+:root[lang="ar-DZ"],
+:root[lang="fa-IR"] {
 	--cs-font-family-default: 'Noto Kufi Arabic', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Japanese */
-:root[lang="ja"] {
+:root[lang="ja-JP"] {
 	--cs-font-family-default: 'Noto Sans JP', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Korean */
-:root[lang="ko"] {
+:root[lang="ko-KR"] {
 	--cs-font-family-default: 'Noto Sans KR', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Simplified Chinese (China) */
-:root[lang="zh"],
-:root[lang="zh-cn"] {
+:root[lang="zh-CN"] {
 	--cs-font-family-default: 'Noto Sans SC', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Traditional Chinese (Taiwan) */
-:root[lang="zh-tw"] {
+:root[lang="zh-TW"] {
 	--cs-font-family-default: 'Noto Sans TC', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Cyrillic languages (Bulgarian, Russian) */
-:root[lang="bg"],
-:root[lang="ru"] {
+:root[lang="bg-BG"],
+:root[lang="ru-RU"] {
 	--cs-font-family-default: 'Noto Sans', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Devanagari (Hindi) */
-:root[lang="hi"] {
+:root[lang="hi-IN"] {
 	--cs-font-family-default: 'Noto Sans Devanagari', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
@@ -448,10 +447,6 @@ button.disabled {
 	box-shadow: 0 0 0 .0625rem rgba(0, 123, 255, .25);
 }
 
-.csk-captcha {
-	border-radius: .25rem;
-}
-
 .pagination {
 	display: inline-flex;
 }
@@ -517,7 +512,7 @@ textarea {
 	direction: inherit;
 }
 
-.rtl .fa:not(.fa-facebook, .fa-facebook-square, .fa-google, .fa-linkedin, .fa-linkedin-square, .fa-check, .fa-check-circle) {
+[dir="rtl"] .fa:not(.fa-facebook, .fa-facebook-square, .fa-google, .fa-linkedin, .fa-linkedin-square, .fa-check, .fa-check-circle) {
 	transform: scale(-1, 1);
 }
 
@@ -2834,16 +2829,16 @@ table td>input[type="checkbox"] {
 	z-index: 0;
 }
 
-.csk-admin.csk-login {
+.context-admin.controller-login {
 	background-color: var(--cs-color-primary);
 }
 
-.csk-admin.csk-login a:has(>.login-logo) {
+.context-admin.controller-login a:has(>.login-logo) {
 	display: block;
 	min-height: 3.625rem;
 }
 
-.csk-admin.csk-login .footer {
+.context-admin.controller-login .footer {
 	box-shadow: none;
 	font-size: var(--cs-font-size-default);
 	background-color: var(--cs-color-primary);
@@ -2852,11 +2847,11 @@ table td>input[type="checkbox"] {
 	border: none;
 }
 
-.csk-admin.csk-login .footer a {
+.context-admin.controller-login .footer a {
 	color: var(--bs-white);
 }
 
-.csk-admin.csk-login .footer .skeleton-footer-logo {
+.context-admin.controller-login .footer .skeleton-footer-logo {
 	background-color: transparent;
 	background-image: url("../img/icon-white.png");
 	background-position: center center;
