@@ -1556,13 +1556,13 @@ textarea {
 
 .bg-gold {
 	background-color: var(--cs-color-gold);
-	color: var(--cs-color-default);
+	color: var(--bs-white);
 }
 
 .btn-gold {
 	background-color: var(--cs-color-gold);
 	border-color: var(--cs-color-gold-border);
-	color: var(--cs-color-default) !important;
+	color: var(--bs-white); !important;
 }
 
 .btn-gold:focus-visible,
@@ -2806,7 +2806,6 @@ table td>input[type="checkbox"] {
 	margin-block-end: .25rem;
 	padding: 0;
 	white-space: nowrap;
-	z-index: 5;
 	text-shadow: .125rem .125rem rgba(0, 0, 0, .2);
 	line-height: 1;
 }
@@ -2814,7 +2813,6 @@ table td>input[type="checkbox"] {
 .info-box p {
 	font-size: .938rem;
 	font-weight: 500;
-	z-index: 5;
 	text-shadow: .125rem .125rem rgba(0, 0, 0, .2);
 	margin: 0;
 }
