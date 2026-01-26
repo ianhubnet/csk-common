@@ -996,7 +996,8 @@
 					config.allowClear = true;
 
 					if (!$that.prop("multiple") && !$that.find('option[value=""]').length) {
-						$that.prepend('<option value="" disabled selected></option>');
+						const hasValue = $that.val() !== null && $that.val() !== "";
+						$that.prepend('<option value="" disabled'+(hasValue ? '' : ' selected')+'></option>');
 					}
 				}
 
