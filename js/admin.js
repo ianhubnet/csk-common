@@ -5,7 +5,7 @@
 (function($, window, document, undefined) {
 	"use strict";
 
-	/** Prepare Skeleton globals. */
+	// Prepare Skeleton globals.
 	var csk = window.csk = window.csk || {};
 	csk.i18n = csk.i18n || {};
 
@@ -192,7 +192,7 @@
 		 * @return {void}
 		 */
 		reload: function(el, navbar, callback) {
-			/** If no element is provided, we use "#wrapper". */
+			// If no element is provided, we use "#wrapper".
 			el = el || "#wrapper";
 			if (!el.length) {
 				return false;
@@ -522,11 +522,6 @@
 		 */
 		requesting: false,
 		/**
-		 * The last context that was set by the request.
-		 * @type {object}
-		 */
-		context: undefined,
-		/**
 		 * Queues an AJAX request and fires if needed.
 		 * @param  string url     URL to send AJAX to.
 		 * @param  array  params  Object of AJAX settings.
@@ -534,28 +529,38 @@
 		request: function(url, params) {
 			params = params || {};
 			var context = params.context || this,
-				type = params.type || "GET";
+				type = params.type || "GET",
+				onSuccess = params.onSuccess || null,
+				onError = params.onError || null;
 
-			/** Merge parameters with default ones. */
-			params = $.extend({
+			// Merge parameters with default ones.
+			params = $.extend(true, {}, params, {
 				url: url,
 				method: type,
 				type: type,
+				context: context,
 				// Backward compatibility.
 				async: true,
 				cache: false,
-				headers: {"X-Requested-With": "XMLHttpRequest"},
+				headers: $.extend({}, params.headers || {}, {"X-Requested-With": "XMLHttpRequest"}),
 				dataType: "json",
 				success: function(data, textStatus, jqXHR) {
-					csk.ajax._response(data);
+					// `this` is the jQuery AJAX context (because we set it)
+					csk.ajax._response(data, this);
+					if (typeof onSuccess === "function") {
+						onSuccess.apply(this, arguments)
+					}
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
 					var response = jqXHR.responseJSON || undefined;
+					if (typeof onError === "function") {
+						onError.apply(this, arguments);
+					}
 					if (response?.message?.length) {
 						csk.ui.alert(response.message, response.status || "error");
 					}
 				}
-			}, params);
+			});
 			this.requests.push(params);
 			this._execute();
 		},
@@ -571,45 +576,47 @@
 			if (this.requesting == true) {
 				return;
 			}
-			var request = this.requests.splice(0, 1)[0],
-				complete = request.complete;
-			var self = this;
+			var self = this,
+				request = this.requests.splice(0, 1)[0],
+				onComplete = request.onComplete;
+
 			if (request._execute) {
 				request._execute(request);
 			}
-			request.complete = function() {
-				if (complete) {
-					complete.apply(this, arguments);
+
+			request.complete = function(jqXHR, textStatus) {
+				if (typeof onComplete === "function") {
+					onComplete.apply(this, arguments);
 				}
 				self.requesting = false;
 				self._execute();
 			};
 			this.requesting = true;
-			$.ajax(request);
+
+			const delay = request._delay ?? 0;
+			setTimeout(() => $.ajax(request), delay);
 		},
 		/**
 		 * Handle JSON data response sent by csk.ajax.request
 		 * @param  string data Normally, it should be a JSON encoded response.
+		 * @param  object context Execution context
 		 * @return void
 		 */
-		_response: function(data) {
+		_response: function(data, context) {
 			var data = data || {},
-				context = this;
+				context = context || window;
 
-			/** Cache the used element. */
-			csk.ajax.context = context;
-
-			/** Did we receive a message? */
+			// Did we receive a message?
 			if (data?.message?.length) {
 				csk.ui.alert(data.message, "success");
 			}
 
-			/** No scripts passed? Nothing to do. */
+			// No scripts passed? Nothing to do.
 			if (!data.scripts?.length) {
 				return;
 			}
 
-			/** Perform receive scripts. */
+			// Perform receive scripts.
 			var _scripts = data.scripts.length;
 			for (var i = 0; i < _scripts; i++) {
 				try {
@@ -650,7 +657,7 @@
 			data: data,
 			processData: false,
 			contentType: false,
-			complete: function(jqXHR, textStatus) {
+			onComplete: function(jqXHR, textStatus) {
 				if (textStatus === "success") {
 					var response = jqXHR.responseJSON;
 					if ($(that).hasClass("summernote")) {
@@ -752,8 +759,8 @@
 			// Load existing media
 			csk.ajax.request(csk.config.adminURL + "/ajax/media", {
 				type: "GET",
-				success: function(response) {
-					if (!response?.results?.length) {
+				onSuccess: function(data, textStatus, jqXHR) {
+					if (!data?.results?.length) {
 						$browser.html('<div class="text-center py-5 text-muted">'+csk.i18n.default.no_data+'</div>');
 						return;
 					}
@@ -761,7 +768,7 @@
 					let html = '';
 					const source = document.getElementById("media-template").innerHTML;
 					const template = Handlebars.compile(source);
-					response.results.forEach(file => {
+					data.results.forEach(file => {
 						html += template(file);
 					});
 
@@ -908,7 +915,7 @@
 		});
 	});
 
-	/** Things to do when the page is ready! */
+	// Things to do when the page is ready!
 	$(document).ready(function() {
 		/**
 		 * Extend jQuery.
@@ -1015,10 +1022,10 @@
 									q: params.data.term || "",
 									page: params.data.page || 1
 								},
-								success: function(data) {
+								onSuccess: function(data, textStatus, jqXHR) {
 									success(data);
 								},
-								error: failure
+								onError: failure
 							});
 						},
 						processResults: function(data) {
@@ -1054,7 +1061,7 @@
 				$that.sortable({
 					containment: ".sortable",
 					cursor: "move",
-					tolrance: "pointer",
+					tolerance: "pointer",
 					scroll: true,
 					revert: 100,
 					opacity: .65,
@@ -1170,7 +1177,7 @@
 			if (typeof message !== "undefined") {
 				return csk.ui.confirm(message, function() {
 					csk.ajax.request(href, {
-						el: this,
+						el: $that,
 						type: $that.data("request") || "POST",
 						data: {
 							"id": Array.from(multiSelect).join(","),
@@ -1181,16 +1188,17 @@
 								csk.ui.toggleDisabled($that[0], true);
 							}
 						},
-						success: function(data, textStatus, jqXHR) {
-							csk.ajax._response(data);
+						onSuccess: function(data, textStatus, jqXHR) {
 							csk.ui.toggleDisabled($that[0], false);
-							setTimeout(location.reload.bind(location), 2000);
+							if (!data.scripts?.length) {
+								setTimeout(location.reload.bind(location), 2000);
+							}
 						}
 					});
 				}, null, $that);
 			}
 			csk.ajax.request(href, {
-				el: this,
+				el: $that,
 				type: "POST",
 				data: {
 					"id": multiSelect,
@@ -1208,7 +1216,7 @@
 			});
 		});
 
-		/** Bootstrap tooltip and popover. */
+		// Bootstrap tooltip and popover.
 		if (typeof $.fn.tooltip !== "undefined") {
 			$("body").tooltip({
 				selector: "[data-bs-toggle=tooltip], [rel=tooltip]"
@@ -1237,7 +1245,7 @@
 			return true;
 		});
 
-		/** Make form inputs keep values even after refresh. */
+		// Make form inputs keep values even after refresh.
 		if (typeof $.fn.garlic !== "undefined") {
 			$("[rel=persist]").garlic();
 		}
@@ -1255,28 +1263,28 @@
 				return false;
 			}
 
-			/** Not valid rel attribute? Proceed by default. */
+			// Not valid rel attribute? Proceed by default.
 			if (!rel.length || rel !== "async" && rel !== "async-post") {
 				return;
 			}
 			e.preventDefault();
 			csk.ajax.request(href, {
-				el: this,
+				el: $that,
 				type: rel === "async" ? "GET" : "POST",
 				beforeSend: function() {
 					if ($that.prop("disabled")) {
 						return;
 					}
 
-					/** We disable the element before proceeding. */
+					// We disable the element before proceeding.
 					csk.ui.toggleDisabled($that[0], true);
 				},
-				success: function(data, textStatus, jqXHR) {
-					/** let _response handle response/ */
-					csk.ajax._response(data);
-					/** remove disabled property and reload page. */
+				onSuccess: function(data, textStatus, jqXHR) {
+					// remove disabled property and reload page.
 					csk.ui.toggleDisabled($that[0], false);
-					setTimeout(location.reload.bind(location), 1500);
+					if (!data.scripts?.length) {
+						setTimeout(location.reload.bind(location), 1500);
+					}
 				}
 			});
 			return false;
@@ -1291,17 +1299,17 @@
 				rel = $form.attr("rel"),
 				href = $form.attr("ajaxify") || $form.attr("action");
 
-			/** No action provided? Nothing to do... */
+			// No action provided? Nothing to do...
 			if (!href?.length) {
 				e.preventDefault();
 				return false;
 			}
 			switch (rel) {
-				/** In case of an asynchronous use. */
+				// In case of an asynchronous use.
 				case "async":
 					e.preventDefault();
 					csk.ajax.request(href, {
-						el: this,
+						el: form,
 						type: "POST",
 						data: $form.serializeArray(),
 						beforeSend: function() {
@@ -1310,7 +1318,7 @@
 							}
 							csk.ui.toggleDisabled($form.find("[type=submit]"), true);
 						},
-						complete: function() {
+						onComplete: function() {
 							$form.trigger("reset");
 							csk.ui.toggleDisabled($form.find("[type=submit]"), false);
 							setTimeout(location.reload.bind(location), 1500);
@@ -1351,27 +1359,27 @@
 				data = $that.data("fields"),
 				message = $that.data("confirm");
 
-			/** No URL provided? Nothing to do... */
+			// No URL provided? Nothing to do...
 			if (!href?.length) {
 				return false;
 			}
 
-			/** See if we have any optional fields */
+			// See if we have any optional fields
 			if (data?.length) {
 				data = csk.ui.prepFields(data);
 			}
 
-			/** No URL provided? Nothing to do...No message provided? Just proceed. */
+			// No URL provided? Nothing to do...No message provided? Just proceed.
 			if (!message?.length) {
 				message = "Are you sure?";
 			}
 
-			/** Display the confirmation box before proceeding. */
+			// Display the confirmation box before proceeding.
 			return csk.ui.confirm(message, function() {
-				/** ajax request. */
+				// ajax request.
 				if (rel?.length) {
 					csk.ajax.request(href, {
-						el: this,
+						el: $that,
 						type: rel === "async" ? "GET" : "POST",
 						data: data,
 						beforeSend: function() {
@@ -1379,15 +1387,18 @@
 								return;
 							}
 
-							/** We disable the element before proceeding. */
+							// We disable the element before proceeding.
 							csk.ui.toggleDisabled($that[0], true);
 						},
-						success: function(data, textStatus, jqXHR) {
-							/** let _response handle response/ */
-							csk.ajax._response(data);
-							/** remove disabled property and reload page. */
+						onSuccess: function(data, textStatus, jqXHR) {
+							// reload page only if it has no script
+							if (!data.scripts?.length) {
+								setTimeout(location.reload.bind(location), 1500);
+							}
+						},
+						onComplete: function(jqXHR, textStatus) {
+							// remove disabled property
 							csk.ui.toggleDisabled($that[0], false);
-							setTimeout(location.reload.bind(location), 1500);
 						}
 					});
 				} else {
@@ -1410,32 +1421,32 @@
 		$(document).on("click", "[data-action]", function(e) {
 			e.preventDefault();
 
-			/** We collect data about the clicked element. */
+			// We collect data about the clicked element.
 			var $that = $(this),
 				action = $that.data("action") || -1,
 				target = $that.data("target") || undefined,
 				name = $that.data("name") || $that.attr("aria-label") || "this",
 				href = $that.attr("ajaxify") || $that.attr("href") || undefined;
 
-			/** No action? Nothing to do... */
+			// No action? Nothing to do...
 			if (action <= 0) {
 				console.error("error action: " + action);
 				return false;
 			}
 
-			/** No target? Nothing to do... */
+			// No target? Nothing to do...
 			if (!target?.length || typeof csk[target] === "undefined") {
 				console.error("error target: " + target);
 				return false;
 			}
 
-			/** No href? Nothing to do... */
+			// No href? Nothing to do...
 			if (!href?.length) {
 				console.error("error href: " + href);
 				return false;
 			}
 
-			/** We define the confirmation message. */
+			// We define the confirmation message.
 			var message = csk.i18n[target][action] || undefined;
 			if (typeof message === "undefined") {
 				message = csk.i18n[action] || undefined;
@@ -1444,20 +1455,20 @@
 				}
 			}
 
-			/** We see if the element is within a table. */
+			// We see if the element is within a table.
 			var row = $that.closest("tr");
 
-			/** If so, apply the opacity class "op-2". */
+			// If so, apply the opacity class "op-2".
 			if (row.length) {
 				row.siblings("tr").addClass("op-2");
 			}
 
-			/** We display a confirmation message if defined. */
+			// We display a confirmation message if defined.
 			if (message?.length) {
 				csk.ui.confirm(sprintf(message, name), function() {
 					window.location.href = href;
 				}, function() {
-					/** We put back siblings opacity to initial state. */
+					// We put back siblings opacity to initial state.
 					if (row.length) {
 						row.siblings("tr").removeClass("op-2");
 					}
@@ -1465,7 +1476,7 @@
 				return;
 			}
 
-			/** At this point, there was no confirmation message. */
+			// At this point, there was no confirmation message.
 			window.location.href = href;
 			return;
 		});
