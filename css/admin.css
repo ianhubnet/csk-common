@@ -438,6 +438,11 @@ button.disabled {
 	pointer-events: none;
 }
 
+code {
+	direction: ltr;
+	unicode-bidi: isolate;
+}
+
 .no-resize {
 	resize: none !important;
 }
