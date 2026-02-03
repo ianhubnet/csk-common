@@ -1555,6 +1555,84 @@
 		});
 
 		/**
+		 * Generic input binding handler.
+		 * @since 3.12.0
+		 *
+		 * Allows inputs to dynamically update any target attribute/property
+		 * using data-attributes only (no custom JS per feature).
+		 *
+		 * Required attributes:
+		 * 1. [data-bind]     Enables the binding behavior.
+		 * 2. [data-target]   Target selector.
+		 * 3. [data-attr]     Attribute or property path (src, textContent, style.color…)
+		 *
+		 * Optional:
+		 * - [data-prefix]
+		 * - [data-suffix]
+		 */
+		$(document).on("change", "input[data-bind], select[data-bind]", function() {
+
+			// We collect data about the input.
+			var $that = $(this),
+				value = $that.val(),
+				target = $that.data("target") || undefined,
+				attr = $that.data("attr") || undefined,
+				prefix = $that.data("prefix") || "",
+				suffix = $that.data("suffix") || "";
+
+			// No target? Nothing to do...
+			if (!target?.length) {
+				console.error("error target: " + target);
+				return false;
+			}
+
+			// No attribute? Nothing to do...
+			if (!attr?.length) {
+				console.error("error attr: " + attr);
+				return false;
+			}
+
+			// We resolve the target element.
+			var $target = $(target);
+			if (!$target.length) {
+				console.error("error target not found: " + target);
+				return false;
+			}
+
+			// Final value with optional prefix/suffix.
+			var finalValue = prefix + value + suffix;
+
+			// We check if attribute is nested (style.color, dataset.foo, etc).
+			if (attr.indexOf(".") !== -1) {
+
+				var parts = attr.split("."),
+					obj = $target.get(0);
+
+				// Walk through the object path.
+				for (var i = 0; i < parts.length - 1; i++) {
+					if (typeof obj[parts[i]] === "undefined") {
+						console.error("error invalid attr path: " + attr);
+						return false;
+					}
+					obj = obj[parts[i]];
+				}
+
+				// Apply value.
+				obj[parts[parts.length - 1]] = finalValue;
+				return;
+			}
+
+			// Simple attribute/property assignment.
+			if (typeof $target.prop(attr) !== "undefined") {
+				$target.prop(attr, finalValue);
+				return;
+			}
+
+			$target.attr(attr, finalValue);
+			return;
+		});
+
+		/**
 		 * Dropzone.
 		 * @since 2.18
 		 */
