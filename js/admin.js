@@ -992,6 +992,7 @@
 		 * @since 2.16
 		 */
 		if (typeof $.fn.select2 !== "undefined") {
+			const use_bootstrap = document.getElementById("select2-bootstrap-css") !== null;
 			$("select.select2").each(function() {
 				var $that = $(this),
 					config = { width: "100%" },
@@ -1032,6 +1033,10 @@
 							return data;
 						}
 					};
+				}
+
+				if (use_bootstrap) {
+					config.theme = "bootstrap-5";
 				}
 
 				$that.select2(config);
