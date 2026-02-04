@@ -747,18 +747,25 @@
 			const isEditor = target instanceof HTMLElement;
 			const isField = !isEditor && target && target.mode === 'field';
 
+			const url = isEditor ? (target.dataset.fetch || null) : target.url;
+			if (!url?.length) {
+				console.error("Missing browser endpoint.");
+				return;
+			}
+
 			const $modal = $("#media-modal");
 			const $browser = $("#media-browser");
 			const $insert = $("#media-insert-btn");
 
-			$browser.empty().html('<div class="text-center py-5 text-muted">'+csk.i18n.default.loading+'...</div>');
-
-			$insert.prop('disabled', true);
-			$("#media-modal .media-item").removeClass("selected");
-
 			// Load existing media
-			csk.ajax.request(csk.config.adminURL + "/ajax/media", {
+			csk.ajax.request(url, {
 				type: "GET",
+				beforeSend: function () {
+					$browser.empty().html('<div class="text-center py-5 text-muted">'+csk.i18n.default.loading+'</div>');
+
+					$insert.prop('disabled', true);
+					$("#media-modal .media-item").removeClass("selected");
+				},
 				onSuccess: function(data, textStatus, jqXHR) {
 					if (!data?.results?.length) {
 						$browser.html('<div class="text-center py-5 text-muted">'+csk.i18n.default.no_data+'</div>');
@@ -784,6 +791,13 @@
 						$(this).addClass("selected");
 						$insert.trigger("click");
 					});
+
+					// Render browser
+					$modal.modal("show");
+
+				},
+				onError: function() {
+					$modal.modal("hide");
 				}
 			});
 
@@ -826,8 +840,6 @@
 
 				$modal.modal("hide");
 			});
-
-			$modal.modal("show");
 		},
 
 		/**
@@ -911,7 +923,8 @@
 			mode: el.dataset.mediaMode || 'field',
 			target: el.dataset.mediaTarget || null,
 			preview: el.dataset.mediaPreview || null,
-			size: el.dataset.mediaSize || null
+			size: el.dataset.mediaSize || null,
+			url: el.dataset.mediaFetch || null,
 		});
 	});
 
