@@ -760,7 +760,7 @@
 			// Load existing media
 			csk.ajax.request(url, {
 				type: "GET",
-				beforeSend: function () {
+				beforeSend: function() {
 					$browser.empty().html('<div class="text-center py-5 text-muted">'+csk.i18n.default.loading+'</div>');
 
 					$insert.prop('disabled', true);
@@ -916,7 +916,11 @@
 		});
 	}, 0));
 
-	csk.ui.delegate('click', '[data-media-browse]', function () {
+	/**
+	 * Media browser access.
+	 * @since 3.12.0
+	 */
+	csk.ui.delegate('click', '[data-media-browse]', function() {
 		const el = this;
 
 		csk.media.browse({
@@ -926,6 +930,26 @@
 			size: el.dataset.mediaSize || null,
 			url: el.dataset.mediaFetch || null,
 		});
+	});
+
+	/**
+	 * Improves scroll/touch performance automatically.
+	 * @since 3.12.0
+	 */
+	document.addEventListener("DOMContentLoaded", function() {
+		try {
+			let opts = Object.defineProperty({}, 'passive', {
+				get: function () {
+					window.__passiveSupported = true;
+				}
+			});
+			window.addEventListener('test', null, opts);
+		} catch (e) {}
+
+		if (window.__passiveSupported) {
+			document.addEventListener('touchstart', function(){}, { passive: true });
+			document.addEventListener('wheel', function(){}, { passive: true });
+		}
 	});
 
 	// Things to do when the page is ready!
