@@ -1296,23 +1296,20 @@
 		 * AJAXify anchors with attribute rel="async".
 		 * @since 1.33
 		 */
-		$(document).on("click", "a:not([data-confirm])[rel]", function(e) {
+		$(document).on("click", "a:not([data-confirm])[data-method]", function(e) {
 			var $that = $(this),
-				rel = $that.attr("rel"),
+				method = $that.data("method")?.toUpperCase() || "GET",
 				href = $that.attr("ajaxify") || $that.attr("href");
-			if (!href?.length) {
-				e.preventDefault();
-				return false;
-			}
 
-			// Not valid rel attribute? Proceed by default.
-			if (!rel.length || rel !== "async" && rel !== "async-post") {
+			if (!href?.length) {
 				return;
 			}
+
 			e.preventDefault();
+
 			csk.ajax.request(href, {
 				el: $that,
-				type: rel === "async" ? "GET" : "POST",
+				type: method,
 				beforeSend: function() {
 					if ($that.prop("disabled")) {
 						return;
@@ -1329,45 +1326,39 @@
 					}
 				}
 			});
-			return false;
 		});
 
 		/**
 		 * We ajaxify forms with attribute rel="async".
 		 * @since 1.30
 		 */
-		$(document).on("submit", "form[rel]", function(e) {
+		$(document).on("submit", "form[data-method]", function(e) {
 			var $form = $(this),
-				rel = $form.attr("rel"),
+				method = $form.data("method")?.toUpperCase() || "POST",
 				href = $form.attr("ajaxify") || $form.attr("action");
 
-			// No action provided? Nothing to do...
 			if (!href?.length) {
-				e.preventDefault();
-				return false;
+				return;
 			}
-			switch (rel) {
-				// In case of an asynchronous use.
-				case "async":
-					e.preventDefault();
-					csk.ajax.request(href, {
-						el: form,
-						type: "POST",
-						data: $form.serializeArray(),
-						beforeSend: function() {
-							if ($form.prop("disabled")) {
-								return;
-							}
-							csk.ui.toggleDisabled($form.find("[type=submit]"), true);
-						},
-						onComplete: function() {
-							$form.trigger("reset");
-							csk.ui.toggleDisabled($form.find("[type=submit]"), false);
-							setTimeout(location.reload.bind(location), 1500);
-						}
-					});
-					return false;
-			}
+
+			e.preventDefault();
+
+			csk.ajax.request(href, {
+				el: form,
+				type: method,
+				data: $form.serializeArray(),
+				beforeSend: function() {
+					if ($form.prop("disabled")) {
+						return;
+					}
+					csk.ui.toggleDisabled($form.find("[type=submit]"), true);
+				},
+				onComplete: function() {
+					$form.trigger("reset");
+					csk.ui.toggleDisabled($form.find("[type=submit]"), false);
+					setTimeout(location.reload.bind(location), 1500);
+				}
+			});
 		});
 
 		/**
@@ -1396,7 +1387,7 @@
 		$(document).on("click", "[data-confirm]:not([data-form])", function(e) {
 			e.preventDefault();
 			var $that = $(this),
-				rel = $that.attr("rel"),
+				method = $that.data("method")?.toUpperCase(),
 				href = $that.attr("ajaxify") || $that.attr("href"),
 				data = $that.data("fields"),
 				message = $that.data("confirm");
@@ -1413,16 +1404,16 @@
 
 			// No URL provided? Nothing to do...No message provided? Just proceed.
 			if (!message?.length) {
-				message = "Are you sure?";
+				message = csk.i18n.default?.confirm_action || "Are you sure?";
 			}
 
 			// Display the confirmation box before proceeding.
 			return csk.ui.confirm(message, function() {
 				// ajax request.
-				if (rel?.length) {
+				if (method?.length) {
 					csk.ajax.request(href, {
 						el: $that,
-						type: rel === "async" ? "GET" : "POST",
+						type: method,
 						data: data,
 						beforeSend: function() {
 							if ($that.prop("disabled")) {

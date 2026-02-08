@@ -2465,6 +2465,10 @@ table td>input[type="checkbox"] {
 	vertical-align: middle;
 }
 
+.table-sm > :not(caption) > * > * {
+	padding: .325rem .5rem;
+}
+
 .navbar-admin {
 	background-color: var(--cs-color-blue-navbar);
 	color: inherit;
