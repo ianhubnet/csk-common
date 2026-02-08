@@ -2469,6 +2469,12 @@ table td>input[type="checkbox"] {
 	padding: .325rem .5rem;
 }
 
+.table-hover tbody tr.no-hover:hover td,
+.table-hover tbody tr.no-hover:hover th {
+	background-color: inherit;
+	box-shadow: none;
+}
+
 .navbar-admin {
 	background-color: var(--cs-color-blue-navbar);
 	color: inherit;

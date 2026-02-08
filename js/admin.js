@@ -1293,7 +1293,7 @@
 		}
 
 		/**
-		 * AJAXify anchors with attribute rel="async".
+		 * AJAXify anchors with attribute [data-method].
 		 * @since 1.33
 		 */
 		$(document).on("click", "a:not([data-confirm])[data-method]", function(e) {
@@ -1329,7 +1329,7 @@
 		});
 
 		/**
-		 * We ajaxify forms with attribute rel="async".
+		 * We ajaxify forms with attribute [data-method].
 		 * @since 1.30
 		 */
 		$(document).on("submit", "form[data-method]", function(e) {

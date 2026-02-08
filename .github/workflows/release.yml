@@ -22,8 +22,17 @@ jobs:
     steps:
       - name: 1️⃣ Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: 2️⃣ Set up variables
+      - name: 2️⃣ Configure GitHub auth and identity
+        shell: bash
+        run: |
+          git config --global url."https://${{ secrets.CSK_PAT }}@github.com/".insteadOf "https://github.com/"
+          git config user.name "ianhub-bot"
+          git config user.email "bot@ianhub.net"
+
+      - name: 3️⃣ Set up variables
         id: vars
         shell: bash
         run: |
@@ -32,22 +41,24 @@ jobs:
           echo "tag=$TAG" >> $GITHUB_OUTPUT
           echo "zip=$ZIP" >> $GITHUB_OUTPUT
 
-      - name: 3️⃣ Prepare ZIP contents
+      - name: 4️⃣ Prepare ZIP contents
         shell: bash
         run: |
           STAGE=".release-common"
+          ROOT="common"
+
           rm -rf "$STAGE"
-          mkdir "$STAGE"
+          mkdir -p "$STAGE/$ROOT"
 
-          cp -r css fonts img js index.html version "$STAGE/"
+          cp -r css fonts img js index.html version "$STAGE/$ROOT/"
 
-      - name: 4️⃣ Create ZIP archive
+      - name: 5️⃣ Create ZIP archive
         shell: bash
         run: |
           cd .release-common
-          zip -r "../${{ steps.vars.outputs.zip }}" .
+          zip -r "../${{ steps.vars.outputs.zip }}" "$ROOT"
 
-      - name: 5️⃣ Create GitHub Release and upload ZIP
+      - name: 6️⃣ Create GitHub Release and upload ZIP
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.vars.outputs.tag }}
