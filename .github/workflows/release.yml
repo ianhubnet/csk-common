@@ -44,19 +44,18 @@ jobs:
       - name: 4️⃣ Prepare ZIP contents
         shell: bash
         run: |
-          STAGE=".release-common"
-          ROOT="common"
+          if [ ! -d "src" ]; then
+            echo "::error::src not found"
+            exit 1
+          fi
 
-          rm -rf "$STAGE"
-          mkdir -p "$STAGE/$ROOT"
-
-          cp -r css fonts img js index.html version "$STAGE/$ROOT/"
+          mkdir "common"
+          cp -r src "common/"
 
       - name: 5️⃣ Create ZIP archive
         shell: bash
         run: |
-          cd .release-common
-          zip -r "../${{ steps.vars.outputs.zip }}" "$ROOT"
+          zip -r "${{ steps.vars.outputs.zip }}" "common"
 
       - name: 6️⃣ Create GitHub Release and upload ZIP
         uses: softprops/action-gh-release@v2
