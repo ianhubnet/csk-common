@@ -50,7 +50,7 @@ jobs:
           fi
 
           mkdir "common"
-          cp -r src "common/"
+          cp -r src/* "common/"
 
       - name: 5️⃣ Create ZIP archive
         shell: bash
