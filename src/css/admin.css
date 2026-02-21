@@ -245,7 +245,7 @@
 
 	--cs-color-default: var(--bs-body-color, #212529);
 	--cs-color-blue-navbar: #0c314c;
-	--cs-font-family-default: 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: 'Inter', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 	--cs-font-size-default: .8125rem;
 	--cs-font-size-small: .75rem;
 	--cs-font-size-smaller: .688rem;
@@ -260,38 +260,38 @@
 /* Arabic and Persian */
 :root[lang="ar-DZ"],
 :root[lang="fa-IR"] {
-	--cs-font-family-default: 'Noto Kufi Arabic', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: 'Noto Kufi Arabic', 'Inter', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Japanese */
 :root[lang="ja-JP"] {
-	--cs-font-family-default: 'Noto Sans JP', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: 'Noto Sans JP', 'Inter', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Korean */
 :root[lang="ko-KR"] {
-	--cs-font-family-default: 'Noto Sans KR', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: 'Noto Sans KR', 'Inter', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Simplified Chinese (China) */
 :root[lang="zh-CN"] {
-	--cs-font-family-default: 'Noto Sans SC', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: 'Noto Sans SC', 'Inter', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Traditional Chinese (Taiwan) */
 :root[lang="zh-TW"] {
-	--cs-font-family-default: 'Noto Sans TC', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: 'Noto Sans TC', 'Inter', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Cyrillic languages (Bulgarian, Russian) */
 :root[lang="bg-BG"],
 :root[lang="ru-RU"] {
-	--cs-font-family-default: 'Noto Sans', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: 'Noto Sans', 'Inter', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Devanagari (Hindi) */
 :root[lang="hi-IN"] {
-	--cs-font-family-default: 'Noto Sans Devanagari', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: 'Noto Sans Devanagari', 'Inter', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 html, body {
@@ -2481,7 +2481,7 @@ table td>input[type="checkbox"] {
 	border-bottom: .0625rem solid var(--cs-color-primary-border);
 	min-block-size: 2.562rem;
 	padding-block: 0;
-	z-index: 999;
+	z-index: 1033;
 }
 
 .navbar-admin .navbar-brand,
@@ -2575,7 +2575,7 @@ table td>input[type="checkbox"] {
 .dropdown-header,
 .dropdown-item {
 	font-size: var(--cs-font-size-default);
-	padding: .188rem 1rem;
+	padding-inline: 1rem;
 }
 
 .dropdown-item.active,
