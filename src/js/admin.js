@@ -41,7 +41,7 @@
 		 */
 		confirm: function(message, confirmCallback, cancelCallback, elem) {
 			if ((message.startsWith("lang:") || message.startsWith("i18n:")) && typeof csk.i18n !== "undefined") {
-				message = eval("csk.i18n." + message.substring(5)) || message;
+				message = eval("csk.i18n." + message.substring(5).replace(".", "?.")) || csk.i18n.default.confirm_action;
 			}
 
 			// Attempt to use sprintf
