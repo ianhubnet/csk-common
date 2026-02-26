@@ -90,6 +90,8 @@
 	--cs-color-blue-border-hover: #1a6491;
 	--cs-color-blue-focus: #2b84ca;
 	--cs-color-blue-border-focus: #1f6b97;
+	--cs-color-blue-subtle: #9ec9eb;
+	--cs-color-blue-subtler: #d4e6f6;
 
 	/* Brown */
 	--cs-color-brown: #a5673f;
@@ -99,6 +101,8 @@
 	--cs-color-brown-border-hover: #834733;
 	--cs-color-brown-focus: #b77952;
 	--cs-color-brown-border-focus: #aa6e49;
+	--cs-color-brown-subtle: #cfa58a;
+	--cs-color-brown-subtler: #e6d1c2;
 
 	/* Coral */
 	--cs-color-coral: #ff6f61;
@@ -130,6 +134,8 @@
 	--cs-color-gold-border-hover: #ccad00;
 	--cs-color-gold-focus: #ffe333;
 	--cs-color-gold-border-focus: #f7da1f;
+	--cs-color-gold-subtle: #ffe066;
+	--cs-color-gold-subtler: #fff3b3;
 
 	/* Gray */
 	--cs-color-gray: #e9ecef;
@@ -139,6 +145,8 @@
 	--cs-color-gray-border-hover: #c8ccd0;
 	--cs-color-gray-focus: #f3f5f7;
 	--cs-color-gray-border-focus: #e1e4e7;
+	--cs-color-gray-subtle: #f1f3f5;
+	--cs-color-gray-subtler: #fbfcfd;
 
 	/* Lavender */
 	--cs-color-lavender: #b497d6;
@@ -170,6 +178,8 @@
 	--cs-color-olive-border-hover: #8da214;
 	--cs-color-olive-focus: #c0d531;
 	--cs-color-olive-border-focus: #b3c824;
+	--cs-color-olive-subtle: #d6e06b;
+	--cs-color-olive-subtler: #edf7b0;
 
 	/* Orange */
 	--cs-color-orange: #f2711c;
@@ -179,6 +189,8 @@
 	--cs-color-orange-border-hover: #e24e1b;
 	--cs-color-orange-focus: #f38d42;
 	--cs-color-orange-border-focus: #e3711d;
+	--cs-color-orange-subtle: #f7b780;
+	--cs-color-orange-subtler: #fde6c8;
 
 	/* Pink */
 	--cs-color-pink: #e03997;
@@ -188,6 +200,8 @@
 	--cs-color-pink-border-hover: #bb1f7b;
 	--cs-color-pink-focus: #e859a7;
 	--cs-color-pink-border-focus: #df46a1;
+	--cs-color-pink-subtle: #f1a3c0;
+	--cs-color-pink-subtler: #fdd6eb;
 
 	/* Purple */
 	--cs-color-purple: #a333c8;
@@ -197,6 +211,8 @@
 	--cs-color-purple-border-hover: #78249a;
 	--cs-color-purple-focus: #b052d3;
 	--cs-color-purple-border-focus: #a447ca;
+	--cs-color-purple-subtle: #c18adf;
+	--cs-color-purple-subtler: #e5d3f5;
 
 	/* Slate */
 	--cs-color-slate: #6c757d;
@@ -217,6 +233,8 @@
 	--cs-color-teal-border-hover: #00898d;
 	--cs-color-teal-focus: #00c1b2;
 	--cs-color-teal-border-focus: #00a29e;
+	--cs-color-teal-subtle: #66d4cc;
+	--cs-color-teal-subtler: #cceee9;
 
 	/* Violet */
 	--cs-color-violet: #6435c9;
@@ -226,6 +244,8 @@
 	--cs-color-violet-border-hover: #4a249a;
 	--cs-color-violet-focus: #7a54d3;
 	--cs-color-violet-border-focus: #6e47ca;
+	--cs-color-violet-subtle: #a890e0;
+	--cs-color-violet-subtler: #d8d0f6;
 
 	/* White */
 	--cs-color-white-border: #e0e0e0;
@@ -242,10 +262,12 @@
 	--cs-color-yellow-border-hover: #c89b06;
 	--cs-color-yellow-focus: #ffca3b;
 	--cs-color-yellow-border-focus: #f7bf27;
+	--cs-color-yellow-subtle: #fee08a;
+	--cs-color-yellow-subtler: #fff6c2;
 
 	--cs-color-default: var(--bs-body-color, #212529);
 	--cs-color-blue-navbar: #0c314c;
-	--cs-font-family-default: 'Inter', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 	--cs-font-size-default: .8125rem;
 	--cs-font-size-small: .75rem;
 	--cs-font-size-smaller: .688rem;
@@ -260,38 +282,38 @@
 /* Arabic and Persian */
 :root[lang="ar-DZ"],
 :root[lang="fa-IR"] {
-	--cs-font-family-default: 'Noto Kufi Arabic', 'Inter', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: 'Noto Kufi Arabic', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Japanese */
 :root[lang="ja-JP"] {
-	--cs-font-family-default: 'Noto Sans JP', 'Inter', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: 'Noto Sans JP', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Korean */
 :root[lang="ko-KR"] {
-	--cs-font-family-default: 'Noto Sans KR', 'Inter', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: 'Noto Sans KR', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Simplified Chinese (China) */
 :root[lang="zh-CN"] {
-	--cs-font-family-default: 'Noto Sans SC', 'Inter', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: 'Noto Sans SC', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Traditional Chinese (Taiwan) */
 :root[lang="zh-TW"] {
-	--cs-font-family-default: 'Noto Sans TC', 'Inter', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: 'Noto Sans TC', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Cyrillic languages (Bulgarian, Russian) */
 :root[lang="bg-BG"],
 :root[lang="ru-RU"] {
-	--cs-font-family-default: 'Noto Sans', 'Inter', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: 'PT Sans', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Devanagari (Hindi) */
 :root[lang="hi-IN"] {
-	--cs-font-family-default: 'Noto Sans Devanagari', 'Inter', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: 'Noto Sans Devanagari', 'Roboto', Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 html, body {
@@ -327,6 +349,10 @@ textarea {
 	font-family: inherit;
 	font-size: inherit;
 	direction: inherit;
+}
+
+.btn {
+	text-wrap: nowrap !important;
 }
 
 h1,
@@ -426,7 +452,7 @@ input,
 select,
 textarea {
 	font-family: var(--cs-font-family-default);
-	font-size: inherit;
+	font-size: var(--cs-font-size-smaller) !important;
 }
 
 .btn:disabled,
@@ -1234,6 +1260,10 @@ textarea {
 	color: var(--bs-white);
 }
 
+.bg-amber-subtle {
+	background-color: var(--cs-color-amber-subtler) !important;
+}
+
 .btn-amber {
 	background-color: var(--cs-color-amber);
 	border-color: var(--cs-color-amber-border);
@@ -1291,6 +1321,10 @@ textarea {
 	border-color: var(--cs-color-amber) !important;
 }
 
+.border-amber-subtle {
+	border-color: var(--cs-color-amber-subtle) !important;
+}
+
 .text-blue {
 	color: var(--cs-color-blue);
 }
@@ -1298,6 +1332,10 @@ textarea {
 .bg-blue {
 	background-color: var(--cs-color-blue);
 	color: var(--bs-white);
+}
+
+.bg-blue-subtle {
+	background-color: var(--cs-color-blue-subtler) !important;
 }
 
 .btn-blue {
@@ -1357,6 +1395,10 @@ textarea {
 	border-color: var(--cs-color-blue) !important;
 }
 
+.border-blue-suble {
+	border-color: var(--cs-color-blue-subtle) !important;
+}
+
 .text-brown {
 	color: var(--cs-color-brown);
 }
@@ -1364,6 +1406,10 @@ textarea {
 .bg-brown {
 	background-color: var(--cs-color-brown);
 	color: var(--bs-white);
+}
+
+.bg-brown-subtle {
+	background-color: var(--cs-color-brown-subtler) !important;
 }
 
 .btn-brown {
@@ -1423,6 +1469,10 @@ textarea {
 	border-color: var(--cs-color-brown) !important;
 }
 
+.border-brown-subtle {
+	border-color: var(--cs-color-brown-subtle) !important;
+}
+
 .text-coral {
 	color: var(--cs-color-coral);
 }
@@ -1430,6 +1480,10 @@ textarea {
 .bg-coral {
 	background-color: var(--cs-color-coral);
 	color: var(--bs-white);
+}
+
+.bg-coral-subtle {
+	background-color: var(--cs-color-coral-subtler) !important;
 }
 
 .btn-coral {
@@ -1489,6 +1543,10 @@ textarea {
 	border-color: var(--cs-color-coral) !important;
 }
 
+.border-coral-subtle {
+	border-color: var(--cs-color-coral-subtle) !important;
+}
+
 .text-cyan {
 	color: var(--cs-color-cyan);
 }
@@ -1496,6 +1554,10 @@ textarea {
 .bg-cyan {
 	background-color: var(--cs-color-cyan);
 	color: var(--bs-white);
+}
+
+.bg-cyan-subtle {
+	background-color: var(--cs-color-cyan-subtler) !important;
 }
 
 .btn-cyan {
@@ -1555,6 +1617,10 @@ textarea {
 	border-color: var(--cs-color-cyan) !important;
 }
 
+.border-cyan-subtle {
+	border-color: var(--cs-color-cyan-subtle) !important;
+}
+
 .text-gold {
 	color: var(--cs-color-gold);
 }
@@ -1562,6 +1628,10 @@ textarea {
 .bg-gold {
 	background-color: var(--cs-color-gold);
 	color: var(--bs-white);
+}
+
+.bg-gold-subtle {
+	background-color: var(--cs-color-gold-subtler) !important;
 }
 
 .btn-gold {
@@ -1621,6 +1691,10 @@ textarea {
 	border-color: var(--cs-color-gold) !important;
 }
 
+.border-gold-subtle {
+	border-color: var(--cs-color-gold-subtle) !important;
+}
+
 .text-gray {
 	color: var(--cs-color-default);
 }
@@ -1628,6 +1702,10 @@ textarea {
 .bg-gray {
 	background-color: var(--cs-color-gray);
 	color: var(--cs-color-default);
+}
+
+.bg-gray-subtle {
+	background-color: var(--cs-color-gray-subtler) !important;
 }
 
 .btn-gray {
@@ -1687,6 +1765,10 @@ textarea {
 	border-color: var(--cs-color-gray) !important;
 }
 
+.border-gray-subtle {
+	border-color: var(--cs-color-gray-subtle) !important;
+}
+
 .text-lavender {
 	color: var(--cs-color-lavender);
 }
@@ -1694,6 +1776,10 @@ textarea {
 .bg-lavender {
 	background-color: var(--cs-color-lavender);
 	color: var(--bs-white);
+}
+
+.bg-lavender-subtle {
+	background-color: var(--cs-color-lavender-subtler) !important;
 }
 
 .btn-lavender {
@@ -1749,6 +1835,10 @@ textarea {
 	outline: 0;
 }
 
+.border-lavender-subtle {
+	border-color: var(--cs-color-lavender-subtle) !important;
+}
+
 .border-lavender {
 	border-color: var(--cs-color-lavender) !important;
 }
@@ -1760,6 +1850,10 @@ textarea {
 .bg-mint {
 	background-color: var(--cs-color-mint);
 	color: var(--bs-white);
+}
+
+.bg-mint-subtle {
+	background-color: var(--cs-color-mint-subtler) !important;
 }
 
 .btn-mint {
@@ -1819,6 +1913,10 @@ textarea {
 	border-color: var(--cs-color-mint) !important;
 }
 
+.border-mint-subtle {
+	border-color: var(--cs-color-mint-subtle) !important;
+}
+
 .text-olive {
 	color: var(--cs-color-olive);
 }
@@ -1826,6 +1924,10 @@ textarea {
 .bg-olive {
 	background-color: var(--cs-color-olive);
 	color: var(--bs-white);
+}
+
+.bg-olive-subtle {
+	background-color: var(--cs-color-olive-subtler) !important;
 }
 
 .btn-olive {
@@ -1885,6 +1987,10 @@ textarea {
 	border-color: var(--cs-color-olive) !important;
 }
 
+.border-olive-subtle {
+	border-color: var(--cs-color-olive-subtle) !important;
+}
+
 .text-orange {
 	color: var(--cs-color-orange);
 }
@@ -1892,6 +1998,10 @@ textarea {
 .bg-orange {
 	background-color: var(--cs-color-orange);
 	color: var(--bs-white);
+}
+
+.bg-orange-subtle {
+	background-color: var(--cs-color-orange-subtler) !important;
 }
 
 .btn-orange {
@@ -1951,6 +2061,10 @@ textarea {
 	border-color: var(--cs-color-orange) !important;
 }
 
+.border-orange-subtle {
+	border-color: var(--cs-color-orange-subtle) !important;
+}
+
 .text-pink {
 	color: var(--cs-color-pink);
 }
@@ -1958,6 +2072,10 @@ textarea {
 .bg-pink {
 	background-color: var(--cs-color-pink);
 	color: var(--bs-white);
+}
+
+.bg-pink-subtle {
+	background-color: var(--cs-color-pink-subtler) !important;
 }
 
 .btn-pink {
@@ -2017,6 +2135,10 @@ textarea {
 	border-color: var(--cs-color-pink) !important;
 }
 
+.border-pink-subtle {
+	border-color: var(--cs-color-pink-subtle) !important;
+}
+
 .text-purple {
 	color: var(--cs-color-purple);
 }
@@ -2024,6 +2146,10 @@ textarea {
 .bg-purple {
 	background-color: var(--cs-color-purple);
 	color: var(--bs-white);
+}
+
+.bg-purple-subtle {
+	background-color: var(--cs-color-purple-subtler) !important;
 }
 
 .btn-purple {
@@ -2083,6 +2209,10 @@ textarea {
 	border-color: var(--cs-color-purple) !important;
 }
 
+.border-purple-subtle {
+	border-color: var(--cs-color-purple-subtle) !important;
+}
+
 .text-slate {
 	color: var(--cs-color-slate);
 }
@@ -2090,6 +2220,10 @@ textarea {
 .bg-slate {
 	background-color: var(--cs-color-slate);
 	color: var(--bs-white);
+}
+
+.bg-slate-subtle {
+	background-color: var(--cs-color-slate-subtler) !important;
 }
 
 .btn-slate {
@@ -2149,6 +2283,10 @@ textarea {
 	border-color: var(--cs-color-slate) !important;
 }
 
+.border-slate-subtle {
+	border-color: var(--cs-color-slate-subtle) !important;
+}
+
 .text-teal {
 	color: var(--cs-color-teal);
 }
@@ -2156,6 +2294,10 @@ textarea {
 .bg-teal {
 	background-color: var(--cs-color-teal);
 	color: var(--bs-white);
+}
+
+.bg-teal-subtle {
+	background-color: var(--cs-color-teal-subtler) !important;
 }
 
 .btn-teal {
@@ -2215,6 +2357,10 @@ textarea {
 	border-color: var(--cs-color-teal) !important;
 }
 
+.border-teal-subtle {
+	border-color: var(--cs-color-teal-subtle) !important;
+}
+
 .text-violet {
 	color: var(--cs-color-violet);
 }
@@ -2222,6 +2368,10 @@ textarea {
 .bg-violet {
 	background-color: var(--cs-color-violet);
 	color: var(--bs-white);
+}
+
+.bg-violet-subtle {
+	background-color: var(--cs-color-violet-subtler) !important;
 }
 
 .btn-violet {
@@ -2279,6 +2429,10 @@ textarea {
 
 .border-violet {
 	border-color: var(--cs-color-violet) !important;
+}
+
+.border-violet-subtle {
+	border-color: var(--cs-color-violet-subtle) !important;
 }
 
 .text-white {
@@ -2356,6 +2510,10 @@ textarea {
 	color: var(--bs-white);
 }
 
+.bg-yellow-subtle {
+	background-color: var(--cs-color-yellow-subtler) !important;
+}
+
 .btn-yellow {
 	background-color: var(--cs-color-yellow);
 	border-color: var(--cs-color-yellow-border);
@@ -2411,6 +2569,10 @@ textarea {
 
 .border-yellow {
 	border-color: var(--cs-color-yellow) !important;
+}
+
+.border-yellow-subtle {
+	border-color: var(--cs-color-yellow-subtle) !important;
 }
 
 .text-transparent {
