@@ -460,7 +460,7 @@ input,
 select,
 textarea {
 	font-family: var(--cs-font-family-default);
-	font-size: var(--cs-font-size-smaller) !important;
+	font-size: var(--cs-font-size-default);
 }
 
 .btn:disabled,

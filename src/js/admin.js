@@ -889,25 +889,74 @@
 
 	/**
 	 * Initializes dynamic toggles for select elements.
+	 * Supports:
+	 * - Legacy single toggle (data-toggle-target + data-toggle-value)
+	 * - Group toggle (data-toggle-group)
+	 * - Dynamic selector toggle (data-toggle-target + value)
+	 *
 	 * @since 3.12.0
 	 *
 	 * @return {void}
 	 */
 	csk.ui.addListener("DOMContentLoaded", () => setTimeout(() => {
-		const els = document.querySelectorAll("select[data-toggle-target]");
+		const els = document.querySelectorAll(
+			"select[data-toggle-target], select[data-toggle-group]"
+		);
 		if (!els?.length) return;
 
-		// Toggle visibility based on select value
 		const toggle = e => {
-			const target = e.target ?? e; // e could be the event or the element itself
-			const selector = target.getAttribute("data-toggle-target");
-			const value = target.getAttribute("data-toggle-value");
-			const el = document.querySelector(selector);
+			const target = e.target ?? e;
 
-			if (!selector || !value || !el) return;
+			const value = target.value;
 
-			// Show if the value matches, hide otherwise
-			el.style.display = target.value === value ? "" : "none";
+			const baseSelector = target.getAttribute("data-toggle-target");
+			const group = target.getAttribute("data-toggle-group");
+			const isMultiple = target.hasAttribute("data-toggle-multiple");
+
+			// --------------------------------------------------
+			// GROUP MODE (recommended new system)
+			// --------------------------------------------------
+			if (group) {
+				const items = document.querySelectorAll(`[data-toggle-item="${group}"]`);
+
+				if (!items.length) return;
+
+				items.forEach(el => {
+					const itemValue = el.getAttribute("data-value");
+					el.style.display = itemValue === value ? "" : "none";
+				});
+
+				return;
+			}
+
+			// --------------------------------------------------
+			// DYNAMIC TARGET MODE (".translate" + value)
+			// --------------------------------------------------
+			if (baseSelector && isMultiple) {
+				// Hide all matching elements
+				const all = document.querySelectorAll(baseSelector);
+				all.forEach(el => (el.style.display = "none"));
+
+				// Build selector dynamically
+				const selector = `${baseSelector}.${value}, ${baseSelector}#${value}, ${baseSelector}${value}`;
+				const el = document.querySelector(selector);
+
+				if (el) el.style.display = "";
+
+				return;
+			}
+
+			// --------------------------------------------------
+			// LEGACY MODE (unchanged behavior)
+			// --------------------------------------------------
+			if (baseSelector) {
+				const expected = target.getAttribute("data-toggle-value");
+				const el = document.querySelector(baseSelector);
+
+				if (!expected || !el) return;
+
+				el.style.display = value === expected ? "" : "none";
+			}
 		};
 
 		els.forEach(el => {
