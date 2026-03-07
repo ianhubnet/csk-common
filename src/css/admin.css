@@ -2840,11 +2840,6 @@ table td>input[type="checkbox"] {
 }
 
 .submenu-center {
-	position: absolute;
-	inset-inline-start: 50%;
-	inset-block-start: 50%;
-	transform: translate(calc(-50% * var(--transform-direction)), -50%);
-	white-space: nowrap;
 	z-index: 1;
 }
 
@@ -3288,12 +3283,6 @@ caption,
 
 	.dropdown-menu-scroll {
 		max-block-size: calc(100vh - 32rem);
-	}
-
-	.submenu-center {
-		position: static;
-		transform: none;
-		margin: 0 auto;
 	}
 }
 
