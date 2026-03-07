@@ -3606,7 +3606,6 @@ tr.highlight-focus > td {
 	color: var(--cs-color-default);
 	font-family: var(--cs-font-family-default);
 	font-size: inherit;
-	margin-top: 0;
 	min-width: 5rem;
 	padding: 0;
 }
