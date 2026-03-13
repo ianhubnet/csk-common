@@ -780,135 +780,161 @@
 
 	/**
 	 * Media Browser
-	 * @since 3.10.2
+	 * @namespace csk.media
+	 * @since 3.12.0
 	 */
 	csk.media = {
 		/**
-		 * Currently selected target for the opened media browser.
-		 * Can be a Summernote editor or a config object for field insertion.
+		 * Currently selected target for the media browser.
+		 * Can be a Summernote editor element or a config object for field insertion.
 		 * @type {HTMLElement|Object|null}
 		 */
 		target: null,
 
 		/**
-		 * Opens Media browser.
-		 * @param  {HTMLElement|Object} target Summernote editor or config for field insertion.
+		 * Cached compiled Handlebars template for media items.
+		 * @type {Function|null}
+		 */
+		template: null,
+
+		/**
+		 * Cached sentinel element for infinite scroll.
+		 * @type {HTMLElement|null}
+		 */
+		sentinel: null,
+
+		/**
+		 * Cached jQuery object for modal container.
+		 * @type {jQuery|null}
+		 */
+		$modal: null,
+
+		/**
+		 * Cached jQuery object for media browser container.
+		 * @type {jQuery|null}
+		 */
+		$browser: null,
+
+		/**
+		 * Cached jQuery object for the insert button.
+		 * @type {jQuery|null}
+		 */
+		$insert: null,
+
+		/**
+		 * Current page of media results being displayed.
+		 * @type {number}
+		 */
+		page: 1,
+
+		/**
+		 * Number of media items per page.
+		 * @type {number}
+		 */
+		limit: 20,
+
+		/**
+		 * Whether media is currently being loaded.
+		 * @type {boolean}
+		 */
+		loading: false,
+
+		/**
+		 * Whether more media is available for loading.
+		 * @type {boolean}
+		 */
+		hasMore: true,
+
+		/**
+		 * Opens the media browser for a given target.
+		 * @param {HTMLElement|Object} target Summernote editor element or field config object.
 		 * @return {void}
 		 */
 		browse: function(target) {
+			csk.media.init();
 			csk.media.target = target;
-			const isEditor = target instanceof HTMLElement;
-			const isField = !isEditor && target && target.mode === 'field';
 
-			const url = isEditor ? (target.dataset.fetch || null) : target.url;
-			if (!url?.length) {
-				console.error("Missing browser endpoint.");
-				return;
-			}
+			const url = target instanceof HTMLElement ? target.dataset.fetch : target.url;
+			if (!url?.length) return console.error("Missing browser endpoint");
 
-			const $modal = $("#media-modal");
-			const $browser = $("#media-browser");
-			const $insert = $("#media-insert-btn");
+			csk.media.endpoint = url;
 
-			// Load existing media
+			// Reset pagination
+			csk.media.page = 1;
+			csk.media.hasMore = true;
+
+			// Load first page
+			csk.media.load(url);
+
+			// Show modal
+			csk.media.$modal.modal("show");
+		},
+
+		/**
+		 * Loads media items from the server via AJAX.
+		 * @param {string} url Endpoint URL to fetch media items.
+		 * @return {void}
+		 */
+		load: function(url) {
+			csk.media.loading = true;
+
 			csk.ajax.request(url, {
 				type: "GET",
-				beforeSend: function() {
-					$browser.empty().html('<div class="text-center py-5 text-muted">'+csk.i18n.default.loading+'</div>');
-
-					$insert.prop('disabled', true);
-					$("#media-modal .media-item").removeClass("selected");
+				data: {
+					page: csk.media.page,
+					limit: csk.media.limit
 				},
-				onSuccess: function(data, textStatus, jqXHR) {
+				beforeSend: function() {
+					if (csk.media.page === 1)
+						csk.media.$browser.html('<div class="text-center py-5 text-muted">' + csk.i18n.default.loading + '</div>');
+					else
+						csk.media.$browser.append('<div class="col-12 text-center text-muted py-3 media-loading-more">' + csk.i18n.default.loading + '</div>');
+				},
+				onSuccess: function(data) {
 					if (!data?.results?.length) {
-						$browser.html('<div class="text-center py-5 text-muted">'+csk.i18n.default.no_data+'</div>');
+						csk.media.hasMore = false;
+						csk.media.loading = false;
 						return;
 					}
 
-					let html = '';
-					const source = document.getElementById("media-template").innerHTML;
-					const template = Handlebars.compile(source);
-					data.results.forEach(file => {
-						html += template(file);
-					});
+					let html = "";
+					data.results.forEach(file => html += csk.media.template(file));
 
-					$browser.html(html);
+					if (csk.media.page === 1)
+						csk.media.$browser.html(html);
+					else
+						csk.media.$browser.append(html);
 
-					// Bind clicks for selection
-					csk.ui.delegate("click", "#media-modal .media-item", function() {
-						$("#media-modal .media-item").removeClass("selected");
-						$(this).addClass("selected");
-						$insert.prop("disabled", false);
-					});
-					csk.ui.delegate("dblclick", "#media-modal .media-item", function() {
-						$(this).addClass("selected");
-						$insert.trigger("click");
-					});
+					csk.media.$browser.find(".media-loading-more").remove();
 
-					// Render browser
-					$modal.modal("show");
+					// Determine if more pages are available
+					csk.media.hasMore = (csk.media.page * csk.media.limit) < data.count;
 
+					csk.media.loading = false;
+
+					// Re-observe sentinel to trigger next page
+					csk.media.observer.unobserve(csk.media.sentinel);
+					csk.media.observer.observe(csk.media.sentinel);
 				},
 				onError: function() {
-					$modal.modal("hide");
+					csk.media.loading = false;
 				}
-			});
-
-			// Insert button
-			$insert.off("click").on("click", function() {
-				const selected = $("#media-modal .media-item.selected");
-				// Nothing selected?
-				if (!selected.length) {
-					return;
-				}
-
-				// Summernote path
-				else if (isEditor) {
-					const $editor = $(target);
-					if ($editor.hasClass("summernote")) {
-						const url = selected.data("url");
-						if (url?.length) {
-							$editor.summernote("insertImage", url);
-						}
-					} else {
-						console.warn("Invalid editor reference:", $editor);
-					}
-				}
-				// Field path
-				else if (isField) {
-					const url = csk.media.resolveUrl(selected[0],target?.size || null);
-					if (url?.length) {
-						const input = target.target ? document.querySelector(target.target) : null;
-						if (input) {
-							input.value = url;
-							input.dispatchEvent(new Event('change', { bubbles: true }));
-						}
-
-						const preview = target.preview ? document.querySelector(target.preview) : null;
-						if (preview && preview.tagName === 'IMG') {
-							preview.src = url;
-						}
-					}
-				}
-
-				$modal.modal("hide");
 			});
 		},
 
 		/**
-		 * Resolves media URL based on requested size.
-		 * Falls back to original URL if size is missing.
-		 *
-		 * @param  {HTMLElement} item
-		 * @param  {string|null} size
-		 * @return {string}
+		 * Resolves a media item's URL for a given size.
+		 * Falls back to original URL if size is missing or not found.
+		 * @param {HTMLElement} item Media item element.
+		 * @param {string|null} size Requested size (e.g., 'thumb', 'large').
+		 * @return {string} Resolved media URL.
 		 */
 		resolveUrl: function(item, size) {
 			const baseUrl = item.dataset.url;
 			if (!size) return baseUrl;
 
 			try {
-				const sizes = JSON.parse(item.dataset.sizes || '{}');
+				const sizes = JSON.parse(item.dataset.sizes || "{}");
 				return sizes[size]?.url || baseUrl;
 			} catch (e) {
 				return baseUrl;
@@ -916,12 +942,94 @@
 		},
 
 		/**
-		 * Initializes media modal.
+		 * Marks a media item as selected.
+		 * @param {HTMLElement} el Media item element to select.
+		 * @return {void}
+		 */
+		select: function(el) {
+			csk.media.$browser.find(".media-item").removeClass("selected");
+			$(el).addClass("selected");
+			csk.media.$insert.prop("disabled", false);
+		},
+
+		/**
+		 * Initializes the media browser modal and event bindings.
+		 * Caches frequently accessed DOM elements for performance.
 		 * @return {void}
 		 */
 		init: function() {
 			if (csk.media._initialized) return;
 			csk.media._initialized = true;
+
+			// Cache main DOM elements
+			csk.media.$modal = $("#media-modal");
+			csk.media.$browser = $("#media-browser");
+			csk.media.$insert = $("#media-insert-btn");
+			csk.media.sentinel = document.getElementById("media-scroll");
+
+			// Compile Handlebars template
+			const source = document.getElementById("media-template").innerHTML;
+			csk.media.template = Handlebars.compile(source);
+
+			// Single-click selects a media item
+			csk.ui.delegate("click", "#media-modal .media-item", function() {
+				csk.media.select(this);
+			});
+
+			// Double-click inserts immediately
+			csk.ui.delegate("dblclick", "#media-modal .media-item", function() {
+				csk.media.select(this);
+				csk.media.$insert.trigger("click");
+			});
+
+			// Insert button click handler
+			csk.media.$insert.off("click").on("click", function() {
+				const selected = $("#media-modal .media-item.selected");
+				if (!selected.length) return;
+
+				if (csk.media.target instanceof HTMLElement) {
+					// Insert into Summernote
+					const $editor = $(csk.media.target);
+					$editor.summernote?.("insertImage", selected.data("url"));
+				} else if (csk.media.target?.mode === "field") {
+					// Insert into field input and preview
+					const url = csk.media.resolveUrl(selected[0], csk.media.target.size);
+					const input = document.querySelector(csk.media.target.target);
+					if (input) {
+						input.value = url;
+						input.dispatchEvent(new Event('change', { bubbles: true }));
+					}
+
+					const preview = document.querySelector(csk.media.target.preview);
+					if (preview?.tagName === "IMG") {
+						preview.src = url;
+						preview.dispatchEvent(new Event('change', { bubbles: true }));
+					}
+				}
+
+				csk.media.$modal.modal("hide");
+			});
+
+			// Reset modal on close
+			csk.media.$modal.on("hidden.bs.modal", function() {
+				csk.media.$browser.empty();
+				csk.media.$insert.prop("disabled", true);
+			});
+
+			// Infinite scroll using IntersectionObserver
+			csk.media.observer = new IntersectionObserver(entries => {
+				if (!entries[0].isIntersecting) return;
+				if (!csk.media.hasMore || csk.media.loading) return;
+
+				csk.media.page++;
+				csk.media.load(csk.media.endpoint);
+			}, {
+				root: csk.media.$modal.find(".modal-body")[0],
+				threshold: 0,
+				rootMargin: "200px"
+			});
+
+			csk.media.observer.observe(csk.media.sentinel);
 		}
 	};
 
@@ -1022,15 +1130,16 @@
 	 * Media browser access.
 	 * @since 3.12.0
 	 */
-	csk.ui.delegate('click', '[data-media-browse]', function() {
+	csk.ui.delegate("click", "[data-media-browse]", function() {
 		const el = this;
 
 		csk.media.browse({
-			mode: el.dataset.mediaMode || 'field',
+			mode: el.dataset.mediaMode || "field",
 			target: el.dataset.mediaTarget || null,
 			preview: el.dataset.mediaPreview || null,
 			size: el.dataset.mediaSize || null,
 			url: el.dataset.mediaFetch || null,
+			return: el.dataset.mediaReturn || "url",
 		});
 	});
 
@@ -1041,7 +1150,7 @@
 	document.addEventListener("DOMContentLoaded", function() {
 		try {
 			let opts = Object.defineProperty({}, 'passive', {
-				get: function () {
+				get: function() {
 					window.__passiveSupported = true;
 				}
 			});
