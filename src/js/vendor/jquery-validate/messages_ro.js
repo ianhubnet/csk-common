@@ -10,6 +10,8 @@
 		equalTo: "Vă rugăm să reintroduceți aceeași valoare.",
 		exactlength: e.validator.format("Vă rugăm să introduceți exact {0} caractere."),
 		integer: "Vă rugăm să introduceți un număr întreg pozitiv sau negativ fără zecimale.",
+		ipv4: "Vă rugăm să introduceți o adresă IP v4 validă.",
+		ipv6: "Vă rugăm să introduceți o adresă IP v6 validă.",
 		lettersonly: "Vă rugăm să introduceți doar litere.",
 		max: e.validator.format("Vă rugăm să introduceți o valoare mai mică sau egală cu {0}."),
 		maxWords: e.validator.format("Vă rugăm să introduceți cel mult {0} cuvinte."),

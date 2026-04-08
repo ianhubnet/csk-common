@@ -10,6 +10,8 @@
 		equalTo: "Zəhmət olmasa, eyni mənanı bir daha daxil edin.",
 		exactlength: e.validator.format("Zəhmət olmasa, tam olaraq {0} simvol daxil edin."),
 		integer: "Zəhmət olmasa, onluq hissəsi olmayan müsbət və ya mənfi tam ədəd daxil edin.",
+		ipv4: "Lütfən etibarlı IP v4 ünvanı daxil edin.",
+		ipv6: "Lütfən etibarlı IP v6 ünvanı daxil edin.",
 		lettersonly: "Zəhmət olmasa, yalnız hərflər daxil edin.",
 		max: e.validator.format("Zəhmət olmasa, {0} və ondan kiçik rəqəm daxil edin."),
 		maxWords: e.validator.format("Zəhmət olmasa, ən çox {0} söz daxil edin."),

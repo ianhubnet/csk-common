@@ -10,6 +10,8 @@
 		equalTo: "Il valore non corrisponde",
 		exactlength: e.validator.format("Si prega di inserire esattamente {0} caratteri."),
 		integer: "Si prega di inserire un numero intero positivo o negativo senza decimali.",
+		ipv4: "Inserisci un indirizzo IP v4 valido.",
+		ipv6: "Inserisci un indirizzo IP v6 valido.",
 		lettersonly: "Si prega di inserire solo lettere.",
 		max: e.validator.format("Inserisci un valore minore o uguale a {0}"),
 		maxWords: e.validator.format("Si prega di inserire al massimo {0} parole."),

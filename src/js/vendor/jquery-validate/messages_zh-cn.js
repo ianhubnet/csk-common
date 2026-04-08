@@ -10,6 +10,8 @@
 		equalTo: "请再次输入相同的值。",
 		exactlength: e.validator.format("请输入恰好 {0} 个字符。"),
 		integer: "请输入正数或负数的非十进制数字。",
+		ipv4: "请输入有效的 IP v4 地址。",
+		ipv6: "请输入有效的 IP v6 地址。",
 		lettersonly: "请只输入字母。",
 		max: e.validator.format("请输入小于或等于 {0} 的值。"),
 		maxWords: e.validator.format("请输入 {0} 个或更少的单词。"),

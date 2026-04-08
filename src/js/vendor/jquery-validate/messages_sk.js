@@ -10,6 +10,8 @@
 		equalTo: "Dve hodnoty sa musia rovnať.",
 		exactlength: e.validator.format("Prosím zadajte presne {0} znakov."),
 		integer: "Prosím zadajte kladné alebo záporné celé číslo bez desatinných miest.",
+		ipv4: "Prosím zadajte platnú IP v4 adresu.",
+		ipv6: "Prosím zadajte platnú IP v6 adresu.",
 		lettersonly: "Prosím zadajte iba písmená.",
 		max: e.validator.format("Nemôže byť viac ako {0}."),
 		maxWords: e.validator.format("Prosím zadajte najviac {0} slov."),

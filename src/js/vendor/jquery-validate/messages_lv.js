@@ -10,6 +10,8 @@
 		equalTo: "Lūdzu, ievadiet to pašu vēlreiz.",
 		exactlength: e.validator.format("Lūdzu, ievadiet tieši {0} rakstzīmes."),
 		integer: "Lūdzu, ievadiet pozitīvu vai negatīvu veselu skaitli bez decimāldaļām.",
+		ipv4: "Lūdzu, ievadiet derīgu IP v4 adresi.",
+		ipv6: "Lūdzu, ievadiet derīgu IP v6 adresi.",
 		lettersonly: "Lūdzu, ievadiet tikai burtus.",
 		max: e.validator.format("Lūdzu, ievadiet skaitli, kurš ir mazāks vai vienāds ar {0}."),
 		maxWords: e.validator.format("Lūdzu, ievadiet ne vairāk kā {0} vārdus."),

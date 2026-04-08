@@ -10,6 +10,8 @@
 		equalTo: "Ange samma värde igen.",
 		exactlength: e.validator.format("Ange exakt {0} tecken."),
 		integer: "Vänligen ange ett positivt eller negativt heltal utan decimaler.",
+		ipv4: "Ange en giltig IP v4-adress.",
+		ipv6: "Ange en giltig IP v6-adress.",
 		lettersonly: "Vänligen ange endast bokstäver.",
 		max: e.validator.format("Ange ett värde som är mindre eller lika med {0}."),
 		maxWords: e.validator.format("Ange högst {0} ord."),

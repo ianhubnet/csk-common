@@ -10,6 +10,8 @@
 		equalTo: "Skriv samme verdi igjen.",
 		exactlength: e.validator.format("Vennligst skriv nøyaktig {0} tegn."),
 		integer: "Vennligst skriv et positivt eller negativt heltall uten desimaler.",
+		ipv4: "Vennligst skriv inn en gyldig IP v4-adresse.",
+		ipv6: "Vennligst skriv inn en gyldig IP v6-adresse.",
 		lettersonly: "Vennligst skriv kun bokstaver.",
 		max: e.validator.format("Angi en verdi som er mindre eller lik {0}."),
 		maxWords: e.validator.format("Vennligst skriv maksimalt {0} ord."),

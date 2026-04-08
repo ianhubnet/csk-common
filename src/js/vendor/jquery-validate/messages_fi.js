@@ -10,6 +10,8 @@
 		equalTo: "Syötä sama arvo uudestaan.",
 		exactlength: e.validator.format("Syötä täsmälleen {0} merkkiä."),
 		integer: "Syötä positiivinen tai negatiivinen kokonaisluku ilman desimaaleja.",
+		ipv4: "Anna kelvollinen IP v4 -osoite.",
+		ipv6: "Anna kelvollinen IP v6 -osoite.",
 		lettersonly: "Syötä vain kirjaimia.",
 		max: e.validator.format("Syötä arvo, joka on enintään {0}."),
 		maxWords: e.validator.format("Syötä enintään {0} sanaa."),

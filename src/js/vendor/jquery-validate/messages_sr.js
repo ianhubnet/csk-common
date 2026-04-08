@@ -10,6 +10,8 @@
 		equalTo: "Unesite istu vrednost ponovo.",
 		exactlength: e.validator.format("Molimo unesite tačno {0} karaktera."),
 		integer: "Molimo unesite pozitivan ili negativan ceo broj bez decimala.",
+		ipv4: "Унесите исправну IP v4 адресу.",
+		ipv6: "Унесите исправну IP v6 адресу.",
 		lettersonly: "Molimo unesite samo reči.",
 		max: e.validator.format("Unesite vrednost manju ili jednaku {0}."),
 		maxWords: e.validator.format("Molimo unesite najviše {0} reči."),

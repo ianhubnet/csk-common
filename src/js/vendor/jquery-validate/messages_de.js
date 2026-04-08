@@ -10,6 +10,8 @@
 		equalTo: "Bitte denselben Wert wiederholen.",
 		exactlength: e.validator.format("Bitte geben Sie genau {0} Zeichen ein."),
 		integer: "Bitte geben Sie eine positive oder negative ganze Zahl ohne Dezimalstellen ein.",
+		ipv4: "Bitte geben Sie eine gültige IP-v4-Adresse ein.",
+		ipv6: "Bitte geben Sie eine gültige IP-v6-Adresse ein.",
 		lettersonly: "Bitte geben Sie nur Buchstaben ein.",
 		max: e.validator.format("Geben Sie bitte einen Wert kleiner oder gleich {0} ein."),
 		maxWords: e.validator.format("Bitte geben Sie höchstens {0} Wörter ein."),

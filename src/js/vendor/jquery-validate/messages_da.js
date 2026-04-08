@@ -10,6 +10,8 @@
 		equalTo: "Indtast den samme værdi igen.",
 		exactlength: e.validator.format("Indtast venligst præcis {0} tegn."),
 		integer: "Angiv et ikke-decimaltal, der er positivt eller negativt.",
+		ipv4: "Indtast venligst en gyldig IP v4-adresse.",
+		ipv6: "Indtast venligst en gyldig IP v6-adresse.",
 		lettersonly: "Angiv venligst kun bogstaver.",
 		max: e.validator.format("Angiv en værdi der højst er {0}."),
 		maxWords: e.validator.format("Indtast venligst højst {0} ord."),

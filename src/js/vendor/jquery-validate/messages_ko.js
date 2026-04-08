@@ -10,6 +10,8 @@
 		equalTo: "같은 값을 다시 입력하세요.",
 		exactlength: e.validator.format("정확히 {0}자를 입력하세요."),
 		integer: "양수 또는 음수의 비소수점 숫자를 입력하세요.",
+		ipv4: "유효한 IP v4 주소를 입력해 주세요.",
+		ipv6: "유효한 IP v6 주소를 입력해 주세요.",
 		lettersonly: "문자만 입력하세요.",
 		max: e.validator.format("{0} 이하의 값을 입력하세요."),
 		maxWords: e.validator.format("{0} 단어 이하로 입력하세요."),

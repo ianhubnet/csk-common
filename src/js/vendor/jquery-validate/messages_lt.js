@@ -10,6 +10,8 @@
 		equalTo: "Prašau įvestį tą pačią reikšmę dar kartą.",
 		exactlength: e.validator.format("Prašau įvesti tiksliai {0} simbolius."),
 		integer: "Prašau įvesti teigiamą arba neigiamą sveikąjį skaičių be dešimtainių.",
+		ipv4: "Prašome įvesti teisingą IP v4 adresą.",
+		ipv6: "Prašome įvesti teisingą IP v6 adresą.",
 		lettersonly: "Prašau įvesti tik raides.",
 		max: e.validator.format("Prašau įvesti reikšmę mažesnę arba lygią {0}."),
 		maxWords: e.validator.format("Prašau įvesti ne daugiau kaip {0} žodžių."),

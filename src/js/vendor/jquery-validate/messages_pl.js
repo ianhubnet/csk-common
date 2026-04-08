@@ -10,6 +10,8 @@
 		equalTo: "Proszę o podanie tej samej wartości ponownie.",
 		exactlength: e.validator.format("Proszę wpisać dokładnie {0} znaków."),
 		integer: "Proszę wpisać dodatnią lub ujemną liczbę całkowitą bez miejsc dziesiętnych.",
+		ipv4: "Proszę podać prawidłowy adres IP v4.",
+		ipv6: "Proszę podać prawidłowy adres IP v6.",
 		lettersonly: "Proszę wpisywać tylko litery.",
 		max: e.validator.format("Proszę o podanie wartości mniejszej bądź równej {0}."),
 		maxWords: e.validator.format("Proszę wpisać co najwyżej {0} słów."),

@@ -10,6 +10,8 @@
 		equalTo: "Hãy nhập thêm lần nữa.",
 		exactlength: e.validator.format("Hãy nhập chính xác {0} ký tự."),
 		integer: "Vui lòng nhập số nguyên dương hoặc âm.",
+		ipv4: "Vui lòng nhập địa chỉ IP v4 hợp lệ.",
+		ipv6: "Vui lòng nhập địa chỉ IP v6 hợp lệ.",
 		lettersonly: "Chỉ nhập chữ cái.",
 		max: e.validator.format("Hãy nhập từ {0} trở xuống."),
 		maxWords: e.validator.format("Hãy nhập {0} từ trở xuống."),

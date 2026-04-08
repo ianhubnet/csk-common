@@ -10,6 +10,8 @@
 		equalTo: "Vul hier dezelfde waarde in.",
 		exactlength: e.validator.format("Voer precies {0} tekens in."),
 		integer: "Voer een positief of negatief geheel getal in zonder decimalen.",
+		ipv4: "Vul een geldig IP v4-adres in.",
+		ipv6: "Vul een geldig IP v6-adres in.",
 		lettersonly: "Voer alleen letters in.",
 		max: e.validator.format("Vul hier een waarde in kleiner dan of gelijk aan {0}."),
 		maxWords: e.validator.format("Voer maximaal {0} woorden in."),

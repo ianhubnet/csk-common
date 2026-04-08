@@ -10,6 +10,8 @@
 		equalTo: "Prosím, zadejte znovu stejnou hodnotu.",
 		exactlength: e.validator.format("Prosím zadejte přesně {0} znaků."),
 		integer: "Prosím zadejte kladné nebo záporné celé číslo bez desetinných míst.",
+		ipv4: "Zadejte prosím platnou adresu IP v4.",
+		ipv6: "Zadejte prosím platnou adresu IP v6.",
 		lettersonly: "Prosím zadejte pouze písmena.",
 		max: e.validator.format("Prosím, zadejte hodnotu menší nebo rovnu {0}."),
 		maxWords: e.validator.format("Prosím zadejte nejvíce {0} slov."),

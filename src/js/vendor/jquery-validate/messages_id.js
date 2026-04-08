@@ -10,6 +10,8 @@
 		equalTo: "Silakan masukkan nilai yang sama lagi.",
 		exactlength: e.validator.format("Silakan masukkan tepat {0} karakter."),
 		integer: "Silakan masukkan bilangan bulat positif atau negatif tanpa desimal.",
+		ipv4: "Silakan masukkan alamat IP v4 yang benar.",
+		ipv6: "Silakan masukkan alamat IP v6 yang benar.",
 		lettersonly: "Hanya boleh memasukkan huruf.",
 		max: e.validator.format("Silakan masukkan nilai kurang dari atau sama dengan {0}."),
 		maxWords: e.validator.format("Silakan masukkan maksimal {0} kata."),

@@ -10,6 +10,8 @@
 		equalTo: "Meg kell egyeznie a két értéknek.",
 		exactlength: e.validator.format("Kérjük, pontosan {0} karaktert adjon meg."),
 		integer: "Kérjük, adjon meg egy pozitív vagy negatív egész számot tizedesjegyek nélkül.",
+		ipv4: "Kérjük, adjon meg egy érvényes IP v4 címet.",
+		ipv6: "Kérjük, adjon meg egy érvényes IP v6 címet.",
 		lettersonly: "Kérjük, csak betűket adjon meg.",
 		max: e.validator.format("Nem lehet nagyobb, mint {0}."),
 		maxWords: e.validator.format("Kérjük, legfeljebb {0} szót adjon meg."),

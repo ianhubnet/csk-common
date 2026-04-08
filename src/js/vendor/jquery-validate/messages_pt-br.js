@@ -10,6 +10,8 @@
 		equalTo: "Por favor, forneça o mesmo valor novamente.",
 		exactlength: e.validator.format("Por favor, forneça exatamente {0} caracteres."),
 		integer: "Por favor, forneça um número inteiro positivo ou negativo sem decimais.",
+		ipv4: "Por favor, informe um endereço IP v4 válido.",
+		ipv6: "Por favor, informe um endereço IP v6 válido.",
 		lettersonly: "Por favor, forneça somente letras.",
 		max: e.validator.format("Por favor, forneça um valor menor ou igual a {0}."),
 		maxWords: e.validator.format("Por favor, forneça com {0} palavras ou menos."),

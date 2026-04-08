@@ -10,6 +10,8 @@
 		equalTo: "Veuillez fournir encore la m\xeame valeur.",
 		exactlength: e.validator.format("Veuillez entrer exactement {0} caract\xe8res."),
 		integer: "Veuillez fournir un nombre non d\xe9cimal qui est positif ou n\xe9gatif.",
+		ipv4: "Veuillez fournir une adresse IP v4 valide.",
+		ipv6: "Veuillez fournir une adresse IP v6 valide.",
 		lettersonly: "Veuillez fournir seulement des lettres.",
 		max: e.validator.format("Veuillez fournir une valeur inf\xe9rieure ou \xe9gale \xe0 {0}."),
 		maxWords: e.validator.format("Veuillez fournir au plus {0} mots."),

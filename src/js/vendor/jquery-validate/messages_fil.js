@@ -10,6 +10,8 @@
 		equalTo: "Pakilagay ang parehong halaga.",
 		exactlength: e.validator.format("Pakilagay ang eksaktong {0} na karakter."),
 		integer: "Pakilagay ang buong numero (positibo o negatibo).",
+		ipv4: "Mangyaring maglagay ng wastong IP v4 address.",
+		ipv6: "Mangyaring maglagay ng wastong IP v6 address.",
 		lettersonly: "Pakilagay lamang ang mga letra.",
 		max: e.validator.format("Pakilagay ang halaga na mas mababa o katumbas ng {0}."),
 		maxWords: e.validator.format("Pakilagay ang maximum na {0} na salita."),

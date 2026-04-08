@@ -10,6 +10,8 @@
 		equalTo: "Lütfen aynı değeri tekrar giriniz.",
 		exactlength: e.validator.format("Lütfen tam olarak {0} karakter uzunluğunda bir değer giriniz."),
 		integer: "Lütfen pozitif veya negatif ondalıksız bir sayı giriniz.",
+		ipv4: "Lütfen geçerli bir IP v4 adresi girin.",
+		ipv6: "Lütfen geçerli bir IP v6 adresi girin.",
 		lettersonly: "Lütfen sadece harf giriniz.",
 		max: e.validator.format("Lütfen {0} değerine eşit ya da daha küçük bir değer giriniz."),
 		maxWords: e.validator.format("Lütfen en fazla {0} kelime giriniz."),

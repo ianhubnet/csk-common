@@ -10,6 +10,8 @@
 		equalTo: "同じ値をもう一度入力してください。",
 		exactlength: e.validator.format("正確に {0} 文字を入力してください。"),
 		integer: "正または負の非小数点数を入力してください。",
+		ipv4: "有効な IP v4 アドレスを入力してください。",
+		ipv6: "有効な IP v6 アドレスを入力してください。",
 		lettersonly: "文字のみを入力してください。",
 		max: e.validator.format("{0} 以下の値を入力してください。"),
 		maxWords: e.validator.format("{0} 単語以下で入力してください。"),
