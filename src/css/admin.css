@@ -3124,6 +3124,14 @@ table td>input[type="checkbox"] {
 	display: none;
 }
 
+.note-editor.note-valid {
+	border: 1px solid var(--bs-form-valid-border-color) !important;
+}
+
+.note-editor.note-invalid {
+	border: 1px solid var(--bs-form-invalid-border-color) !important;
+}
+
 .note-editor .note-toolbar,
 .note-popover .popover-content {
 	padding: .325rem !important;
