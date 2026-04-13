@@ -7,6 +7,7 @@
 :root {
 	/* Default transform direction */
 	--transform-direction: 1;
+	--bs-breadcrumb-divider: '\00bb';
 
 	/* Primary */
 	--cs-color-primary: #134d78;
@@ -650,10 +651,6 @@ textarea {
 
 .w-100 {
 	inline-size: 100% !important;
-}
-
-.card {
-	border-radius: .188rem;
 }
 
 .card .table {
@@ -2811,8 +2808,13 @@ table td>input[type="checkbox"] {
 	line-height: 1.75;
 	color: var(--bs-white);
 	display: inline-block;
-	margin: 0;
-	padding: 0;
+}
+
+.header .page-title h1 {
+	font-size: inherit;
+	line-height: inherit;
+	color: inherit;
+	margin-bottom: 0;
 }
 
 .header .logo-container .logo {
