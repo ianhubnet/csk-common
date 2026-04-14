@@ -2630,6 +2630,8 @@ textarea {
 	line-height: 1.5;
 }
 
+.input-group-sm>.btn,
+.input-group-sm>.form-control,
 .btn-group-sm>.btn,
 .form-control-sm,
 .form-select-sm,
