@@ -2618,8 +2618,16 @@ textarea {
 	max-inline-size: 31.25rem;
 }
 
+.modal {
+	background-color: rgba(0, 0, 0, .75);
+}
+
+.modal-backdrop {
+	display: none !important;
+}
+
 .bootbox.modal {
-	z-index: 9999 !important;
+	z-index: 1065 !important;
 }
 
 .btn-group-xs>.btn,
