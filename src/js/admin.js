@@ -1853,4 +1853,4 @@
 			});
 		}
 	});
-})(window.jQuery || window.Zepto, window, document);
+})(window.jQuery, window, document);
