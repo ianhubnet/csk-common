@@ -1,25 +1,20 @@
-# This file is for unifying the coding style for different editors and IDEs
-# editorconfig.org
-# Credits: WordPress Coding Standards
 root = true
 
 [*]
 charset = utf-8
 end_of_line = lf
-insert_final_newline = false
-trim_trailing_whitespace = true
 indent_style = tab
-
-[*.{css,scss,js,ts}]
 insert_final_newline = true
+trim_trailing_whitespace = true
 
-[*.yml]
-insert_final_newline = true
-indent_style = space
+[{*.sql,*.yml,*.yaml,*.cff}]
 indent_size = 2
+indent_style = space
+insert_final_newline = true
 
 [*.md]
-insert_final_newline = true
-trim_trailing_whitespace = false
-[*.{.txt,.dist}]
+indent_size = 2
+indent_style = space
+
+[{*.txt,*.dist}]
 end_of_line = crlf
