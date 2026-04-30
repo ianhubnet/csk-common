@@ -1,6 +1,6 @@
 /*!
  * Skeleton Back-End - Admin JS (https://www.ianhub.net/)
- * Copyright 2026 Kader Bouyakoub (https://github.com/bkader)
+ * Copyright 2018-present Kader Bouyakoub (https://github.com/bkader)
  */
 (function($, window, document, undefined) {
 	"use strict";

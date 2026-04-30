@@ -1,6 +1,6 @@
 /*!
  * Skeleton Front-End - Main JS (https://www.ianhub.net/)
- * Copyright 2025 Kader Bouyakoub (https://github.com/bkader)
+ * Copyright 2018-present Kader Bouyakoub (https://github.com/bkader)
  */
 (function($, window, document, undefined) {
 	"use strict";
