@@ -3680,7 +3680,8 @@ select.is-valid ~ .select2-container.select2-container--focus .select2-selection
    RTL adjustments
    ========================================================================== */
 
-[dir="rtl"] .fa:not(.fa-facebook, .fa-facebook-square, .fa-google, .fa-linkedin, .fa-linkedin-square, .fa-check, .fa-check-circle) {
+[dir="rtl"] .fa:not(.fa-facebook, .fa-facebook-square, .fa-google, .fa-linkedin, .fa-linkedin-square, .fa-check, .fa-check-circle),
+[dir="rtl"] .fas:not(.fa-facebook, .fa-facebook-square, .fa-google, .fa-linkedin, .fa-linkedin-square, .fa-check, .fa-check-circle) {
 	transform: scale(-1, 1);
 }
 
