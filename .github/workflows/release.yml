@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: 1️⃣ Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -58,7 +58,7 @@ jobs:
           zip -r "${{ steps.vars.outputs.zip }}" "common"
 
       - name: 6️⃣ Create GitHub Release and upload ZIP
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.vars.outputs.tag }}
           files: ${{ steps.vars.outputs.zip }}
