@@ -1364,10 +1364,29 @@ td,
 
 .btn-group-xs > .btn,
 .btn-xs {
-	border-radius: .188rem;
-	font-size: .65rem;
-	line-height: 1.5;
-	padding: .0625rem .312rem;
+	border-radius: .188rem !important;
+	font-size: .65rem !important;
+	line-height: 1.5 !important;
+	padding: .0625rem .312rem !important;
+}
+
+.btn-group-vertical > .btn {
+	border-radius: 0 !important;
+	margin-left: 0 !important;
+}
+
+.btn-group-vertical > .btn:first-child {
+	border-top-left-radius: .188rem !important;
+	border-top-right-radius: .188rem !important;
+}
+
+.btn-group-vertical > .btn:last-child {
+	border-bottom-left-radius: .188rem !important;
+	border-bottom-right-radius: .188rem !important;
+}
+
+.btn-group-vertical > .btn {
+	border-radius: 0 !important;
 }
 
 .btn-info {
