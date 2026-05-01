@@ -1,4 +1,5 @@
 name: Release Common
+run-name: Release common ${{ github.ref_name }} by @${{ github.actor }}
 
 on:
   push:
@@ -9,6 +10,7 @@ on:
 
 permissions:
   contents: write
+  actions: read
 
 jobs:
   release:
@@ -25,14 +27,22 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 2️⃣ Configure GitHub auth and identity
+      - name: 2️⃣ Create ianhub-agent token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.IANHUB_AGENT_APP_ID }}
+          private-key: ${{ secrets.IANHUB_AGENT_PRIVATE_KEY }}
+          owner: ianhubnet
+
+      - name: 3️⃣ Configure GitHub auth and identity
         shell: bash
         run: |
-          git config --global url."https://${{ secrets.CSK_PAT }}@github.com/".insteadOf "https://github.com/"
-          git config user.name "ianhub-bot"
-          git config user.email "bot@ianhub.net"
+          git config --global url."https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/".insteadOf "https://github.com/"
+          git config --global user.name "ianhub-agent[bot]"
+          git config --global user.email "ianhub-agent[bot]@users.noreply.github.com"
 
-      - name: 3️⃣ Set up variables
+      - name: 4️⃣ Set up variables
         id: vars
         shell: bash
         run: |
@@ -41,7 +51,7 @@ jobs:
           echo "tag=$TAG" >> $GITHUB_OUTPUT
           echo "zip=$ZIP" >> $GITHUB_OUTPUT
 
-      - name: 4️⃣ Prepare ZIP contents
+      - name: 5️⃣ Prepare ZIP contents
         shell: bash
         run: |
           if [ ! -d "src" ]; then
@@ -52,16 +62,18 @@ jobs:
           mkdir "common"
           cp -r src/* "common/"
 
-      - name: 5️⃣ Create ZIP archive
+      - name: 6️⃣ Create ZIP archive
         shell: bash
         run: |
           zip -r "${{ steps.vars.outputs.zip }}" "common"
 
-      - name: 6️⃣ Create GitHub Release and upload ZIP
+      - name: 7️⃣ Create GitHub Release and upload ZIP
         uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.vars.outputs.tag }}
           files: ${{ steps.vars.outputs.zip }}
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
   post-release:
     name: Upload Common ZIP to FTP
@@ -69,14 +81,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 1️⃣ Download release ZIP
+      - name: 1️⃣ Create ianhub-agent token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.IANHUB_AGENT_APP_ID }}
+          private-key: ${{ secrets.IANHUB_AGENT_PRIVATE_KEY }}
+          owner: ianhubnet
+
+      - name: 2️⃣ Download release ZIP
         shell: bash
         run: |
           REPO="${{ needs.release.outputs.repo }}"
           API_URL="https://api.github.com/repos/$REPO/releases/latest"
 
           echo "🔍 Fetching release info..."
-          curl -s -H "Authorization: token ${{ secrets.CSK_PAT }}" "$API_URL" > release.json
+          curl -s -H "Authorization: Bearer ${{ steps.app-token.outputs.token }}" "$API_URL" > release.json
 
           ZIP_URL=$(jq -r '.assets[] | select(.name | endswith(".zip")) | .browser_download_url' release.json)
 
@@ -87,8 +107,8 @@ jobs:
 
           curl -L -o common.zip "$ZIP_URL"
 
-      - name: 2️⃣ Upload common.zip to FTP
-        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+      - name: 3️⃣ Upload common.zip to FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.5
         with:
           server: ${{ secrets.FTP_HOST }}
           port: ${{ secrets.FTP_PORT }}
@@ -101,7 +121,7 @@ jobs:
             **/*
             !common.zip
 
-      - name: 3️⃣ Send JSON-RPC
+      - name: 4️⃣ Send JSON-RPC
         shell: bash
         env:
           RPC_URL: ${{ secrets.RPC_URL }}
