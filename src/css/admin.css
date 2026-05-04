@@ -212,7 +212,8 @@
 	--cs-font-size-small: .75rem;
 	--cs-font-size-smaller: .688rem;
 	--cs-radius-lg: .875rem;
-	--cs-radius-sm: .375rem;
+	--cs-radius-sm: .5rem;
+	--cs-radius-xs: .188rem;
 	--cs-shadow-md: 0 .5rem 1.25rem rgba(15, 23, 42, .08);
 	--cs-shadow-sm: 0 .125rem .375rem rgba(15, 23, 42, .06);
 	--cs-surface-bg: #ffffff;
@@ -1364,7 +1365,7 @@ td,
 
 .btn-group-xs > .btn,
 .btn-xs {
-	border-radius: .188rem !important;
+	border-radius: var(--cs-radius-xs) !important;
 	font-size: .65rem !important;
 	line-height: 1.5 !important;
 	padding: .0625rem .312rem !important;
@@ -1376,17 +1377,31 @@ td,
 }
 
 .btn-group-vertical > .btn:first-child {
-	border-top-left-radius: .188rem !important;
-	border-top-right-radius: .188rem !important;
+	border-top-left-radius: var(--cs-radius-xs) !important;
+	border-top-right-radius: var(--cs-radius-xs) !important;
 }
 
 .btn-group-vertical > .btn:last-child {
-	border-bottom-left-radius: .188rem !important;
-	border-bottom-right-radius: .188rem !important;
+	border-bottom-left-radius: var(--cs-radius-xs) !important;
+	border-bottom-right-radius: var(--cs-radius-xs) !important;
 }
 
 .btn-group-vertical > .btn {
 	border-radius: 0 !important;
+}
+
+.btn-group-xs:not(.btn-group-vertical) > .btn {
+	border-radius: 0 !important;
+}
+
+.btn-group-xs > .btn:first-child {
+	border-top-left-radius: var(--cs-radius-xs) !important;
+	border-bottom-left-radius: var(--cs-radius-xs) !important;
+}
+
+.btn-group-xs > .btn:last-child {
+	border-top-right-radius: var(--cs-radius-xs) !important;
+	border-bottom-right-radius: var(--cs-radius-xs) !important;
 }
 
 .btn-info {
