@@ -3230,7 +3230,7 @@ table td > input[type="checkbox"] {
 	color: rgba(var(--bs-dark-rgb), .25);
 	font-size: 3rem;
 	inset-block-start: 1rem;
-	inset-inline-end: .5rem !important;
+	inset-inline-end: .625rem !important;
 	line-height: 1;
 	position: absolute;
 	z-index: 0;
