@@ -11,7 +11,7 @@
 
 	/**
 	 * BootBox default configuration.
-	 * @since 1.20
+	 * @since 1.0.0
 	 */
 	if (typeof bootbox !== "undefined") {
 		bootbox.setDefaults({
@@ -25,7 +25,7 @@
 
 	/**
 	 * Skeleton UI module.
-	 * @since 1.20
+	 * @since 1.0.0
 	 */
 	csk.ui = {
 		scrollToTopVisible: false,
@@ -33,7 +33,7 @@
 
 		/**
 		 * Confirmation alert using either bootbox or default alert.
-		 * @since 1.20
+		 * @since 1.0.0
 		 * @param  string   message          Message to display.
 		 * @param  callable confirmCallback  Callback to use once confirmed.
 		 * @param  callable cancelCallback   Callback to use once canceled.
@@ -126,7 +126,7 @@
 
 		/**
 		 * Alert (notification)
-		 * @since  1.20
+		 * @since  1.0.0
 		 * @param  {string} message  Message to display.
 		 * @param  {string} type     Alert type("danger", "warning", "info", or "success")
 		 * @return {void}
@@ -165,7 +165,7 @@
 
 		/**
 		 * Auto-hides alerts if needed.
-		 * @since  3.11.0
+		 * @since  1.0.0
 		 * @param  {HTMLElement} $alert
 		 * @return {void}
 		 */
@@ -185,7 +185,7 @@
 
 		/**
 		 * Reloads given element.
-		 * @since  1.20
+		 * @since  1.0.0
 		 * @param  {string}   el        Query selector.
 		 * @param  {boolean}  navbar    Whether to reload navbar.
 		 * @param  {Function} callback  Callback to execute after reload.
@@ -205,7 +205,7 @@
 
 		/**
 		 * Check if an element is in viewport.
-		 * @since 2.0
+		 * @since 1.0.0
 		 */
 		inViewport: function(el) {
 			var $that = el.getBoundingClientRect();
@@ -214,7 +214,7 @@
 
 		/**
 		 * Function to add an event listener.
-		 * @since 2.0
+		 * @since 1.0.0
 		 */
 		addListener: function(event, callback) {
 			if (window.addEventListener) {
@@ -251,7 +251,7 @@
 
 		/**
 		 * Lazy load images.
-		 * @since 2.0
+		 * @since 1.0.0
 		 */
 		lazyLoad: function() {
 			var lazyImages = $("[data-src]");
@@ -273,7 +273,7 @@
 
 		/**
 		 * Scroll to top.
-		 * @since 3.9.6
+		 * @since 1.0.0
 		 */
 		scrollToTop: function() {
 			const scrollToTop = document.body.querySelector(".scroll-to-top");
@@ -292,7 +292,7 @@
 
 		/**
 		 * Element fade out.
-		 * @since 3.9.6
+		 * @since 1.0.0
 		 */
 		fadeOut: function(el) {
 			el.style.opacity = 1;
@@ -307,7 +307,7 @@
 
 		/**
 		 * Element fade in.
-		 * @since 3.9.6
+		 * @since 1.0.0
 		 */
 		fadeIn: function(el, display) {
 			el.style.opacity = 0;
@@ -323,7 +323,7 @@
 
 		/**
 		 * Splits given string into an array.
-		 * @since 2.16
+		 * @since 1.0.0
 		 */
 		prepFields: function(input) {
 			var fields = {},
@@ -338,7 +338,7 @@
 
 		/**
 		 * Returns an array of GET parameters.
-		 * @since 2.16
+		 * @since 1.0.0
 		 */
 		getUrlParams: function(href) {
 			href = href || window.location.href;
@@ -354,7 +354,7 @@
 
 		/**
 		 * Returns a GET parameter.
-		 * @since 2.16
+		 * @since 1.0.0
 		 */
 		getUrlParam: function(param) {
 			var pageURL = window.location.search.substring(1),
@@ -372,7 +372,7 @@
 
 		/**
 		 * Copy to clipboard.
-		 * @since 2.18
+		 * @since 1.0.0
 		 */
 		clipboard: function(el) {
 			const copyText = el.getAttribute("data-text");
@@ -394,7 +394,7 @@
 
 		/**
 		 * Disable selection.
-		 * @since 2.166
+		 * @since 1.0.0
 		 */
 		selectOff: function(e) {
 			const el = e.target.closest(".no-select-on-click");
@@ -405,7 +405,7 @@
 
 		/**
 		 * Enable selection.
-		 * @since 2.166
+		 * @since 1.0.0
 		 */
 		selectOn: function(e) {
 			document.body.style.userSelect = "";
@@ -413,7 +413,7 @@
 
 		/**
 		 * DataTable.
-		 * @since 3.9.8
+		 * @since 1.0.0
 		 */
 		dataTable: function(selector, options) {
 			if (typeof $.fn.DataTable === "undefined") {
@@ -440,7 +440,7 @@
 		/**
 		 * Highlights and element referenced by the URL hash (element ID).
 		 * Smooth scroll included. Silently bails if no match.
-		 * @since 3.10.0
+		 * @since 1.0.0
 		 */
 		highlightByHash: function() {
 			const hash = window.location.hash;
@@ -462,7 +462,7 @@
 
 		/**
 		 * Enables or disable one or more elements.
-		 * @since 3.10.1
+		 * @since 1.0.0
 		 *
 		 * @param {HTMLElement|NodeList|Array} els - Element(s) to toggle.
 		 * @param {boolean} disabled - Whether to disable (true) or enable (false).
@@ -507,7 +507,7 @@
 
 		/**
 		 * Generic input binding handler.
-		 * @since 3.12.0
+		 * @since 1.0.0
 		 *
 		 * Allows inputs to dynamically update any target attribute/property
 		 * using data-attributes only (no custom JS per feature).
@@ -561,7 +561,7 @@
 
 	/**
 	 * Skeleton AJAX handler.
-	 * @since 1.40
+	 * @since 1.0.0
 	 */
 	csk.ajax = {
 		/**
@@ -683,7 +683,7 @@
 
 	/**
 	 * HTTP method shortcuts
-	 * @since 3.11.1
+	 * @since 1.0.0
 	 */
 	["get", "post", "put", "patch", "delete"].forEach(function(method) {
 		if (csk.ajax[method]) return;
@@ -696,7 +696,7 @@
 
 	/**
 	 * Upload file handler.
-	 * @since 2.16
+	 * @since 1.0.0
 	 */
 	csk.sendFile = function(file, that) {
 		var data = new FormData(),
@@ -733,7 +733,7 @@
 
 	/**
 	 * Fake form submit handler.
-	 * @since 2.16
+	 * @since 1.0.0
 	 */
 	csk.submit = function(url, fields) {
 		var $form = $("<form>", {
@@ -752,7 +752,7 @@
 
 	/**
 	 * Skeleton Ping.
-	 * @since 2.100
+	 * @since 1.0.0
 	 */
 	csk.ping = {
 		init : function(options) {
@@ -781,7 +781,7 @@
 	/**
 	 * Media Browser
 	 * @namespace csk.media
-	 * @since 3.12.0
+	 * @since 1.0.0
 	 */
 	csk.media = {
 		/**
@@ -1035,7 +1035,7 @@
 
 	/**
 	 * Register our custom listeners.
-	 * @since 2.0
+	 * @since 1.0.0
 	 */
 	csk.ui.highlightByHash();
 	csk.ui.addListener("mousedown", csk.ui.selectOff)
@@ -1055,7 +1055,7 @@
 	 * - Group toggle (data-toggle-group)
 	 * - Dynamic selector toggle (data-toggle-target + value)
 	 *
-	 * @since 3.12.0
+	 * @since 1.0.0
 	 *
 	 * @return {void}
 	 */
@@ -1128,7 +1128,7 @@
 
 	/**
 	 * Media browser access.
-	 * @since 3.12.0
+	 * @since 1.0.0
 	 */
 	csk.ui.delegate("click", "[data-media-browse]", function() {
 		const el = this;
@@ -1145,7 +1145,7 @@
 
 	/**
 	 * Improves scroll/touch performance automatically.
-	 * @since 3.12.0
+	 * @since 1.0.0
 	 */
 	document.addEventListener("DOMContentLoaded", function() {
 		try {
@@ -1167,7 +1167,7 @@
 	$(document).ready(function() {
 		/**
 		 * Extend jQuery.
-		 * @since 2.100
+		 * @since 1.0.0
 		 */
 		$.fn.ping = function(method) {
 			if (csk.ping[method]) {
@@ -1181,7 +1181,7 @@
 
 		/**
 		 * Register JSON helper for Handlebars.
-		 * @since 3.12.0
+		 * @since 1.0.0
 		 */
 		if (typeof Handlebars !== "undefined") {
 			Handlebars.registerHelper('json', function(context) {
@@ -1191,7 +1191,7 @@
 
 		/**
 		 * Start Keep Alive (30min).
-		 * @since 2.100
+		 * @since 1.0.0
 		 */
 		if (typeof csk.config !== "undefined") {
 			$.fn.ping({url: csk.config.baseURL+"keep-alive", timer: 1800000});
@@ -1199,7 +1199,7 @@
 
 		/**
 		 * Automatic alert hiding.
-		 * @since 2.16
+		 * @since 1.0.0
 		 */
 		$(".alert-dismissible").each(function() {
 			csk.ui.autoHideAlert($(this));
@@ -1207,7 +1207,7 @@
 
 		/**
 		 * Toastr default configuration.
-		 * @since 1.20
+		 * @since 1.0.0
 		 */
 		if (typeof toastr !== "undefined") {
 			toastr.options = {
@@ -1225,7 +1225,7 @@
 
 		/**
 		 * Bootstrap toasts.
-		 * @since 2.95
+		 * @since 1.0.0
 		 */
 		else if (typeof $.fn.toast !== "undefined") {
 			$(".toast").each(function() {
@@ -1237,7 +1237,7 @@
 
 		/**
 		 * Select2.
-		 * @since 2.16
+		 * @since 1.0.0
 		 */
 		if (typeof $.fn.select2 !== "undefined") {
 			const use_bootstrap = document.getElementById("select2-bootstrap-css") !== null;
@@ -1293,7 +1293,7 @@
 
 		/**
 		 * Bootstrap 4 File Upload.
-		 * @since 2.18
+		 * @since 1.0.0
 		 */
 		$(".custom-file-input").on("change", function() {
 			var filename = $(this).val().split("\\").pop();
@@ -1302,12 +1302,12 @@
 
 		/**
 		 * Things we do if jQuery UI is detected.
-		 * @since 2.16
+		 * @since 1.0.0
 		 */
 		if (typeof $.ui === "object") {
 			/**
 			 * jQuery Sortable.
-			 * @since 2.16
+			 * @since 1.0.0
 			 */
 			$(".sortable").each(function() {
 				var $that = $(this);
@@ -1334,7 +1334,7 @@
 
 		/**
 		 * Input with forced Uppercase.
-		 * @since 3.11.1
+		 * @since 1.0.0
 		 */
 		$(document).on("input", "input.uppercase", function(e) {
 			e.target.value = e.target.value.toUpperCase();
@@ -1342,13 +1342,13 @@
 
 		/**
 		 * Holds an array of checkbox.
-		 * @since 2.16
+		 * @since 1.0.0
 		 */
 		const multiSelect = new Set();
 
 		/**
 		 * Universal "Check All" handler — supports checkboxes and buttons.
-		 * @since 2.0
+		 * @since 1.0.0
 		 */
 		$(document).on("change click", ".check-all", function(e) {
 			const $trigger = $(this);
@@ -1410,7 +1410,7 @@
 
 		/**
 		 * Bult action for check all feature.
-		 * @since 2.16
+		 * @since 1.0.0
 		 */
 		$(document).on("click", ".bulk-action", function(e) {
 			e.preventDefault();
@@ -1484,7 +1484,7 @@
 		/**
 		 * To avoid multiple form submission, we make sure to
 		 * disable submit buttons once hit.
-		 * @since 1.20
+		 * @since 1.0.0
 		 */
 		$(document).on("submit", "form", function(e) {
 			const $form = $(this);
@@ -1505,7 +1505,7 @@
 
 		/**
 		 * AJAXify anchors with attribute [data-method].
-		 * @since 1.33
+		 * @since 1.0.0
 		 */
 		$(document).on("click", "a:not([data-confirm])[data-method]", function(e) {
 			var $that = $(this),
@@ -1541,7 +1541,7 @@
 
 		/**
 		 * We ajaxify forms with attribute [data-method].
-		 * @since 1.30
+		 * @since 1.0.0
 		 */
 		$(document).on("submit", "form[data-method]", function(e) {
 			var $form = $(this),
@@ -1653,7 +1653,7 @@
 
 		/**
 		 * Generic buttons/anchors with action.
-		 * @since 2.10
+		 * @since 1.0.0
 		 *
 		 * In order to user this feature, make sure all required parameters
 		 * are correctly set:
@@ -1727,7 +1727,7 @@
 
 		/**
 		 * submits the targeted form.
-		 * @since 2.16
+		 * @since 1.0.0
 		 */
 		$(document).on("click", "[data-submit]", function(e) {
 			e.preventDefault();
@@ -1748,7 +1748,7 @@
 
 		/**
 		 * Fake form submission.
-		 * @since 2.16
+		 * @since 1.0.0
 		 */
 		$(document).on("click", "[data-form]", function(e) {
 			e.preventDefault();
@@ -1779,7 +1779,7 @@
 
 		/**
 		 * Themes actions.
-		 * @since 2.11
+		 * @since 1.0.0
 		 */
 		// Put back URL when modal is closed.
 		$(document).on("hidden.bs.modal hidden.bs.offcanvas", "#media-detail, #theme-detail", function(e) {
@@ -1795,7 +1795,7 @@
 
 		/**
 		 * Generic input binding handler.
-		 * @since 3.12.0
+		 * @since 1.0.0
 		 */
 		// 1. Handle dynamic changes
 		$(document).on("change", "input[data-bind], select[data-bind]", function() {
@@ -1808,7 +1808,7 @@
 
 		/**
 		 * Dropzone.
-		 * @since 2.18
+		 * @since 1.0.0
 		 */
 		if (typeof $.fn.dropzone === "function") {
 			$(".dropZone").each(function() {
