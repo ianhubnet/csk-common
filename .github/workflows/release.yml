@@ -4,10 +4,9 @@ run-name: Release common ${{ github.ref_name }} by @${{ github.actor }}
 on:
   push:
     tags:
-      - '*'
+      - '*.*.*'
       - '!*alpha*'
       - '!*beta*'
-      - '!*rc*'
 
 permissions:
   contents: write
@@ -15,140 +14,13 @@ permissions:
 
 jobs:
   release:
-    name: Package and Release
-    runs-on: ubuntu-latest
-    outputs:
-      repo: ${{ github.repository }}
-      zip: ${{ steps.vars.outputs.zip }}
-      version: ${{ steps.vars.outputs.tag }}
-
-    steps:
-      - name: 1️⃣ Checkout code
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-
-      - name: 2️⃣ Create ianhub-agent token
-        id: app-token
-        uses: actions/create-github-app-token@v3
-        with:
-          client-id: ${{ secrets.IANHUB_AGENT_CLIENT_ID }}
-          private-key: ${{ secrets.IANHUB_AGENT_PRIVATE_KEY }}
-          owner: ianhubnet
-
-      - name: 3️⃣ Configure GitHub auth and identity
-        shell: bash
-        run: |
-          git config --global url."https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/".insteadOf "https://github.com/"
-          git config --global user.name "ianhub-agent[bot]"
-          git config --global user.email "ianhub-agent[bot]@users.noreply.github.com"
-
-      - name: 4️⃣ Set up variables
-        id: vars
-        shell: bash
-        run: |
-          TAG="${GITHUB_REF#refs/tags/}"
-          ZIP="common-${TAG}.zip"
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
-          echo "zip=$ZIP" >> $GITHUB_OUTPUT
-
-      - name: 5️⃣ Prepare ZIP contents
-        shell: bash
-        run: |
-          if [ ! -d "src" ]; then
-            echo "::error::src not found"
-            exit 1
-          fi
-
-          mkdir "common"
-          cp -r src/* "common/"
-
-      - name: 6️⃣ Create ZIP archive
-        shell: bash
-        run: |
-          zip -r "${{ steps.vars.outputs.zip }}" "common"
-
-      - name: 7️⃣ Create GitHub Release and upload ZIP
-        uses: softprops/action-gh-release@v3
-        with:
-          tag_name: ${{ steps.vars.outputs.tag }}
-          files: ${{ steps.vars.outputs.zip }}
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-
-  post-release:
-    name: Upload Common ZIP to FTP
-    needs: release
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: 1️⃣ Create ianhub-agent token
-        id: app-token
-        uses: actions/create-github-app-token@v3
-        with:
-          client-id: ${{ secrets.IANHUB_AGENT_CLIENT_ID }}
-          private-key: ${{ secrets.IANHUB_AGENT_PRIVATE_KEY }}
-          owner: ianhubnet
-
-      - name: 2️⃣ Download release ZIP
-        shell: bash
-        run: |
-          REPO="${{ needs.release.outputs.repo }}"
-          API_URL="https://api.github.com/repos/$REPO/releases/latest"
-
-          echo "🔍 Fetching release info..."
-          curl -s -H "Authorization: Bearer ${{ steps.app-token.outputs.token }}" "$API_URL" > release.json
-
-          ZIP_URL=$(jq -r '.assets[] | select(.name | endswith(".zip")) | .browser_download_url' release.json)
-
-          if [ -z "$ZIP_URL" ] || [ "$ZIP_URL" = "null" ]; then
-            echo "❌ No ZIP asset found"
-            exit 1
-          fi
-
-          curl -L -o common.zip "$ZIP_URL"
-
-      - name: 3️⃣ Upload common.zip to FTP
-        uses: SamKirkland/FTP-Deploy-Action@4.3.5
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          port: ${{ secrets.FTP_PORT }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASS }}
-          local-dir: ./
-          server-dir: ${{ secrets.FTP_PATH }}
-          state-name: ".sync-common-state.json"
-          exclude: |
-            **/*
-            !common.zip
-
-      - name: 4️⃣ Send JSON-RPC
-        shell: bash
-        env:
-          RPC_URL: ${{ secrets.RPC_URL }}
-          RPC_KEY: ${{ secrets.RPC_KEY }}
-          RPC_VER: ${{ secrets.RPC_VER }}
-        run: |
-          REPO="${{ needs.release.outputs.repo }}"
-          VERSION="${{ needs.release.outputs.version }}"
-          REPO_URL="https://github.com/$REPO"
-          OWNER="${REPO%%/*}"
-          NAME="${REPO##*/}"
-          ID=$(openssl rand -hex 8)
-
-          curl -s -X POST "$RPC_URL" \
-            -H "Content-Type: application/json" \
-            -H "Authorization: Bearer $RPC_KEY" \
-            -d "{
-              \"jsonrpc\": \"$RPC_VER\",
-              \"method\": \"update\",
-              \"params\": {
-                \"type\": \"common\",
-                \"package\": \"common\",
-                \"repo\": \"$REPO_URL\",
-                \"owner\": \"$OWNER\",
-                \"name\": \"$NAME\",
-                \"version\": \"$VERSION\"
-              },
-              \"id\": \"$ID\"
-            }"
+    if: >
+      startsWith(github.ref, 'refs/tags/') &&
+      !contains(github.ref_name, 'alpha') &&
+      !contains(github.ref_name, 'beta') &&
+      !contains(github.ref_name, '+')
+    uses: ianhubnet/.github/.github/workflows/system.yml@main
+    with:
+      package: common
+      copy_docs: true
+    secrets: inherit
