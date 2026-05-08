@@ -1,4 +1,4 @@
-# 🚀 CSK Common Assets
+# 🚀 CiSkeleton Common Assets
 
 This repository contains the **shared back-end and front-end assets** for [CiSkeleton (CSK)](https://github.com/ianhubnet), including:
 
