@@ -3750,9 +3750,11 @@ select.is-valid ~ .select2-container.select2-container--focus .select2-selection
 	}
 
 	.modal {
-		inline-size: auto;
-		margin: .25rem;
 		position: fixed;
+	}
+
+	.modal-dialog {
+		padding: 2rem;
 	}
 
 	.modal-body {
