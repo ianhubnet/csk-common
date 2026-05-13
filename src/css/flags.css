@@ -857,6 +857,18 @@
 	background-image: url(../img/flags/sh.svg);
 }
 
+.flag.flag-sh-ac {
+	background-image: url(../img/flags/sh-ac.svg);
+}
+
+.flag.flag-sh-hl {
+	background-image: url(../img/flags/sh-hl.svg);
+}
+
+.flag.flag-sh-ta {
+	background-image: url(../img/flags/sh-ta.svg);
+}
+
 .flag.flag-si {
 	background-image: url(../img/flags/si.svg);
 }
