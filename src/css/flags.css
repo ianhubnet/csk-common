@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 /*!
  * CiSkeleton - Flags CSS (https://www.ianhub.net/)
  * Copyright 2025 Kader Bouyakoub (https://github.com/bkader)
@@ -32,7 +33,7 @@
 	font-size: inherit;
 	font-style: normal;
 	font-weight: inherit;
-	margin-inline-start: 1.5rem;
+	margin-inline-start: 1.625rem;
 	vertical-align: middle;
 }
 
