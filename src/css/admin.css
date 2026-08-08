@@ -201,7 +201,7 @@
 	--cs-color-yellow-rgb: 251, 189, 8;
 	--cs-color-yellow-subtle: #fee08a;
 	--cs-color-yellow-subtler: #fff6c2;
-	--cs-font-family-default: "Roboto", Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: "Inter", Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 	--cs-font-size-default: .8125rem;
 	--cs-font-size-h1: 1.438rem;
 	--cs-font-size-h2: 1.25rem;
@@ -232,34 +232,34 @@
 	--transform-direction: -1;
 }
 
-:root[lang="ar-DZ"],
-:root[lang="fa-IR"] {
-	--cs-font-family-default: "Noto Kufi Arabic", "Roboto", Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+:root[lang^="ar"],
+:root[lang^="fa"] {
+	--cs-font-family-default: "Noto Kufi Arabic", "Inter", Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 :root[lang="bg-BG"],
 :root[lang="ru-RU"] {
-	--cs-font-family-default: "PT Sans", "Roboto", Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: "PT Sans", "Inter", Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 :root[lang="hi-IN"] {
-	--cs-font-family-default: "Noto Sans Devanagari", "Roboto", Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: "Noto Sans Devanagari", "Inter", Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 :root[lang="ja-JP"] {
-	--cs-font-family-default: "Noto Sans JP", "Roboto", Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: "Noto Sans JP", "Inter", Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 :root[lang="ko-KR"] {
-	--cs-font-family-default: "Noto Sans KR", "Roboto", Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: "Noto Sans KR", "Inter", Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 :root[lang="zh-CN"] {
-	--cs-font-family-default: "Noto Sans SC", "Roboto", Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: "Noto Sans SC", "Inter", Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 :root[lang="zh-TW"] {
-	--cs-font-family-default: "Noto Sans TC", "Roboto", Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--cs-font-family-default: "Noto Sans TC", "Inter", Tahoma, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* ==========================================================================
@@ -1368,7 +1368,7 @@ td,
 	border-radius: var(--cs-radius-xs) !important;
 	font-size: .65rem !important;
 	line-height: 1.5 !important;
-	padding: .0625rem .312rem !important;
+	padding: .0625rem .312rem;
 }
 
 .btn-group-vertical > .btn {
